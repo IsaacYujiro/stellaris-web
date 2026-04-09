@@ -89,15 +89,15 @@ else:
     st.sidebar.markdown("<h2 style='text-align: center; font-size: 2.5rem; margin-top: 20px; color: #B8860B;'>Stellaris</h2>", unsafe_allow_html=True)
 
 st.sidebar.write("---")
-dil_secimi = st.sidebar.selectbox("🌍 Dil / Language", ["Türkçe", "English"])
+dil_secimi = st.sidebar.selectbox("Dil / Language", ["Türkçe", "English"])
 lang = "TR" if dil_secimi == "Türkçe" else "EN"
 st.sidebar.write("---")
 
 if lang == "TR":
-    menu_secenekleri = ["ANA SAYFA", "LOKASYONLARIMIZ", "GÖZLEM KOŞULLARI & EKİPMAN", "DENEYİMLER & REZERVASYON", "DİJİTAL UZAY & YAPAY ZEKA", "ASTRO-FOTOĞRAF SİMÜLATÖRÜ", "SÜRDÜRÜLEBİLİRLİK", "YATIRIMCI PORTALI"]
+    menu_secenekleri = ["ANA SAYFA", "LOKASYONLARIMIZ", "IŞIK KİRLİLİĞİ SİMÜLATÖRÜ", "GÖZLEM KOŞULLARI & EKİPMAN", "DENEYİMLER & REZERVASYON", "DİJİTAL UZAY & YAPAY ZEKA", "ASTRO-FOTOĞRAF SİMÜLATÖRÜ", "SÜRDÜRÜLEBİLİRLİK", "YATIRIMCI PORTALI"]
     sistem_durumu = "Sistem Durumu: Çevrimiçi"
 else:
-    menu_secenekleri = ["HOME", "OUR LOCATIONS", "CONDITIONS & EQUIPMENT", "EXPERIENCES & BOOKING", "DIGITAL SPACE & AI", "ASTRO-PHOTO SIMULATOR", "SUSTAINABILITY", "INVESTOR PORTAL"]
+    menu_secenekleri = ["HOME", "OUR LOCATIONS", "LIGHT POLLUTION SIMULATOR", "CONDITIONS & EQUIPMENT", "EXPERIENCES & BOOKING", "DIGITAL SPACE & AI", "ASTRO-PHOTO SIMULATOR", "SUSTAINABILITY", "INVESTOR PORTAL"]
     sistem_durumu = "System Status: Online"
 
 menu_secimi = st.sidebar.radio("GizliNavigasyonBasligi", menu_secenekleri, label_visibility="collapsed")
@@ -156,7 +156,59 @@ elif menu_secimi in ["LOKASYONLARIMIZ", "OUR LOCATIONS"]:
         st.markdown(f"""<div class="service-card"><img class="service-img" src="https://images.unsplash.com/photo-1464802686167-b939a6910659?q=80&w=800&auto=format&fit=crop"><div class="service-content"><h3 class="service-title">{t_nz_title}</h3><p class="service-desc">{t_nz_desc}</p></div></div>""", unsafe_allow_html=True)
 
 # ==============================================================================
-# SAYFA 3: GÖZLEM KOŞULLARI & EKİPMAN
+# YENİ SAYFA 3: IŞIK KİRLİLİĞİ (BORTLE) SİMÜLATÖRÜ
+# ==============================================================================
+elif menu_secimi in ["IŞIK KİRLİLİĞİ SİMÜLATÖRÜ", "LIGHT POLLUTION SIMULATOR"]:
+    if lang == "TR":
+        st.markdown("<h2>Bortle Ölçeği: Işık Kirliliği Simülatörü</h2>", unsafe_allow_html=True)
+        st.markdown("<p>Atacama Çölü'nün neden eşsiz olduğunu kendi gözlerinizle görün. Şehir hayatının ışıklarından yavaşça kurtularak gerçek bir gece gökyüzüne ulaşmak için aşağıdaki kaydırıcıyı kullanın.</p>", unsafe_allow_html=True)
+        slider_label = "Gökyüzü Kalitesi (9 = Şehir Merkezi, 1 = Mükemmel Karanlık)"
+        bortle_texts = {
+            9: "Bortle 9: İç Şehir. Gökyüzü tamamen parlak turuncu/beyazdır. Sadece Ay ve birkaç parlak gezegen görülebilir.",
+            7: "Bortle 7: Banliyö. Işık kubbeleri ufku kaplar. Samanyolu tamamen görünmezdir.",
+            5: "Bortle 5: Kırsal Alan. Gökyüzünde sönük bir Samanyolu izi seçilebilir ancak detay yoktur.",
+            3: "Bortle 3: Karanlık Gökyüzü. Samanyolu yapısal detaylarıyla görünmeye başlar. Ufukta hafif ışık kirliliği vardır.",
+            1: "Bortle 1: Atacama/Tekapo. Kusursuz Karanlık. Samanyolu o kadar parlaktır ki yere gölge düşürür. Binlerce yıldız çıplak gözle seçilir."
+        }
+    else:
+        st.markdown("<h2>Bortle Scale: Light Pollution Simulator</h2>", unsafe_allow_html=True)
+        st.markdown("<p>See for yourself why the Atacama Desert is unique. Use the slider below to slowly escape the city lights and reach a true night sky.</p>", unsafe_allow_html=True)
+        slider_label = "Sky Quality (9 = Inner City, 1 = Perfect Dark Sky)"
+        bortle_texts = {
+            9: "Bortle 9: Inner City. The sky is brilliantly lit orange/white. Only the Moon and a few planets are visible.",
+            7: "Bortle 7: Suburban. Light domes cover the horizon. The Milky Way is totally invisible.",
+            5: "Bortle 5: Rural. A faint washed-out Milky Way is visible, but lacks any detail.",
+            3: "Bortle 3: Dark Sky. The Milky Way appears with complex structure. Minor light pollution on the horizon.",
+            1: "Bortle 1: Atacama/Tekapo. Perfect Darkness. The Milky Way is so bright it casts shadows. Thousands of stars visible to the naked eye."
+        }
+
+    st.write("---")
+    
+    col_ctrl, col_view = st.columns([1, 2])
+    with col_ctrl:
+        bortle_val = st.slider(slider_label, min_value=1, max_value=9, value=9, step=2)
+        st.write("")
+        st.info(bortle_texts[bortle_val])
+
+    # Matematiksel Görsel Simülasyon (Bortle düştükçe parlaklık artar, sis dağılır)
+    # Bortle 9 = Şehir (Bol ışık sisi, 0 yıldız). Bortle 1 = Atacama (0 sis, 100% yıldız)
+    sky_glow_opacity = (bortle_val - 1) / 8.0  # 9'da 1.0 (Tam Sis), 1'de 0.0 (Sissiz)
+    star_brightness = 1.2 - sky_glow_opacity   # Yıldızların parlaklığı sis azaldıkça artar
+
+    base_stars_img = "https://images.unsplash.com/photo-1464802686167-b939a6910659?q=80&w=1200&auto=format&fit=crop"
+
+    with col_view:
+        st.markdown(f"""
+        <div style="position: relative; width: 100%; height: 400px; border: 2px solid #B8860B; border-radius: 4px; overflow: hidden; background-color: #000; box-shadow: 0 5px 25px rgba(0,0,0,0.8);">
+            <img src="{base_stars_img}" style="width: 100%; height: 100%; object-fit: cover; filter: brightness({star_brightness}) contrast(1.2); transition: all 0.8s ease;">
+            
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to top, rgba(200,100,50,0.9), rgba(50,70,100,0.8)); opacity: {sky_glow_opacity}; transition: opacity 0.8s ease; pointer-events: none;"></div>
+        </div>
+        """, unsafe_allow_html=True)
+
+
+# ==============================================================================
+# SAYFA 4: GÖZLEM KOŞULLARI & EKİPMAN
 # ==============================================================================
 elif menu_secimi in ["GÖZLEM KOŞULLARI & EKİPMAN", "CONDITIONS & EQUIPMENT"]:
     if lang == "TR":
@@ -195,7 +247,7 @@ elif menu_secimi in ["GÖZLEM KOŞULLARI & EKİPMAN", "CONDITIONS & EQUIPMENT"]:
     with e3: st.markdown(f"""<div class="service-card" style="box-shadow:none; border:none;"><img class="service-img" src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=800&auto=format&fit=crop" style="border-radius:8px; border: 1px solid #B8860B;"><div class="service-content" style="padding:15px;"><h3 class="service-title" style="font-size:1.1rem;">{eq3_t}</h3><p class="service-desc">{eq3_d}</p></div></div>""", unsafe_allow_html=True)
 
 # ==============================================================================
-# SAYFA 4: DENEYİMLER & REZERVASYON
+# SAYFA 5: DENEYİMLER & REZERVASYON
 # ==============================================================================
 elif menu_secimi in ["DENEYİMLER & REZERVASYON", "EXPERIENCES & BOOKING"]:
     if lang == "TR":
@@ -234,80 +286,57 @@ elif menu_secimi in ["DENEYİMLER & REZERVASYON", "EXPERIENCES & BOOKING"]:
             st.success(msg_success)
 
 # ==============================================================================
-# SAYFA 5: DİJİTAL UZAY & YAPAY ZEKA SİMÜLASYONU
+# SAYFA 6: DİJİTAL UZAY & YAPAY ZEKA SİMÜLASYONU
 # ==============================================================================
 elif menu_secimi in ["DİJİTAL UZAY & YAPAY ZEKA", "DIGITAL SPACE & AI"]:
     if lang == "TR":
         st.markdown("<h2>Yapay Zeka Destekli Derin Uzay Simülasyonu</h2>", unsafe_allow_html=True)
         st.markdown("<p>Gözlem saati gelene kadar kendi dijital galaksinizi tasarlayın. Simülasyon motorumuz parametrelerinizi işleyerek size özel kozmik yapıları görselleştirir.</p>", unsafe_allow_html=True)
-        s_title = "Simülasyon Parametreleri"
-        s_obj = "Gök Cismi Tipi"
-        s_opts = ["Sarmal Galaksi (Spiral Galaxy)", "Yıldız Doğumhanesi (Nebula)", "Süpernova Kalıntısı", "Kızıl Cüce Sistemi"]
-        s_color = "Ana Renk Paleti"
-        s_color_opts = ["Mistik Mor & Elektrik Mavisi", "Derin Kızıl & Altın", "Zümrüt Yeşili & Siyah", "Kozmik Toz (Beyaz/Gümüş)"]
-        s_btn = "Simülasyonu Başlat (AI Engine)"
-        s_loading = "Sinir ağları üzerinden piksel verileri işleniyor..."
-        s_success = "Simülasyon başarıyla tamamlandı. İşte kişisel kozmik dijital sanat eseriniz:"
+        s_title, s_obj, s_color = "Simülasyon Parametreleri", "Gök Cismi Tipi", "Ana Renk Paleti"
+        s_opts = ["Sarmal Galaksi", "Yıldız Doğumhanesi (Nebula)", "Süpernova Kalıntısı"]
+        s_color_opts = ["Mistik Mor & Elektrik Mavisi", "Derin Kızıl & Altın", "Zümrüt Yeşili & Siyah"]
+        s_btn, s_loading, s_success = "Simülasyonu Başlat (AI Engine)", "Sinir ağları üzerinden piksel verileri işleniyor...", "Simülasyon başarıyla tamamlandı."
     else:
         st.markdown("<h2>AI-Powered Deep Space Simulation</h2>", unsafe_allow_html=True)
         st.markdown("<p>Design your own digital galaxy while waiting for observation hours. Our simulation engine processes your parameters to visualize custom cosmic structures.</p>", unsafe_allow_html=True)
-        s_title = "Simulation Parameters"
-        s_obj = "Celestial Object Type"
-        s_opts = ["Spiral Galaxy", "Stellar Nursery (Nebula)", "Supernova Remnant", "Red Dwarf System"]
-        s_color = "Primary Color Palette"
-        s_color_opts = ["Mystic Purple & Electric Blue", "Deep Crimson & Gold", "Emerald Green & Black", "Cosmic Dust (White/Silver)"]
-        s_btn = "Run Simulation (AI Engine)"
-        s_loading = "Processing pixel data through neural networks..."
-        s_success = "Simulation successfully completed. Here is your personal cosmic digital artwork:"
+        s_title, s_obj, s_color = "Simulation Parameters", "Celestial Object Type", "Primary Color Palette"
+        s_opts = ["Spiral Galaxy", "Stellar Nursery (Nebula)", "Supernova Remnant"]
+        s_color_opts = ["Mystic Purple & Electric Blue", "Deep Crimson & Gold", "Emerald Green & Black"]
+        s_btn, s_loading, s_success = "Run Simulation (AI Engine)", "Processing pixel data through neural networks...", "Simulation successfully completed."
 
     st.write("---")
     col1, col2, col3 = st.columns([1, 6, 1])
-    
     with col2:
         st.markdown(f"<h3>{s_title}</h3>", unsafe_allow_html=True)
         secilen_cisim = st.selectbox(s_obj, s_opts)
         secilen_renk = st.selectbox(s_color, s_color_opts)
-        
         st.write("")
         if st.button(s_btn):
-            with st.spinner(s_loading):
-                time.sleep(3)
-            
+            with st.spinner(s_loading): time.sleep(3)
             st.success(s_success)
             st.write("---")
-            
-            if "Galaksi" in secilen_cisim or "Galaxy" in secilen_cisim:
-                gen_img = "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?q=80&w=1200&auto=format&fit=crop"
-            elif "Nebula" in secilen_cisim or "Doğumhanesi" in secilen_cisim:
-                gen_img = "https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?q=80&w=1200&auto=format&fit=crop"
-            else:
-                gen_img = "https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?q=80&w=1200&auto=format&fit=crop"
-
+            if "Galaksi" in secilen_cisim or "Galaxy" in secilen_cisim: gen_img = "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?q=80&w=1200&auto=format&fit=crop"
+            elif "Nebula" in secilen_cisim or "Doğumhanesi" in secilen_cisim: gen_img = "https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?q=80&w=1200&auto=format&fit=crop"
+            else: gen_img = "https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?q=80&w=1200&auto=format&fit=crop"
             st.markdown(f'<div class="hero-container"><img class="hero-image" style="height:auto; filter: brightness(80%); border: 3px solid #D4AF37;" src="{gen_img}"></div>', unsafe_allow_html=True)
 
 # ==============================================================================
-# YENİ SAYFA 6: ASTRO-FOTOĞRAF SİMÜLATÖRÜ (KAMERA MEKANİKLERİ)
+# SAYFA 7: ASTRO-FOTOĞRAF SİMÜLATÖRÜ
 # ==============================================================================
 elif menu_secimi in ["ASTRO-FOTOĞRAF SİMÜLATÖRÜ", "ASTRO-PHOTO SIMULATOR"]:
     if lang == "TR":
         st.markdown("<h2>Astro-Fotoğrafçılık Simülatörü</h2>", unsafe_allow_html=True)
-        st.markdown("<p>Gerçekçi kamera parametreleriyle donanım sınırlarını test edin. Atacama workshop'umuza katılmadan önce, ISO ve pozlama süresinin sensör üzerinde yaratacağı ışık ve kumlanma (noise) etkilerini canlı olarak deneyimleyin.</p>", unsafe_allow_html=True)
-        iso_label = "ISO Değeri (Sensör Işık Hassasiyeti)"
-        exp_label = "Pozlama Süresi (Saniye)"
-        btn_label = "Deklanşöre Bas (Simüle Et)"
-        msg_success = "Görüntü sensöre başarıyla kaydedildi! Yüksek ISO değerlerinde artan kumlanmaya ve uzun pozlamadaki ışık kazancına dikkat edin."
+        st.markdown("<p>Workshop'umuza katılmadan önce donanım sınırlarını test edin. ISO ve pozlama süresinin ışık ve kumlanma (noise) etkilerini canlı deneyimleyin.</p>", unsafe_allow_html=True)
+        iso_label, exp_label, btn_label = "ISO Değeri", "Pozlama Süresi (Saniye)", "Deklanşöre Bas"
+        msg_success = "Görüntü sensöre kaydedildi! Yüksek ISO'da artan kumlanmaya dikkat edin."
     else:
         st.markdown("<h2>Astro-Photography Simulator</h2>", unsafe_allow_html=True)
-        st.markdown("<p>Test hardware limits with realistic camera parameters. Before joining our Atacama workshop, experience live how ISO and exposure time affect light gathering and sensor noise.</p>", unsafe_allow_html=True)
-        iso_label = "ISO Value (Sensor Light Sensitivity)"
-        exp_label = "Exposure Time (Seconds)"
-        btn_label = "Press Shutter (Simulate)"
-        msg_success = "Image successfully captured by the sensor! Notice the increased noise at high ISO values and the light gain during long exposures."
+        st.markdown("<p>Test hardware limits before joining our workshop. Experience live how ISO and exposure time affect light gathering and sensor noise.</p>", unsafe_allow_html=True)
+        iso_label, exp_label, btn_label = "ISO Value", "Exposure Time (Seconds)", "Press Shutter"
+        msg_success = "Image captured! Notice the increased noise at high ISO values."
 
     st.write("---")
-    
     col_ctrl, col_view = st.columns([1, 2])
-    
     with col_ctrl:
         st.markdown(f"<h3 style='text-align: left !important;'>Parametreler</h3>", unsafe_allow_html=True)
         iso_val = st.slider(iso_label, 100, 6400, 800, step=100)
@@ -315,41 +344,33 @@ elif menu_secimi in ["ASTRO-FOTOĞRAF SİMÜLATÖRÜ", "ASTRO-PHOTO SIMULATOR"]:
         st.write("")
         render_btn = st.button(btn_label)
 
-    # Simülasyon Matematiği:
-    # Çok düşük değerlerde fotoğraf karanlık çıkar. ISO arttıkça aydınlanır ama 'noise_opacity' artar.
     brightness = 0.15 + (exp_val / 30.0) * 0.6 + (iso_val / 6400.0) * 0.5
-    noise_opacity = (iso_val / 6400.0) * 0.70 # ISO arttıkça kumlanma (noise) artar.
-    
+    noise_opacity = (iso_val / 6400.0) * 0.70
     base_img = "https://images.unsplash.com/photo-1464802686167-b939a6910659?q=80&w=1200&auto=format&fit=crop"
     
     with col_view:
-        # Sensör Görüntüsü
         st.markdown(f"""
         <div style="position: relative; width: 100%; border: 2px solid #B8860B; border-radius: 4px; overflow: hidden; background-color: #000; box-shadow: 0 5px 25px rgba(0,0,0,0.8);">
             <img src="{base_img}" style="width: 100%; display: block; filter: brightness({brightness}) contrast(1.2); transition: filter 0.5s ease;">
             <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('https://www.transparenttextures.com/patterns/stardust.png'); opacity: {noise_opacity}; mix-blend-mode: screen; pointer-events: none; transition: opacity 0.5s ease;"></div>
         </div>
         """, unsafe_allow_html=True)
-        
-        if render_btn:
-            st.success(msg_success)
+        if render_btn: st.success(msg_success)
 
 # ==============================================================================
-# SAYFA 7: SÜRDÜRÜLEBİLİRLİK
+# SAYFA 8: SÜRDÜRÜLEBİLİRLİK
 # ==============================================================================
 elif menu_secimi in ["SÜRDÜRÜLEBİLİRLİK", "SUSTAINABILITY"]:
     if lang == "TR":
         st.markdown("<h2>Sürdürülebilir Bilimsel Turizm</h2>", unsafe_allow_html=True)
-        title, desc = "Doğaya ve Gökyüzüne Saygı", "Evrenin güzelliklerini keşfederken dünyamızı korumaktır. Sürdürülebilirlik ilkelerimiz sadece çevresel değil, kültürel uyumu da kapsar."
-        ex1 = ("Işık Kirliliği Azaltımı", "Tesislerimizde gökyüzü gözlemini engellememesi için yalnızca kırmızı bazlı, düşük lümenli zemin aydınlatmaları ve harekete duyarlı sensörler kullanılmaktadır.")
-        ex2 = ("Sıfır Karbon Ayak İzi", "Gözlem noktalarına ulaşım sağlayan turlarımızda tamamen sıfır emisyonlu elektrikli araçlar ve enerji ihtiyacını karşılayan güneş paneli destekli üniteler kullanılmaktadır.")
-        ex3 = ("Yerel İş Birliği ve Tasarım", "Bölge halkı istihdam edilmekte, tesis mimarisinde doğanın silüetini bozmayan minimal yaklaşım tercih edilmektedir.")
+        title, desc = "Doğaya ve Gökyüzüne Saygı", "Sürdürülebilirlik ilkelerimiz çevresel ve kültürel uyumu kapsar."
+        ex1 = ("Işık Kirliliği Azaltımı", "Tesislerimizde yalnızca kırmızı bazlı, düşük lümenli zemin aydınlatmaları kullanılır.")
+        ex2 = ("Sıfır Karbon Ayak İzi", "Turlarımızda tamamen sıfır emisyonlu elektrikli araçlar kullanılır.")
     else:
         st.markdown("<h2>Sustainable Scientific Tourism</h2>", unsafe_allow_html=True)
-        title, desc = "Respect for Nature and the Sky", "Our fundamental mission while exploring the universe is to protect our world. Our sustainability principles cover not only environmental but also cultural harmony."
-        ex1 = ("Light Pollution Reduction", "To prevent interfering with sky observation, only red-based, low-lumen floor lighting and motion-sensitive sensors are used in our facilities.")
-        ex2 = ("Zero Carbon Footprint", "Our tours providing access to observation points use completely zero-emission electric vehicles and solar panel-supported units.")
-        ex3 = ("Local Collaboration and Design", "Local people are employed, and our architectural structures are designed with a minimal approach that preserves nature's silhouette.")
+        title, desc = "Respect for Nature and the Sky", "Our sustainability principles cover environmental and cultural harmony."
+        ex1 = ("Light Pollution Reduction", "Only red-based, low-lumen floor lighting is used in our facilities.")
+        ex2 = ("Zero Carbon Footprint", "Our tours use completely zero-emission electric vehicles.")
 
     st.write("---")
     col_space1, col_center, col_space2 = st.columns([1, 6, 1])
@@ -360,30 +381,23 @@ elif menu_secimi in ["SÜRDÜRÜLEBİLİRLİK", "SUSTAINABILITY"]:
         st.write("")
         with st.expander(ex1[0]): st.write(ex1[1])
         with st.expander(ex2[0]): st.write(ex2[1])
-        with st.expander(ex3[0]): st.write(ex3[1])
 
 # ==============================================================================
-# SAYFA 8: YATIRIMCI PORTALI
+# SAYFA 9: YATIRIMCI PORTALI
 # ==============================================================================
 elif menu_secimi in ["YATIRIMCI PORTALI", "INVESTOR PORTAL"]:
     if lang == "TR":
         st.markdown("<h2>Kurumsal İş Modeli & Gelecek Vizyonu</h2>", unsafe_allow_html=True)
-        st.markdown("<p>Sadece yetkili erişim. Lütfen yatırımcı şifrenizi girin. (İpucu: stellaris2026)</p>", unsafe_allow_html=True)
-        pw_label, msg_success, msg_error = "Kurumsal Şifre:", "Güvenlik Duvarı Aşıldı. Yönetici Paneline Erişim Sağlandı.", "Erişim Reddedildi. Hatalı Şifre."
-        t_vision, t_phases = "5 Yıllık Büyüme Vizyonu", "Faz 2 (Kuzey Işıkları): İzlanda  |  Faz 3 (Çöl & Galaksi): Namibya"
-        t_swot, t_swot_desc = "Rekabet Analizi (SWOT)", "<b>Güçlü Yönler:</b> Niş pazar, Premium hizmet, Çoklu-destinasyon.<br><b>Farkımız:</b> Rakiplerimiz tek lokasyona odaklanırken, biz küresel bir lüks marka ağı kuruyoruz."
-        t_chart = "Büyüme Projeksiyonu (Hedef Kitle)"
-        d_cols = {"Şili Operasyonları": [1000, 2500, 4800, 7500, 12000], "Yeni Zelanda Operasyonları": [800, 1900, 3500, 6000, 9500], "Gelecek Pazarlar": [0, 0, 1500, 4000, 8000]}
-        d_index = ["Yıl 1", "Yıl 2", "Yıl 3", "Yıl 4", "Yıl 5"]
+        st.markdown("<p>Sadece yetkili erişim. (İpucu: stellaris2026)</p>", unsafe_allow_html=True)
+        pw_label, msg_success, msg_error = "Kurumsal Şifre:", "Yönetici Paneline Erişim Sağlandı.", "Hatalı Şifre."
+        t_vision, t_phases, t_chart = "5 Yıllık Büyüme Vizyonu", "Faz 2: İzlanda | Faz 3: Namibya", "Büyüme Projeksiyonu"
+        d_cols = {"Şili": [1000, 2500, 4800, 7500, 12000], "Yeni Zelanda": [800, 1900, 3500, 6000, 9500]}
     else:
         st.markdown("<h2>Corporate Business Model & Future Vision</h2>", unsafe_allow_html=True)
-        st.markdown("<p>Authorized access only. Please enter your investor password. (Hint: stellaris2026)</p>", unsafe_allow_html=True)
-        pw_label, msg_success, msg_error = "Corporate Password:", "Security Firewall Breached. Access Granted to Admin Panel.", "Access Denied. Incorrect Password."
-        t_vision, t_phases = "5-Year Growth Vision", "Phase 2 (Northern Lights): Iceland  |  Phase 3 (Desert & Galaxy): Namibia"
-        t_swot, t_swot_desc = "Competitor Analysis (SWOT)", "<b>Strengths:</b> Niche market, Premium service, Multi-destination.<br><b>Our Difference:</b> While competitors focus on a single location, we are building a global luxury brand network."
-        t_chart = "Growth Projection (Target Audience)"
-        d_cols = {"Chile Operations": [1000, 2500, 4800, 7500, 12000], "New Zealand Operations": [800, 1900, 3500, 6000, 9500], "Future Markets": [0, 0, 1500, 4000, 8000]}
-        d_index = ["Year 1", "Year 2", "Year 3", "Year 4", "Year 5"]
+        st.markdown("<p>Authorized access only. (Hint: stellaris2026)</p>", unsafe_allow_html=True)
+        pw_label, msg_success, msg_error = "Corporate Password:", "Access Granted to Admin Panel.", "Incorrect Password."
+        t_vision, t_phases, t_chart = "5-Year Growth Vision", "Phase 2: Iceland | Phase 3: Namibia", "Growth Projection"
+        d_cols = {"Chile": [1000, 2500, 4800, 7500, 12000], "New Zealand": [800, 1900, 3500, 6000, 9500]}
 
     st.write("---")
     col_space1, col_center, col_space2 = st.columns([1, 4, 1])
@@ -394,10 +408,8 @@ elif menu_secimi in ["YATIRIMCI PORTALI", "INVESTOR PORTAL"]:
             st.write("---")
             st.markdown(f"<h3>{t_vision}</h3>", unsafe_allow_html=True)
             st.info(t_phases)
-            st.markdown(f"<h3>{t_swot}</h3>", unsafe_allow_html=True)
-            st.markdown(f"<p>{t_swot_desc}</p>", unsafe_allow_html=True)
             st.write("---")
             st.markdown(f"<h3>{t_chart}</h3>", unsafe_allow_html=True)
-            st.area_chart(pd.DataFrame(d_cols, index=d_index), color=["#B8860B", "#C5A059", "#4A3B1B"])
+            st.area_chart(pd.DataFrame(d_cols, index=["Yıl 1", "Yıl 2", "Yıl 3", "Yıl 4", "Yıl 5"]), color=["#B8860B", "#C5A059"])
         elif sifre != "":
             st.error(msg_error)
