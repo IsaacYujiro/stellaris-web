@@ -58,7 +58,6 @@ st.markdown("""
     
     @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
     
-    /* Pasaport Kartı CSS */
     .boarding-pass { background: linear-gradient(135deg, #030814 0%, #0a1930 100%); border: 2px solid #B8860B; border-radius: 12px; padding: 30px; box-shadow: 0 10px 40px rgba(184, 134, 11, 0.3); text-align: left; position: relative; overflow: hidden; max-width: 800px; margin: 0 auto; display: flex; justify-content: space-between; }
     .pass-left { width: 70%; border-right: 2px dashed #B8860B; padding-right: 20px; }
     .pass-right { width: 25%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
@@ -68,7 +67,6 @@ st.markdown("""
     .pass-barcode { margin-top: 20px; letter-spacing: 5px; font-family: monospace; color: #B8860B; font-size: 1.5rem; text-align: center !important; }
     .pass-logo { font-family: 'Cinzel', serif; color: #B8860B; font-size: 1.5rem; writing-mode: vertical-rl; text-orientation: mixed; transform: rotate(180deg); }
     
-    /* Chat CSS Override */
     .stChatMessage { background-color: #0a1930 !important; border: 1px solid #B8860B; border-radius: 8px; }
     </style>
     """, unsafe_allow_html=True)
@@ -170,29 +168,69 @@ elif menu_secimi in ["LOKASYONLARIMIZ", "OUR LOCATIONS"]:
 elif menu_secimi in ["CANLI GÖZLEMEVİ", "LIVE OBSERVATORY"]:
     st.markdown("<h2>Stellaris Kesintisiz Uydu Ağı</h2>", unsafe_allow_html=True)
     st.write("---")
-    t1, t2, t3, t4, t5, t6 = st.tabs(["🌍 GOES-16", "🌍 HIMAWARI", "☀️ SDO 304", "☀️ SDO 171", "🛰️ SOHO C3", "📍 ISS RADAR"])
+    t1, t2, t3, t4, t5, t6 = st.tabs(["🌍 GOES-16 (Amerika)", "🌍 HIMAWARI (Asya)", "☀️ SDO 304 (Güneş)", "☀️ SDO 171 (Güneş)", "🛰️ SOHO C3 (Radar)", "📍 ISS CANLI RADAR"])
+
     with t1: components.html(auto_refresh_image("goes16_img", "https://cdn.star.nesdis.noaa.gov/GOES16/ABI/FD/GEOCOLOR/latest.jpg", 60000, "LIVE: GOES-16", "550px"), height=650)
     with t2: components.html(auto_refresh_image("himawari_img", "https://cdn.star.nesdis.noaa.gov/AHI/FD/GEOCOLOR/latest.jpg", 60000, "LIVE: HIMAWARI-9", "550px"), height=650)
     with t3: components.html(auto_refresh_image("sdo304_img", "https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_0304.jpg", 60000, "LIVE: SDO 304", "550px"), height=650)
     with t4: components.html(auto_refresh_image("sdo171_img", "https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_0171.jpg", 60000, "LIVE: SDO 171", "550px"), height=650)
     with t5: components.html(auto_refresh_image("sohoc3_img", "https://soho.nascom.nasa.gov/data/realtime/c3/1024/latest.jpg", 60000, "LIVE: SOHO C3", "550px"), height=650)
-    with t6: st.markdown("""<div style="border: 2px solid #B8860B; border-radius: 8px; overflow: hidden; height: 550px;"><iframe src="https://isstracker.spaceflight.esa.int/" width="100%" height="100%" frameborder="0"></iframe></div>""", unsafe_allow_html=True)
+    with t6: st.markdown("""<div style="border: 2px solid #B8860B; border-radius: 8px; overflow: hidden; height: 550px;"><iframe src="https://isstracker.spaceflight.esa.int/" width="100%" height="100%" frameborder="0" style="pointer-events: none;"></iframe></div>""", unsafe_allow_html=True)
 
 # ==============================================================================
-# SAYFA 4: 3D SİMÜLASYONLAR
+# YENİ SAYFA 4: 3D SİMÜLASYONLAR (GENİŞLETİLMİŞ VE DÜZELTİLMİŞ)
 # ==============================================================================
 elif menu_secimi in ["3D SİMÜLASYONLAR", "3D SIMULATIONS"]:
     st.markdown("<h2>{}</h2>".format("İnteraktif 3D Uzay Simülatörleri" if lang == "TR" else "Interactive 3D Space Simulators"), unsafe_allow_html=True)
+    st.markdown("<p style='color: #C5A059;'>NASA'nın resmi 3D WebGL motorlarıyla Güneş Sistemini, Dünya iklimini ve derin uzayı farenizle kontrol edin.</p>", unsafe_allow_html=True)
     st.write("---")
-    t_solar, t_exo, t_sky = st.tabs(["🌍 GÜNEŞ SİSTEMİ", "🪐 ÖTEGEZEGENLER", "🌌 CANLI GÖKYÜZÜ"])
-    with t_solar: st.markdown("""<div style="border: 2px solid #B8860B; border-radius: 8px; overflow: hidden;"><iframe src="https://eyes.nasa.gov/apps/solar-system/#/home?embed=true" width="100%" height="600" frameborder="0"></iframe></div>""", unsafe_allow_html=True)
-    with t_exo: st.markdown("""<div style="border: 2px solid #B8860B; border-radius: 8px; overflow: hidden;"><iframe src="https://eyes.nasa.gov/apps/exo/#/?embed=true" width="100%" height="600" frameborder="0"></iframe></div>""", unsafe_allow_html=True)
+
+    t_earth, t_solar, t_exo, t_ast, t_mars, t_sky = st.tabs([
+        "🌍 3D DÜNYA",
+        "🪐 GÜNEŞ SİSTEMİ",
+        "☄️ ASTEROİT AVI",
+        "👽 ÖTEGEZEGENLER",
+        "🔴 3D MARS",
+        "🌌 GÖKYÜZÜ HARİTASI"
+    ])
+
+    with t_earth:
+        st.markdown("<h3>NASA Eyes on the Earth (Canlı İklim ve Uydu Ağı)</h3>", unsafe_allow_html=True)
+        st.markdown("""<div style="border: 2px solid #B8860B; border-radius: 8px; overflow: hidden; box-shadow: 0 0 30px rgba(184, 134, 11, 0.3);"><iframe src="https://eyes.nasa.gov/apps/earth/#/" width="100%" height="600" frameborder="0"></iframe></div>""", unsafe_allow_html=True)
+
+    with t_solar:
+        st.markdown("<h3>NASA Eyes on the Solar System</h3>", unsafe_allow_html=True)
+        st.markdown("""<div style="border: 2px solid #B8860B; border-radius: 8px; overflow: hidden; box-shadow: 0 0 30px rgba(184, 134, 11, 0.3);"><iframe src="https://eyes.nasa.gov/apps/solar-system/#/home?embed=true" width="100%" height="600" frameborder="0"></iframe></div>""", unsafe_allow_html=True)
+
+    with t_ast:
+        st.markdown("<h3>NASA Asteroid Watch (Dünya'ya Yaklaşan Cisimler)</h3>", unsafe_allow_html=True)
+        st.markdown("""<div style="border: 2px solid #B8860B; border-radius: 8px; overflow: hidden; box-shadow: 0 0 30px rgba(184, 134, 11, 0.3);"><iframe src="https://eyes.nasa.gov/apps/asteroids/#/?embed=true" width="100%" height="600" frameborder="0"></iframe></div>""", unsafe_allow_html=True)
+
+    with t_exo:
+        st.markdown("<h3>NASA Eyes on Exoplanets (Güneş Sistemi Dışı Yaşam)</h3>", unsafe_allow_html=True)
+        st.markdown("""<div style="border: 2px solid #B8860B; border-radius: 8px; overflow: hidden; box-shadow: 0 0 30px rgba(184, 134, 11, 0.3);"><iframe src="https://eyes.nasa.gov/apps/exo/#/?embed=true" width="100%" height="600" frameborder="0"></iframe></div>""", unsafe_allow_html=True)
+
+    with t_mars:
+        st.markdown("<h3>NASA Mars Trek (İnteraktif Kızıl Gezegen Yüzeyi)</h3>", unsafe_allow_html=True)
+        st.markdown("""<div style="border: 2px solid #B8860B; border-radius: 8px; overflow: hidden; box-shadow: 0 0 30px rgba(184, 134, 11, 0.3);"><iframe src="https://trek.nasa.gov/mars/" width="100%" height="600" frameborder="0"></iframe></div>""", unsafe_allow_html=True)
+
     with t_sky:
-        sky_js_html = """<div id="starmap" style="width:100%;height:600px;border-radius:8px;border:2px solid #B8860B;background:#000;"></div><script src="https://virtualsky.lco.global/embed/stuquery.min.js"></script><script src="https://virtualsky.lco.global/embed/virtualsky.min.js"></script><script>S.ready(function() {var planetarium = S.virtualsky({id: 'starmap', projection: 'stereo', latitude: -23.0, longitude: -67.7, constellations: true, constellationlabels: true, showplanets: true, live: true, mouse: true, color: 'dark'});});</script>"""
-        components.html(sky_js_html, height=650)
+        st.markdown("<h3>İnteraktif Sanal Gökyüzü</h3>", unsafe_allow_html=True)
+        loc_choice = st.selectbox("Gözlem Noktası Seçin:", ["Atacama Çölü, Şili", "Tekapo Gölü, Yeni Zelanda", "Kuzey Kutbu"])
+        if "Atacama" in loc_choice: lat, lon = -23.0, -67.7
+        elif "Tekapo" in loc_choice: lat, lon = -44.0, 170.4
+        else: lat, lon = 69.6, 18.9 
+        
+        # Javascript Sandbox sorununu çözen %100 Çalışan Iframe URL Modeli
+        iframe_url = f"https://virtualsky.lco.global/embed/index.html?longitude={lon}&latitude={lat}&projection=stereo&constellations=true&constellationlabels=true&meteorshowers=true&showstarlabels=true&live=true&color=dark"
+        st.markdown(f"""
+        <div style="border: 2px solid #B8860B; border-radius: 8px; overflow: hidden; background: #000; box-shadow: 0 0 30px rgba(184, 134, 11, 0.3);">
+            <iframe src="{iframe_url}" width="100%" height="600" style="border:none;" scrolling="no"></iframe>
+        </div>
+        """, unsafe_allow_html=True)
 
 # ==============================================================================
-# YENİ SAYFA 5: KARA DELİK FİZİK MOTORU (INTERAKTİF CANVAS)
+# SAYFA 5: KARA DELİK FİZİK MOTORU
 # ==============================================================================
 elif menu_secimi in ["KARA DELİK SİM.", "BLACK HOLE SIM."]:
     st.markdown("<h2>{}</h2>".format("Kara Delik & Kütleçekim Simülatörü" if lang == "TR" else "Black Hole & Gravity Simulator"), unsafe_allow_html=True)
@@ -216,63 +254,20 @@ elif menu_secimi in ["KARA DELİK SİM.", "BLACK HOLE SIM."]:
         
         let particles = [];
         for(let i=0; i<300; i++) {
-            particles.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                vx: (Math.random() - 0.5) * 2,
-                vy: (Math.random() - 0.5) * 2,
-                color: `hsl(${Math.random() * 60 + 10}, 100%, 70%)`
-            });
+            particles.push({x: Math.random() * canvas.width, y: Math.random() * canvas.height, vx: (Math.random() - 0.5) * 2, vy: (Math.random() - 0.5) * 2, color: `hsl(${Math.random() * 60 + 10}, 100%, 70%)`});
         }
-
         function animate() {
             ctx.fillStyle = 'rgba(0, 0, 0, 0.15)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
-            const cx = canvas.width / 2;
-            const cy = canvas.height / 2;
-            const mass = parseInt(massSlider.value);
-            const speedMult = parseInt(speedSlider.value) / 5;
-
-            // Draw Black Hole (Event Horizon)
-            ctx.beginPath();
-            ctx.arc(cx, cy, mass / 3, 0, Math.PI * 2);
-            ctx.fillStyle = '#000';
-            ctx.fill();
-            ctx.lineWidth = 2;
-            ctx.strokeStyle = '#D4AF37';
-            ctx.stroke();
-            ctx.shadowBlur = 50;
-            ctx.shadowColor = '#D4AF37';
-
-            // Particles Physics
+            const cx = canvas.width / 2; const cy = canvas.height / 2; const mass = parseInt(massSlider.value); const speedMult = parseInt(speedSlider.value) / 5;
+            ctx.beginPath(); ctx.arc(cx, cy, mass / 3, 0, Math.PI * 2); ctx.fillStyle = '#000'; ctx.fill(); ctx.lineWidth = 2; ctx.strokeStyle = '#D4AF37'; ctx.stroke(); ctx.shadowBlur = 50; ctx.shadowColor = '#D4AF37';
             ctx.shadowBlur = 0;
             particles.forEach(p => {
-                const dx = cx - p.x;
-                const dy = cy - p.y;
-                const dist = Math.sqrt(dx*dx + dy*dy);
-                
-                // Gravity Force
-                const force = (mass * 5) / (dist * dist);
-                p.vx += (dx / dist) * force;
-                p.vy += (dy / dist) * force;
-                
-                // Tangential Velocity (Orbit)
-                p.x += p.vx * speedMult;
-                p.y += p.vy * speedMult;
-
-                // Respawn if absorbed
-                if(dist < mass / 3) {
-                    p.x = Math.random() * canvas.width;
-                    p.y = 0;
-                    p.vx = (Math.random() - 0.5) * 2;
-                    p.vy = Math.random() * 2;
-                }
-
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, 1.5, 0, Math.PI * 2);
-                ctx.fillStyle = p.color;
-                ctx.fill();
+                const dx = cx - p.x; const dy = cy - p.y; const dist = Math.sqrt(dx*dx + dy*dy);
+                const force = (mass * 5) / (dist * dist); p.vx += (dx / dist) * force; p.vy += (dy / dist) * force;
+                p.x += p.vx * speedMult; p.y += p.vy * speedMult;
+                if(dist < mass / 3) { p.x = Math.random() * canvas.width; p.y = 0; p.vx = (Math.random() - 0.5) * 2; p.vy = Math.random() * 2; }
+                ctx.beginPath(); ctx.arc(p.x, p.y, 1.5, 0, Math.PI * 2); ctx.fillStyle = p.color; ctx.fill();
             });
             requestAnimationFrame(animate);
         }
@@ -282,46 +277,30 @@ elif menu_secimi in ["KARA DELİK SİM.", "BLACK HOLE SIM."]:
     components.html(bh_html, height=700)
 
 # ==============================================================================
-# YENİ SAYFA 6: STELLARIS AI (KİŞİSEL SEYAHAT ASİSTANI)
+# SAYFA 6: STELLARIS AI (KİŞİSEL SEYAHAT ASİSTANI)
 # ==============================================================================
 elif menu_secimi in ["STELLARIS AI"]:
     st.markdown("<h2>Stellaris Kozmik Rehber (AI Asistan)</h2>", unsafe_allow_html=True)
     st.markdown("<p style='color: #D4AF37;'>Sormak istediğiniz her şeyi yazın: Tur planlaması, gezegen bilgileri, ekipman tavsiyeleri...</p>", unsafe_allow_html=True)
     st.write("---")
 
-    # Sohbet Geçmişini Başlat
     if "messages" not in st.session_state:
         st.session_state.messages = [{"role": "assistant", "content": "Stellaris kontrol paneline hoş geldiniz. Ben Stellaris AI. Size unutulmaz bir uzay macerası planlamada veya astronomi hakkında bilgi vermede nasıl yardımcı olabilirim?"}]
 
-    # Sohbet Geçmişini Ekrana Çiz
     for msg in st.session_state.messages:
-        with st.chat_message(msg["role"]):
-            st.markdown(msg["content"])
+        with st.chat_message(msg["role"]): st.markdown(msg["content"])
 
-    # Kullanıcı Girişi
     if prompt := st.chat_input("Mesajınızı yazın (Örn: Bana Atacama çölünü anlat)..."):
-        # Kullanıcı mesajını ekle
         st.session_state.messages.append({"role": "user", "content": prompt})
-        with st.chat_message("user"):
-            st.markdown(prompt)
-
-        # Basit AI Mantığı (Kelime Analizi)
+        with st.chat_message("user"): st.markdown(prompt)
         with st.chat_message("assistant"):
             with st.spinner("Kozmik veritabanı taranıyor..."):
                 time.sleep(1.5)
                 lower_prompt = prompt.lower()
-                
-                if "atacama" in lower_prompt:
-                    response = "Şili'deki Atacama Çölü, yılda 300'den fazla bulutsuz gecesi ve sıfır ışık kirliliği ile dünyanın en iyi gözlem noktasıdır. VIP çöl konaklaması paketimizle ALMA gözlemevine komşu olabilirsiniz. Rezervasyon sekmesinden yerinizi ayırtmak ister misiniz?"
-                elif "tekapo" in lower_prompt or "yeni zelanda" in lower_prompt:
-                    response = "Yeni Zelanda'daki Tekapo Gölü, Uluslararası Karanlık Gökyüzü Rezervidir. Burada Güney Haçı takımyıldızını ve şanslıysanız Aurora Australis'i (Güney Işıkları) izleyebilirsiniz."
-                elif "fiyat" in lower_prompt or "ne kadar" in lower_prompt or "ücret" in lower_prompt:
-                    response = "Premium turlarımız $150'dan (Gece Gözlemi) başlayıp, VIP Çöl Konaklaması için $800'a kadar çıkmaktadır. Tüm detaylara 'Rezervasyon' sekmesinden ulaşabilirsiniz."
-                elif "merhaba" in lower_prompt or "selam" in lower_prompt:
-                    response = "Merhaba! Uzayın derinliklerine yolculuğa hazır mısınız? Size teleskoplarımız veya turlarımız hakkında bilgi verebilirim."
-                else:
-                    response = "Harika bir soru. Müşteri temsilcilerimiz ve uzman astronomlarımız size en iyi deneyimi sunmak için 'Uzay Pasaportu' oluşturmanızı öneriyor. Başka bir rotayı incelemek ister misiniz?"
-                
+                if "atacama" in lower_prompt: response = "Şili'deki Atacama Çölü, yılda 300'den fazla bulutsuz gecesi ve sıfır ışık kirliliği ile dünyanın en iyi gözlem noktasıdır. VIP çöl konaklaması paketimizle ALMA gözlemevine komşu olabilirsiniz."
+                elif "tekapo" in lower_prompt or "yeni zelanda" in lower_prompt: response = "Yeni Zelanda'daki Tekapo Gölü, Uluslararası Karanlık Gökyüzü Rezervidir. Burada Güney Haçı takımyıldızını ve şanslıysanız Aurora Australis'i (Güney Işıkları) izleyebilirsiniz."
+                elif "fiyat" in lower_prompt or "ne kadar" in lower_prompt or "ücret" in lower_prompt: response = "Premium turlarımız $150'dan (Gece Gözlemi) başlayıp, VIP Çöl Konaklaması için $800'a kadar çıkmaktadır. Tüm detaylara 'Rezervasyon' sekmesinden ulaşabilirsiniz."
+                else: response = "Harika bir soru. Müşteri temsilcilerimiz ve uzman astronomlarımız size en iyi deneyimi sunmak için 'Uzay Pasaportu' oluşturmanızı öneriyor. Başka bir rotayı incelemek ister misiniz?"
                 st.markdown(response)
                 st.session_state.messages.append({"role": "assistant", "content": response})
 
@@ -437,7 +416,15 @@ elif menu_secimi in ["REZERVASYON", "BOOKING"]:
     if st.button("Rezervasyon Gönder / Send Booking"): st.success("Talebiniz alınmıştır / Request received.")
 
 # ==============================================================================
-# SAYFA 13: YATIRIMCI PORTALI
+# SAYFA 13: SÜRDÜRÜLEBİLİRLİK
+# ==============================================================================
+elif menu_secimi in ["SÜRDÜRÜLEBİLİRLİK", "SUSTAINABILITY"]:
+    st.markdown("<h2>Sürdürülebilir Bilimsel Turizm / Sustainability</h2>", unsafe_allow_html=True)
+    st.write("---")
+    st.markdown('<div class="hero-container"><img class="hero-image" style="height:35vh;" src="https://images.unsplash.com/photo-1502481851512-e9e2529bfbf9?q=80&w=1200"></div>', unsafe_allow_html=True)
+
+# ==============================================================================
+# SAYFA 14: YATIRIMCI PORTALI
 # ==============================================================================
 elif menu_secimi in ["YATIRIMCI PORTALI", "INVESTOR PORTAL"]:
     st.markdown("<h2>Kurumsal İş Modeli / Corporate Portal</h2>", unsafe_allow_html=True)
