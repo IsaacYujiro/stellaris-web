@@ -97,16 +97,16 @@ st.sidebar.write("---")
 
 if lang == "TR":
     menu_secenekleri = [
-        "ANA SAYFA", "LOKASYONLARIMIZ", "CANLI GÖZLEMEVİ", "3D PLANETARYUM", "UZAY PASAPORTU",
+        "ANA SAYFA", "LOKASYONLARIMIZ", "CANLI GÖZLEMEVİ", "3D SİMÜLASYONLAR", "UZAY PASAPORTU",
         "VİDEOLAR GALERİSİ", "KOZMİK TAKVİM", "UZAY HAVADURUMU", "IŞIK KİRLİLİĞİ", "EKİPMANLAR", 
-        "ASTRO-FOTOĞRAF", "YAPAY ZEKA", "REZERVASYON", "SÜRDÜRÜLEBİLİRLİK", "YATIRIMCI PORTALI"
+        "ASTRO-FOTOĞRAF", "REZERVASYON", "SÜRDÜRÜLEBİLİRLİK", "YATIRIMCI PORTALI"
     ]
     sistem_durumu = "Sistem: Çevrimiçi"
 else:
     menu_secenekleri = [
-        "HOME", "OUR LOCATIONS", "LIVE OBSERVATORY", "3D PLANETARIUM", "SPACE PASSPORT",
+        "HOME", "OUR LOCATIONS", "LIVE OBSERVATORY", "3D SIMULATIONS", "SPACE PASSPORT",
         "VIDEO GALLERY", "COSMIC CALENDAR", "SPACE WEATHER", "LIGHT POLLUTION", "EQUIPMENT", 
-        "ASTRO-PHOTO", "AI SIMULATOR", "BOOKING", "SUSTAINABILITY", "INVESTOR PORTAL"
+        "ASTRO-PHOTO", "BOOKING", "SUSTAINABILITY", "INVESTOR PORTAL"
     ]
     sistem_durumu = "System: Online"
 
@@ -176,27 +176,31 @@ elif menu_secimi in ["CANLI GÖZLEMEVİ", "LIVE OBSERVATORY"]:
     with t6: st.markdown("""<div style="border: 2px solid #B8860B; border-radius: 8px; overflow: hidden; height: 550px;"><iframe src="https://isstracker.spaceflight.esa.int/" width="100%" height="100%" frameborder="0" style="pointer-events: none;"></iframe></div>""", unsafe_allow_html=True)
 
 # ==============================================================================
-# YENİ SAYFA 4: 3D PLANETARYUM (DOĞRUDAN JAVASCRIPT & NASA EYES - SİYAH EKRAN YOK)
+# YENİ SAYFA 4: 3D SİMÜLASYONLAR (GENİŞLETİLMİŞ NASA API'LERİ)
 # ==============================================================================
-elif menu_secimi in ["3D PLANETARYUM", "3D PLANETARIUM"]:
-    st.markdown("<h2>{}</h2>".format("İnteraktif 3D Uzay Simülatörü" if lang == "TR" else "Interactive 3D Space Simulator"), unsafe_allow_html=True)
-    st.markdown("<p style='color: #D4AF37;'><b>Sorun Giderildi:</b> İframe (siyah ekran) kısıtlamalarını aşmak için doğrudan NASA'nın resmi WebGL motoru siteye gömülmüştür.</p>", unsafe_allow_html=True)
+elif menu_secimi in ["3D SİMÜLASYONLAR", "3D SIMULATIONS"]:
+    st.markdown("<h2>{}</h2>".format("İnteraktif 3D Uzay Simülatörleri" if lang == "TR" else "Interactive 3D Space Simulators"), unsafe_allow_html=True)
+    st.markdown("<p style='color: #D4AF37;'><b>Sanal Keşif:</b> NASA'nın resmi 3D motorlarıyla Güneş Sistemini, dış gezegenleri ve meteorları farenizle kontrol ederek keşfedin.</p>", unsafe_allow_html=True)
     st.write("---")
 
-    t_nasa, t_sky = st.tabs([
-        "🌍 3D GÜNEŞ SİSTEMİ (NASA EYES)" if lang == "TR" else "🌍 3D SOLAR SYSTEM (NASA EYES)",
-        "🌌 CANLI GÖKYÜZÜ HARİTASI (JS MOTORU)" if lang == "TR" else "🌌 LIVE SKY MAP (JS ENGINE)"
+    t_solar, t_exo, t_ast, t_sky = st.tabs([
+        "🌍 GÜNEŞ SİSTEMİ" if lang == "TR" else "🌍 SOLAR SYSTEM",
+        "🪐 ÖTEGEZEGENLER" if lang == "TR" else "🪐 EXOPLANETS",
+        "☄️ ASTEROİT TAKİBİ" if lang == "TR" else "☄️ ASTEROID WATCH",
+        "🌌 CANLI GÖKYÜZÜ" if lang == "TR" else "🌌 LIVE SKY MAP"
     ])
 
-    with t_nasa:
+    with t_solar:
         st.markdown("<h3>NASA Eyes on the Solar System</h3>", unsafe_allow_html=True)
-        st.markdown("<p style='color: #E0E0E0;'>Farenizle gezegenleri çevirin, yakınlaştırın ve anlık konumlarını 3 boyutlu olarak keşfedin.</p>", unsafe_allow_html=True)
-        nasa_html = """
-        <div style="border: 2px solid #B8860B; border-radius: 8px; overflow: hidden; box-shadow: 0 0 30px rgba(184, 134, 11, 0.3);">
-            <iframe src="https://eyes.nasa.gov/apps/solar-system/#/home?embed=true" width="100%" height="600" frameborder="0"></iframe>
-        </div>
-        """
-        st.markdown(nasa_html, unsafe_allow_html=True)
+        st.markdown("""<div style="border: 2px solid #B8860B; border-radius: 8px; overflow: hidden; box-shadow: 0 0 30px rgba(184, 134, 11, 0.3);"><iframe src="https://eyes.nasa.gov/apps/solar-system/#/home?embed=true" width="100%" height="600" frameborder="0"></iframe></div>""", unsafe_allow_html=True)
+
+    with t_exo:
+        st.markdown("<h3>NASA Eyes on Exoplanets (Güneş Sistemi Dışı Gezegenler)</h3>", unsafe_allow_html=True)
+        st.markdown("""<div style="border: 2px solid #B8860B; border-radius: 8px; overflow: hidden; box-shadow: 0 0 30px rgba(184, 134, 11, 0.3);"><iframe src="https://eyes.nasa.gov/apps/exo/#/?embed=true" width="100%" height="600" frameborder="0"></iframe></div>""", unsafe_allow_html=True)
+
+    with t_ast:
+        st.markdown("<h3>NASA Asteroid Watch (Dünyaya Yaklaşan Cisimler)</h3>", unsafe_allow_html=True)
+        st.markdown("""<div style="border: 2px solid #B8860B; border-radius: 8px; overflow: hidden; box-shadow: 0 0 30px rgba(184, 134, 11, 0.3);"><iframe src="https://eyes.nasa.gov/apps/asteroids/#/?embed=true" width="100%" height="600" frameborder="0"></iframe></div>""", unsafe_allow_html=True)
 
     with t_sky:
         st.markdown("<h3>İnteraktif Yıldız Haritası</h3>", unsafe_allow_html=True)
@@ -205,7 +209,6 @@ elif menu_secimi in ["3D PLANETARYUM", "3D PLANETARIUM"]:
         elif "Tekapo" in loc_choice: lat, lon = -44.0, 170.4
         else: lat, lon = 69.6, 18.9 
 
-        # Doğrudan Javascript Injection (İframe kullanılmaz, siyah ekran vermez)
         sky_js_html = f"""
         <div id="starmap" style="width:100%;height:600px;border-radius:8px;border:2px solid #B8860B;background:#000;box-shadow: 0 0 30px rgba(184, 134, 11, 0.3);"></div>
         <script src="https://virtualsky.lco.global/embed/stuquery.min.js"></script>
@@ -232,7 +235,7 @@ elif menu_secimi in ["3D PLANETARYUM", "3D PLANETARIUM"]:
         components.html(sky_js_html, height=650)
 
 # ==============================================================================
-# YENİ SAYFA 5: DİJİTAL UZAY PASAPORTU
+# SAYFA 5: DİJİTAL UZAY PASAPORTU
 # ==============================================================================
 elif menu_secimi in ["UZAY PASAPORTU", "SPACE PASSPORT"]:
     st.markdown("<h2>{}</h2>".format("Kişisel Uzay Biniş Kartı" if lang == "TR" else "Personal Space Boarding Pass"), unsafe_allow_html=True)
@@ -251,9 +254,7 @@ elif menu_secimi in ["UZAY PASAPORTU", "SPACE PASSPORT"]:
 
     with col_pass:
         st.markdown("<h3>Dijital Pasaportunuz</h3>", unsafe_allow_html=True)
-        # Benzersiz barkod numarası
         random_barcode = "".join([str(random.randint(0, 9)) for _ in range(12)])
-        
         pass_html = f"""
         <div class="boarding-pass">
             <div class="pass-left">
@@ -297,9 +298,7 @@ elif menu_secimi in ["UZAY PASAPORTU", "SPACE PASSPORT"]:
         </div>
         """
         st.markdown(pass_html, unsafe_allow_html=True)
-        
-        if generate_btn:
-            st.success("Biniş Kartınız sisteme kaydedildi! Uçuşa hazırsınız." if lang == "TR" else "Boarding Pass registered! You are ready for flight.")
+        if generate_btn: st.success("Biniş Kartınız sisteme kaydedildi! Uçuşa hazırsınız." if lang == "TR" else "Boarding Pass registered! You are ready for flight.")
 
 # ==============================================================================
 # SAYFA 6: VİDEOLAR GALERİSİ
@@ -395,16 +394,7 @@ elif menu_secimi in ["ASTRO-FOTOĞRAF", "ASTRO-PHOTO"]:
         st.markdown(f"""<div style="position: relative; width: 100%; border: 2px solid #B8860B; border-radius: 4px; overflow: hidden;"><img src="https://images.unsplash.com/photo-1464802686167-b939a6910659?q=80&w=1200" style="width: 100%; filter: brightness({brightness});"></div>""", unsafe_allow_html=True)
 
 # ==============================================================================
-# SAYFA 12: YAPAY ZEKA
-# ==============================================================================
-elif menu_secimi in ["YAPAY ZEKA", "AI SIMULATOR"]:
-    st.markdown("<h2>AI-Powered Deep Space Simulation</h2>", unsafe_allow_html=True)
-    st.write("---")
-    st.selectbox("Celestial Object", ["Spiral Galaxy", "Nebula", "Supernova"])
-    if st.button("Run AI"): st.success("Complete")
-
-# ==============================================================================
-# SAYFA 13: REZERVASYON
+# SAYFA 12: REZERVASYON
 # ==============================================================================
 elif menu_secimi in ["REZERVASYON", "BOOKING"]:
     st.markdown("<h2>Deneyimler & Online Rezervasyon / Booking</h2>", unsafe_allow_html=True)
@@ -414,7 +404,7 @@ elif menu_secimi in ["REZERVASYON", "BOOKING"]:
     if st.button("Rezervasyon Gönder / Send Booking"): st.success("Talebiniz alınmıştır / Request received.")
 
 # ==============================================================================
-# SAYFA 14: SÜRDÜRÜLEBİLİRLİK
+# SAYFA 13: SÜRDÜRÜLEBİLİRLİK
 # ==============================================================================
 elif menu_secimi in ["SÜRDÜRÜLEBİLİRLİK", "SUSTAINABILITY"]:
     st.markdown("<h2>Sürdürülebilir Bilimsel Turizm / Sustainability</h2>", unsafe_allow_html=True)
@@ -422,7 +412,7 @@ elif menu_secimi in ["SÜRDÜRÜLEBİLİRLİK", "SUSTAINABILITY"]:
     st.markdown('<div class="hero-container"><img class="hero-image" style="height:35vh;" src="https://images.unsplash.com/photo-1502481851512-e9e2529bfbf9?q=80&w=1200"></div>', unsafe_allow_html=True)
 
 # ==============================================================================
-# SAYFA 15: YATIRIMCI PORTALI
+# SAYFA 14: YATIRIMCI PORTALI
 # ==============================================================================
 elif menu_secimi in ["YATIRIMCI PORTALI", "INVESTOR PORTAL"]:
     st.markdown("<h2>Kurumsal İş Modeli / Corporate Portal</h2>", unsafe_allow_html=True)
