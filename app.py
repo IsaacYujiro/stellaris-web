@@ -6,7 +6,7 @@ import os
 import glob
 
 # ==============================================================================
-# SİTE YAPILANDIRMASI VE AGRESİF LÜKS CSS (TİKLER İPTAL, SAF ALTIN)
+# SİTE YAPILANDIRMASI VE AGRESİF LÜKS CSS (TİKLER İPTAL, GECE MAVİSİ)
 # ==============================================================================
 st.set_page_config(page_title="Stellaris | Premium Astro-Tourism", layout="wide", initial_sidebar_state="expanded")
 
@@ -14,15 +14,24 @@ st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Cinzel:wght@400;600;700&display=swap');
 
+    /* STREAMLIT'IN BEYAZ TEMASINI ZORUNLU OLARAK GECE MAVİSİ YAP */
+    .stApp {
+        background-color: #051024 !important; /* Derin Gece Mavisi */
+    }
+    
+    header {
+        background-color: transparent !important;
+    }
+
     html, body, [class*="css"] { 
         font-family: 'Montserrat', sans-serif; 
-        background-color: #02060D; 
+        background-color: #051024 !important; 
         color: #C5A059; 
         text-align: center; 
     }
 
     [data-testid="stSidebar"] { 
-        background-color: #02060D !important; 
+        background-color: #030814 !important; 
         border-right: 1px solid #B8860B !important; 
     }
 
@@ -46,14 +55,14 @@ st.markdown("""
     div[role="radiogroup"] label[aria-checked="true"] p { color: #D4AF37 !important; text-shadow: 0px 0px 15px rgba(212, 175, 55, 0.8); border-bottom: 1px solid #B8860B; }
 
     /* Dil Seçici (Selectbox) Özel Tasarımı */
-    [data-baseweb="select"] { background-color: #02060D !important; border: 1px solid #B8860B !important; border-radius: 4px; }
+    [data-baseweb="select"] { background-color: #030814 !important; border: 1px solid #B8860B !important; border-radius: 4px; }
     [data-baseweb="select"] * { color: #C5A059 !important; font-family: 'Montserrat', sans-serif !important; }
 
     [data-testid="stSidebar"] .stAlert div { font-family: 'Montserrat', sans-serif !important; color: #B8860B !important; text-align: center !important; background-color: transparent !important; border: 1px solid #B8860B; }
     [data-testid="stSidebarCollapseButton"] span, .material-symbols-rounded { font-family: "Material Symbols Rounded" !important; color: #B8860B !important; }
 
     h1, h2, h3, h4, h5, h6 { font-family: 'Cinzel', serif; color: #B8860B !important; font-weight: 600; text-align: center !important; width: 100%; text-shadow: 0px 0px 15px rgba(184, 134, 11, 0.2); }
-    p { text-align: center !important; margin: 0 auto 15px auto !important; max-width: 800px; line-height: 1.8; }
+    p { text-align: center !important; margin: 0 auto 15px auto !important; max-width: 800px; line-height: 1.8; color: #E0E0E0 !important; }
     hr { border-top: 1px solid #B8860B !important; opacity: 0.3; width: 60%; margin: 40px auto !important; }
 
     .block-container { animation: fadeIn 1.2s ease-out; }
@@ -63,7 +72,7 @@ st.markdown("""
     @keyframes slowZoom { from { transform: scale(1); } to { transform: scale(1.05); } }
     .hero-container { position: relative; text-align: center; margin-bottom: 40px; display: flex; justify-content: center; overflow: hidden; }
 
-    .service-card { background: #02060D; border-radius: 8px; padding: 0; margin: 0 auto 30px auto; box-shadow: 0 4px 20px rgba(0,0,0,0.9); transition: transform 0.4s ease, box-shadow 0.4s ease; border: 1px solid #B8860B; overflow: hidden; height: 100%; max-width: 500px; animation: float 6s ease-in-out infinite; }
+    .service-card { background: #030814; border-radius: 8px; padding: 0; margin: 0 auto 30px auto; box-shadow: 0 4px 20px rgba(0,0,0,0.9); transition: transform 0.4s ease, box-shadow 0.4s ease; border: 1px solid #B8860B; overflow: hidden; height: 100%; max-width: 500px; animation: float 6s ease-in-out infinite; }
     @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-8px); } 100% { transform: translateY(0px); } }
     .service-card:hover { animation-play-state: paused; transform: scale(1.02); box-shadow: 0 10px 30px rgba(184, 134, 11, 0.3); }
 
@@ -72,12 +81,12 @@ st.markdown("""
     .service-img { width: 100%; height: 220px; object-fit: cover; border-bottom: 1px solid #B8860B; }
     .service-content { padding: 30px; text-align: center; }
     .service-title { font-size: 1.4rem; margin-bottom: 15px; color: #B8860B; font-family: 'Cinzel', serif; text-align: center; }
-    .service-desc { font-size: 0.95rem; color: #C5A059; text-align: center; }
+    .service-desc { font-size: 0.95rem; color: #E0E0E0 !important; text-align: center; }
     .price-tag { font-family: 'Cinzel', serif; font-size: 3rem; color: #B8860B; font-weight: 700; margin: 25px 0; text-align: center; text-shadow: 0px 0px 10px rgba(184, 134, 11, 0.3); }
     
     .stButton { display: flex; justify-content: center; margin-top: 20px; }
-    div.stButton > button:first-child { background-color: #02060D !important; color: #B8860B !important; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 1.1rem; padding: 15px 50px; border: 1px solid #B8860B !important; border-radius: 2px; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); letter-spacing: 2px; text-transform: uppercase; }
-    div.stButton > button:first-child:hover { background-color: #B8860B !important; color: #02060D !important; transform: scale(1.05); box-shadow: 0 0 20px rgba(184, 134, 11, 0.4); }
+    div.stButton > button:first-child { background-color: #030814 !important; color: #B8860B !important; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 1.1rem; padding: 15px 50px; border: 1px solid #B8860B !important; border-radius: 2px; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); letter-spacing: 2px; text-transform: uppercase; }
+    div.stButton > button:first-child:hover { background-color: #B8860B !important; color: #051024 !important; transform: scale(1.05); box-shadow: 0 0 20px rgba(184, 134, 11, 0.4); }
 
     [data-baseweb="tab-list"] { justify-content: center; gap: 20px; }
     [data-baseweb="tab"] { background-color: transparent !important; color: #C5A059 !important; font-family: 'Cinzel', serif; font-size: 1.2rem; }
@@ -97,7 +106,6 @@ if resimler:
 # ==============================================================================
 # SİDEBAR & DİL SEÇİMİ YÖNETİMİ
 # ==============================================================================
-# Logo
 if bulunan_logo:
     st.sidebar.image(bulunan_logo, use_container_width=True)
 else:
@@ -105,13 +113,11 @@ else:
 
 st.sidebar.write("---")
 
-# Dil Seçici
 dil_secimi = st.sidebar.selectbox("🌍 Dil / Language", ["Türkçe", "English"])
 lang = "TR" if dil_secimi == "Türkçe" else "EN"
 
 st.sidebar.write("---")
 
-# Dile Göre Menü Seçenekleri
 if lang == "TR":
     menu_secenekleri = ["ANA SAYFA", "LOKASYONLARIMIZ", "DENEYİMLER & REZERVASYON", "ASTRO-GASTRONOMİ", "SÜRDÜRÜLEBİLİRLİK", "YATIRIMCI PORTALI"]
     sistem_durumu = "Sistem Durumu: Çevrimiçi"
@@ -154,7 +160,7 @@ if menu_secimi in ["ANA SAYFA", "HOME"]:
         st.markdown('<div class="hero-container"><img class="hero-image" style="height:45vh; filter: brightness(60%);" src="https://images.unsplash.com/photo-1464802686167-b939a6910659?q=80&w=2000&auto=format&fit=crop"></div>', unsafe_allow_html=True)
 
 # ==============================================================================
-# SAYFA 2: LOKASYONLARIMIZ
+# SAYFA 2: LOKASYONLARIMIZ (RESİMLER DÜZELTİLDİ)
 # ==============================================================================
 elif menu_secimi in ["LOKASYONLARIMIZ", "OUR LOCATIONS"]:
     if lang == "TR":
@@ -174,17 +180,19 @@ elif menu_secimi in ["LOKASYONLARIMIZ", "OUR LOCATIONS"]:
 
     st.write("---")
     col_space1, col_chile, col_nz, col_space2 = st.columns([1, 4, 4, 1])
+    
     with col_chile:
         st.markdown(f"""
         <div class="service-card">
-            <img class="service-img" src="https://images.unsplash.com/photo-1549429712-16fc9ebfc4b9?q=80&w=800&auto=format&fit=crop">
+            <img class="service-img" src="https://images.unsplash.com/photo-1504333638930-c8787321efa0?q=80&w=800&auto=format&fit=crop">
             <div class="service-content">
                 <h3 class="service-title">{t_chile_title}</h3>
                 <p class="service-desc">{t_chile_desc}</p>
             </div>
         </div>
         """, unsafe_allow_html=True)
-        st.image("https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=800&auto=format&fit=crop", use_container_width=True)
+        # Sağlam Alternatif Atacama Görseli
+        st.image("https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?q=80&w=800&auto=format&fit=crop", use_container_width=True)
 
     with col_nz:
         st.markdown(f"""
