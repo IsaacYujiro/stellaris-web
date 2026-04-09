@@ -7,7 +7,7 @@ import os
 import glob
 
 # ==============================================================================
-# SİTE YAPILANDIRMASI VE AGRESİF LÜKS CSS
+# SİTE YAPILANDIRMASI VE AGRESİF LÜKS CSS (GECE MAVİSİ, TİKSİZ, EMOJİSİZ)
 # ==============================================================================
 st.set_page_config(page_title="Stellaris | Premium Astro-Tourism", layout="wide", initial_sidebar_state="expanded")
 
@@ -65,6 +65,9 @@ st.markdown("""
     [data-baseweb="tab"] { background-color: transparent !important; color: #C5A059 !important; font-family: 'Cinzel', serif; font-size: 1.2rem; }
     [aria-selected="true"] { color: #B8860B !important; border-bottom: 2px solid #B8860B !important; font-weight: bold; }
     .streamlit-expanderHeader { font-family: 'Cinzel', serif; color: #B8860B !important; text-align: center; font-size: 1.1rem; }
+    
+    /* İlerleme Çubuğu (Progress Bar) Altın Rengi Yapma */
+    .stProgress > div > div > div > div { background-color: #B8860B !important; }
     </style>
     """, unsafe_allow_html=True)
 
@@ -89,16 +92,22 @@ else:
     st.sidebar.markdown("<h2 style='text-align: center; font-size: 2.5rem; margin-top: 20px; color: #B8860B;'>Stellaris</h2>", unsafe_allow_html=True)
 
 st.sidebar.write("---")
-dil_secimi = st.sidebar.selectbox("Dil / Language", ["Türkçe", "English"])
+dil_secimi = st.sidebar.selectbox("DİL SEÇİMİ / LANGUAGE", ["Türkçe", "English"])
 lang = "TR" if dil_secimi == "Türkçe" else "EN"
 st.sidebar.write("---")
 
 if lang == "TR":
-    menu_secenekleri = ["ANA SAYFA", "LOKASYONLARIMIZ", "IŞIK KİRLİLİĞİ SİMÜLATÖRÜ", "GÖZLEM KOŞULLARI & EKİPMAN", "DENEYİMLER & REZERVASYON", "DİJİTAL UZAY & YAPAY ZEKA", "ASTRO-FOTOĞRAF SİMÜLATÖRÜ", "SÜRDÜRÜLEBİLİRLİK", "YATIRIMCI PORTALI"]
-    sistem_durumu = "Sistem Durumu: Çevrimiçi"
+    menu_secenekleri = [
+        "ANA SAYFA", "LOKASYONLARIMIZ", "KOZMİK TAKVİM", "IŞIK KİRLİLİĞİ", 
+        "EKİPMANLAR", "REZERVASYON", "YAPAY ZEKA", "SÜRDÜRÜLEBİLİRLİK", "YATIRIMCI PORTALI"
+    ]
+    sistem_durumu = "Sistem: Çevrimiçi"
 else:
-    menu_secenekleri = ["HOME", "OUR LOCATIONS", "LIGHT POLLUTION SIMULATOR", "CONDITIONS & EQUIPMENT", "EXPERIENCES & BOOKING", "DIGITAL SPACE & AI", "ASTRO-PHOTO SIMULATOR", "SUSTAINABILITY", "INVESTOR PORTAL"]
-    sistem_durumu = "System Status: Online"
+    menu_secenekleri = [
+        "HOME", "OUR LOCATIONS", "COSMIC CALENDAR", "LIGHT POLLUTION", 
+        "EQUIPMENT", "BOOKING", "AI SIMULATOR", "SUSTAINABILITY", "INVESTOR PORTAL"
+    ]
+    sistem_durumu = "System: Online"
 
 menu_secimi = st.sidebar.radio("GizliNavigasyonBasligi", menu_secenekleri, label_visibility="collapsed")
 st.sidebar.write("---")
@@ -156,9 +165,89 @@ elif menu_secimi in ["LOKASYONLARIMIZ", "OUR LOCATIONS"]:
         st.markdown(f"""<div class="service-card"><img class="service-img" src="https://images.unsplash.com/photo-1464802686167-b939a6910659?q=80&w=800&auto=format&fit=crop"><div class="service-content"><h3 class="service-title">{t_nz_title}</h3><p class="service-desc">{t_nz_desc}</p></div></div>""", unsafe_allow_html=True)
 
 # ==============================================================================
-# YENİ SAYFA 3: IŞIK KİRLİLİĞİ (BORTLE) SİMÜLATÖRÜ
+# YENİ SAYFA 3: KOZMİK TAKVİM VE NADİR FENOMENLER
 # ==============================================================================
-elif menu_secimi in ["IŞIK KİRLİLİĞİ SİMÜLATÖRÜ", "LIGHT POLLUTION SIMULATOR"]:
+elif menu_secimi in ["KOZMİK TAKVİM", "COSMIC CALENDAR"]:
+    if lang == "TR":
+        st.markdown("<h2>Kozmik Takvim & Nadir Fenomenler</h2>", unsafe_allow_html=True)
+        st.markdown("<p>Astro-turizmde zamanlama her şeydir. Dünyanın en karanlık noktalarında, yaklaşan en nadir doğa ve uzay olaylarına tanıklık etmek için yerinizi ayırtın.</p>", unsafe_allow_html=True)
+        ev_label = "Keşfetmek İstediğiniz Etkinliği Seçin:"
+        events = [
+            "Perseid Göktaşı Yağmuru (Ağustos)",
+            "Satürn Karşı Konumu - Halka Gözlemi (Eylül)",
+            "Tam Güneş Tutulması Özel Turu (Kış Dönemi)"
+        ]
+        btn_label = "Bu Tarih İçin VIP Rezervasyon Başlat"
+    else:
+        st.markdown("<h2>Cosmic Calendar & Rare Phenomena</h2>", unsafe_allow_html=True)
+        st.markdown("<p>Timing is everything in astro-tourism. Secure your spot to witness the rarest upcoming natural and space events from the darkest points on Earth.</p>", unsafe_allow_html=True)
+        ev_label = "Select the Event You Want to Explore:"
+        events = [
+            "Perseid Meteor Shower (August)",
+            "Saturn Opposition - Ring Observation (September)",
+            "Total Solar Eclipse Exclusive Tour (Winter Season)"
+        ]
+        btn_label = "Start VIP Booking for This Date"
+
+    st.write("---")
+    
+    selected_event = st.selectbox(ev_label, events)
+    st.write("")
+    
+    col_info, col_metrics = st.columns([2, 1])
+    
+    with col_info:
+        if "Perseid" in selected_event:
+            img_url = "https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?q=80&w=800&auto=format&fit=crop"
+            e_title = "Perseid Göktaşı Şöleni" if lang == "TR" else "Perseid Meteor Spectacle"
+            e_desc = "Saatte ortalama 100'den fazla ateş topunun atmosfere girdiği yılın en görkemli meteor yağmuru. Atacama'nın zifiri karanlığında her saniye gökyüzünde bir çizgi göreceksiniz." if lang == "TR" else "The most spectacular meteor shower of the year where over 100 fireballs enter the atmosphere per hour. In the pitch black of Atacama, you will see a streak across the sky every second."
+            e_equip = "Ekipman: Çıplak Göz & Geniş Açılı Lensler" if lang == "TR" else "Equipment: Naked Eye & Wide Angle Lenses"
+            rarity = 60
+            
+        elif "Sat" in selected_event:
+            img_url = "https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?q=80&w=800&auto=format&fit=crop"
+            e_title = "Satürn Karşı Konumu" if lang == "TR" else "Saturn Opposition"
+            e_desc = "Satürn'ün Dünya'ya en yakın ve en parlak olduğu dönem. Gezegenin buzlu halkaları ve uydusu Titan, VIP teleskoplarımızla adeta elinizi uzatıp dokunabileceğiniz kadar net." if lang == "TR" else "The period when Saturn is closest and brightest to Earth. The planet's icy rings and its moon Titan are so clear through our VIP telescopes that you feel you could reach out and touch them."
+            e_equip = "Ekipman: Meade LX200 14'' Advanced" if lang == "TR" else "Equipment: Meade LX200 14'' Advanced"
+            rarity = 85
+            
+        else:
+            img_url = "https://images.unsplash.com/photo-1539321908154-049275965646?q=80&w=800&auto=format&fit=crop"
+            e_title = "Tam Güneş Tutulması" if lang == "TR" else "Total Solar Eclipse"
+            e_desc = "Gündüzün geceye döndüğü o efsanevi an. Korona (Güneş Tacı) gözlemi ve özel filtreli ekipmanlarla ömür boyu unutulmayacak, çok nadir bir bilimsel macera." if lang == "TR" else "That legendary moment when day turns into night. A once-in-a-lifetime scientific adventure with Corona observation and special filtered equipment."
+            e_equip = "Ekipman: Lunt Solar Systems H-Alpha" if lang == "TR" else "Equipment: Lunt Solar Systems H-Alpha"
+            rarity = 98
+
+        st.markdown(f"""
+        <div style="border: 1px solid #B8860B; border-radius: 8px; padding: 20px; background: #030814;">
+            <h3 style="text-align: left !important; color: #D4AF37 !important;">{e_title}</h3>
+            <img src="{img_url}" style="width: 100%; height: 200px; object-fit: cover; border-radius: 4px; margin-bottom: 15px; border: 1px solid #B8860B;">
+            <p style="text-align: left !important;">{e_desc}</p>
+            <p style="text-align: left !important; font-weight: bold; color: #B8860B !important;">{e_equip}</p>
+        </div>
+        """, unsafe_allow_html=True)
+
+    with col_metrics:
+        st.markdown("<br>", unsafe_allow_html=True)
+        met1 = "Görüş Kalitesi" if lang == "TR" else "Visibility Quality"
+        met2 = "Atmosferik Denge" if lang == "TR" else "Atmospheric Stability"
+        met3 = "Nadirlik (Rarity)" if lang == "TR" else "Event Rarity"
+        
+        st.metric(label=met1, value="Ultra HD", delta="Bulutsuzluk %99")
+        st.metric(label=met2, value="5/5", delta="Kusursuz")
+        
+        st.markdown(f"<p style='text-align: left !important; margin-bottom: 5px !important; color: #C5A059;'>{met3}</p>", unsafe_allow_html=True)
+        st.progress(rarity)
+        
+        st.write("")
+        st.write("")
+        if st.button(btn_label):
+            st.success("Talebiniz VIP Müşteri Temsilcimize İletildi." if lang == "TR" else "Your request has been sent to our VIP Representative.")
+
+# ==============================================================================
+# SAYFA 4: IŞIK KİRLİLİĞİ (BORTLE) SİMÜLATÖRÜ
+# ==============================================================================
+elif menu_secimi in ["IŞIK KİRLİLİĞİ", "LIGHT POLLUTION"]:
     if lang == "TR":
         st.markdown("<h2>Bortle Ölçeği: Işık Kirliliği Simülatörü</h2>", unsafe_allow_html=True)
         st.markdown("<p>Atacama Çölü'nün neden eşsiz olduğunu kendi gözlerinizle görün. Şehir hayatının ışıklarından yavaşça kurtularak gerçek bir gece gökyüzüne ulaşmak için aşağıdaki kaydırıcıyı kullanın.</p>", unsafe_allow_html=True)
@@ -183,17 +272,14 @@ elif menu_secimi in ["IŞIK KİRLİLİĞİ SİMÜLATÖRÜ", "LIGHT POLLUTION SIM
         }
 
     st.write("---")
-    
     col_ctrl, col_view = st.columns([1, 2])
     with col_ctrl:
         bortle_val = st.slider(slider_label, min_value=1, max_value=9, value=9, step=2)
         st.write("")
         st.info(bortle_texts[bortle_val])
 
-    # Matematiksel Görsel Simülasyon (Bortle düştükçe parlaklık artar, sis dağılır)
-    # Bortle 9 = Şehir (Bol ışık sisi, 0 yıldız). Bortle 1 = Atacama (0 sis, 100% yıldız)
-    sky_glow_opacity = (bortle_val - 1) / 8.0  # 9'da 1.0 (Tam Sis), 1'de 0.0 (Sissiz)
-    star_brightness = 1.2 - sky_glow_opacity   # Yıldızların parlaklığı sis azaldıkça artar
+    sky_glow_opacity = (bortle_val - 1) / 8.0  
+    star_brightness = 1.2 - sky_glow_opacity   
 
     base_stars_img = "https://images.unsplash.com/photo-1464802686167-b939a6910659?q=80&w=1200&auto=format&fit=crop"
 
@@ -201,16 +287,14 @@ elif menu_secimi in ["IŞIK KİRLİLİĞİ SİMÜLATÖRÜ", "LIGHT POLLUTION SIM
         st.markdown(f"""
         <div style="position: relative; width: 100%; height: 400px; border: 2px solid #B8860B; border-radius: 4px; overflow: hidden; background-color: #000; box-shadow: 0 5px 25px rgba(0,0,0,0.8);">
             <img src="{base_stars_img}" style="width: 100%; height: 100%; object-fit: cover; filter: brightness({star_brightness}) contrast(1.2); transition: all 0.8s ease;">
-            
             <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to top, rgba(200,100,50,0.9), rgba(50,70,100,0.8)); opacity: {sky_glow_opacity}; transition: opacity 0.8s ease; pointer-events: none;"></div>
         </div>
         """, unsafe_allow_html=True)
 
-
 # ==============================================================================
-# SAYFA 4: GÖZLEM KOŞULLARI & EKİPMAN
+# SAYFA 5: GÖZLEM KOŞULLARI & EKİPMAN
 # ==============================================================================
-elif menu_secimi in ["GÖZLEM KOŞULLARI & EKİPMAN", "CONDITIONS & EQUIPMENT"]:
+elif menu_secimi in ["EKİPMANLAR", "EQUIPMENT"]:
     if lang == "TR":
         st.markdown("<h2>Gözlem Koşulları ve VIP Ekipmanlar</h2>", unsafe_allow_html=True)
         st.markdown("<p>Kusursuz bir deneyim için anlık gökyüzü berraklık oranları ve teknoloji harikası teleskoplarımız.</p>", unsafe_allow_html=True)
@@ -218,8 +302,8 @@ elif menu_secimi in ["GÖZLEM KOŞULLARI & EKİPMAN", "CONDITIONS & EQUIPMENT"]:
         m1_v, m2_v, m3_v = "%98", "%92", "Yeni Ay"
         m1_d, m2_d, m3_d = "+2% (Mükemmel)", "-1% (Çok İyi)", "Gözlem İçin Kusursuz"
         t_eq = "VIP Gözlem Ekipmanlarımız"
-        eq1_t, eq1_d = "Celestron CPC Deluxe 1100 HD", "Derin uzay nesneleri (Galaksiler ve Bulutsular) için ultra yüksek çözünürlüklü bilgisayarlı teleskop."
-        eq2_t, eq2_d = "Meade LX200 14'' Advanced", "Gezegenlerin ve ay kraterlerinin en ince detaylarını yakalamak için devasa diyaframlı profesyonel gözlem aracı."
+        eq1_t, eq1_d = "Celestron CPC 1100 HD", "Derin uzay nesneleri (Galaksiler ve Bulutsular) için ultra yüksek çözünürlüklü bilgisayarlı teleskop."
+        eq2_t, eq2_d = "Meade LX200 14''", "Gezegenlerin ve ay kraterlerinin en ince detaylarını yakalamak için devasa diyaframlı profesyonel gözlem aracı."
         eq3_t, eq3_d = "Lunt Solar Systems", "Gündüz aktiviteleri için güneş patlamalarını ve taçküreyi güvenle izlemenizi sağlayan özel H-Alpha teleskobu."
     else:
         st.markdown("<h2>Observation Conditions and VIP Equipment</h2>", unsafe_allow_html=True)
@@ -228,8 +312,8 @@ elif menu_secimi in ["GÖZLEM KOŞULLARI & EKİPMAN", "CONDITIONS & EQUIPMENT"]:
         m1_v, m2_v, m3_v = "98%", "92%", "New Moon"
         m1_d, m2_d, m3_d = "+2% (Perfect)", "-1% (Excellent)", "Flawless for Observation"
         t_eq = "Our VIP Observation Equipment"
-        eq1_t, eq1_d = "Celestron CPC Deluxe 1100 HD", "Ultra-high-definition computerized telescope designed specifically for deep space objects."
-        eq2_t, eq2_d = "Meade LX200 14'' Advanced", "A massive aperture professional observation tool for capturing the finest details of planets."
+        eq1_t, eq1_d = "Celestron CPC 1100 HD", "Ultra-high-definition computerized telescope designed specifically for deep space objects."
+        eq2_t, eq2_d = "Meade LX200 14''", "A massive aperture professional observation tool for capturing the finest details of planets."
         eq3_t, eq3_d = "Lunt Solar Systems", "Specialized H-Alpha telescope allowing you to safely observe solar flares during daytime."
 
     st.write("---")
@@ -247,9 +331,9 @@ elif menu_secimi in ["GÖZLEM KOŞULLARI & EKİPMAN", "CONDITIONS & EQUIPMENT"]:
     with e3: st.markdown(f"""<div class="service-card" style="box-shadow:none; border:none;"><img class="service-img" src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=800&auto=format&fit=crop" style="border-radius:8px; border: 1px solid #B8860B;"><div class="service-content" style="padding:15px;"><h3 class="service-title" style="font-size:1.1rem;">{eq3_t}</h3><p class="service-desc">{eq3_d}</p></div></div>""", unsafe_allow_html=True)
 
 # ==============================================================================
-# SAYFA 5: DENEYİMLER & REZERVASYON
+# SAYFA 6: DENEYİMLER & REZERVASYON
 # ==============================================================================
-elif menu_secimi in ["DENEYİMLER & REZERVASYON", "EXPERIENCES & BOOKING"]:
+elif menu_secimi in ["REZERVASYON", "BOOKING"]:
     if lang == "TR":
         st.markdown("<h2>Deneyimler & Online Rezervasyon</h2>", unsafe_allow_html=True)
         exp_title = "Astro-Deneyiminizi Seçin"
@@ -286,9 +370,9 @@ elif menu_secimi in ["DENEYİMLER & REZERVASYON", "EXPERIENCES & BOOKING"]:
             st.success(msg_success)
 
 # ==============================================================================
-# SAYFA 6: DİJİTAL UZAY & YAPAY ZEKA SİMÜLASYONU
+# SAYFA 7: DİJİTAL UZAY & YAPAY ZEKA SİMÜLASYONU
 # ==============================================================================
-elif menu_secimi in ["DİJİTAL UZAY & YAPAY ZEKA", "DIGITAL SPACE & AI"]:
+elif menu_secimi in ["YAPAY ZEKA", "AI SIMULATOR"]:
     if lang == "TR":
         st.markdown("<h2>Yapay Zeka Destekli Derin Uzay Simülasyonu</h2>", unsafe_allow_html=True)
         st.markdown("<p>Gözlem saati gelene kadar kendi dijital galaksinizi tasarlayın. Simülasyon motorumuz parametrelerinizi işleyerek size özel kozmik yapıları görselleştirir.</p>", unsafe_allow_html=True)
@@ -319,43 +403,6 @@ elif menu_secimi in ["DİJİTAL UZAY & YAPAY ZEKA", "DIGITAL SPACE & AI"]:
             elif "Nebula" in secilen_cisim or "Doğumhanesi" in secilen_cisim: gen_img = "https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?q=80&w=1200&auto=format&fit=crop"
             else: gen_img = "https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?q=80&w=1200&auto=format&fit=crop"
             st.markdown(f'<div class="hero-container"><img class="hero-image" style="height:auto; filter: brightness(80%); border: 3px solid #D4AF37;" src="{gen_img}"></div>', unsafe_allow_html=True)
-
-# ==============================================================================
-# SAYFA 7: ASTRO-FOTOĞRAF SİMÜLATÖRÜ
-# ==============================================================================
-elif menu_secimi in ["ASTRO-FOTOĞRAF SİMÜLATÖRÜ", "ASTRO-PHOTO SIMULATOR"]:
-    if lang == "TR":
-        st.markdown("<h2>Astro-Fotoğrafçılık Simülatörü</h2>", unsafe_allow_html=True)
-        st.markdown("<p>Workshop'umuza katılmadan önce donanım sınırlarını test edin. ISO ve pozlama süresinin ışık ve kumlanma (noise) etkilerini canlı deneyimleyin.</p>", unsafe_allow_html=True)
-        iso_label, exp_label, btn_label = "ISO Değeri", "Pozlama Süresi (Saniye)", "Deklanşöre Bas"
-        msg_success = "Görüntü sensöre kaydedildi! Yüksek ISO'da artan kumlanmaya dikkat edin."
-    else:
-        st.markdown("<h2>Astro-Photography Simulator</h2>", unsafe_allow_html=True)
-        st.markdown("<p>Test hardware limits before joining our workshop. Experience live how ISO and exposure time affect light gathering and sensor noise.</p>", unsafe_allow_html=True)
-        iso_label, exp_label, btn_label = "ISO Value", "Exposure Time (Seconds)", "Press Shutter"
-        msg_success = "Image captured! Notice the increased noise at high ISO values."
-
-    st.write("---")
-    col_ctrl, col_view = st.columns([1, 2])
-    with col_ctrl:
-        st.markdown(f"<h3 style='text-align: left !important;'>Parametreler</h3>", unsafe_allow_html=True)
-        iso_val = st.slider(iso_label, 100, 6400, 800, step=100)
-        exp_val = st.slider(exp_label, 1, 30, 10, step=1)
-        st.write("")
-        render_btn = st.button(btn_label)
-
-    brightness = 0.15 + (exp_val / 30.0) * 0.6 + (iso_val / 6400.0) * 0.5
-    noise_opacity = (iso_val / 6400.0) * 0.70
-    base_img = "https://images.unsplash.com/photo-1464802686167-b939a6910659?q=80&w=1200&auto=format&fit=crop"
-    
-    with col_view:
-        st.markdown(f"""
-        <div style="position: relative; width: 100%; border: 2px solid #B8860B; border-radius: 4px; overflow: hidden; background-color: #000; box-shadow: 0 5px 25px rgba(0,0,0,0.8);">
-            <img src="{base_img}" style="width: 100%; display: block; filter: brightness({brightness}) contrast(1.2); transition: filter 0.5s ease;">
-            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('https://www.transparenttextures.com/patterns/stardust.png'); opacity: {noise_opacity}; mix-blend-mode: screen; pointer-events: none; transition: opacity 0.5s ease;"></div>
-        </div>
-        """, unsafe_allow_html=True)
-        if render_btn: st.success(msg_success)
 
 # ==============================================================================
 # SAYFA 8: SÜRDÜRÜLEBİLİRLİK
