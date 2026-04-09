@@ -1,12 +1,13 @@
 import streamlit as st
 import pandas as pd
+import numpy as np
 import datetime
 import time
 import os
 import glob
 
 # ==============================================================================
-# SİTE YAPILANDIRMASI VE AGRESİF LÜKS CSS (GECE MAVİSİ, TİKSİZ, EMOJİSİZ)
+# SİTE YAPILANDIRMASI VE AGRESİF LÜKS CSS
 # ==============================================================================
 st.set_page_config(page_title="Stellaris | Premium Astro-Tourism", layout="wide", initial_sidebar_state="expanded")
 
@@ -21,7 +22,7 @@ st.markdown("""
     [data-testid="stSidebar"] { background-color: #030814 !important; border-right: 1px solid #B8860B !important; }
 
     div[role="radiogroup"] > label > div:first-of-type { display: none !important; }
-    div[role="radiogroup"] p { color: #B8860B !important; font-family: 'Cinzel', serif !important; font-size: 1.15rem !important; font-weight: 600 !important; text-align: center !important; visibility: visible !important; display: block !important; width: 100%; margin-top: 5px; transition: all 0.3s ease; }
+    div[role="radiogroup"] p { color: #B8860B !important; font-family: 'Cinzel', serif !important; font-size: 1.1rem !important; font-weight: 600 !important; text-align: center !important; visibility: visible !important; display: block !important; width: 100%; margin-top: 5px; transition: all 0.3s ease; }
     div[role="radiogroup"] label:hover p { color: #D4AF37 !important; text-shadow: 0px 0px 10px rgba(212, 175, 55, 0.4); }
     div[role="radiogroup"] label[aria-checked="true"] p { color: #D4AF37 !important; text-shadow: 0px 0px 15px rgba(212, 175, 55, 0.8); border-bottom: 1px solid #B8860B; }
 
@@ -93,11 +94,10 @@ lang = "TR" if dil_secimi == "Türkçe" else "EN"
 st.sidebar.write("---")
 
 if lang == "TR":
-    # GASTRONOMİ ÇIKARILDI, DİJİTAL UZAY VE YAPAY ZEKA EKLENDİ
-    menu_secenekleri = ["ANA SAYFA", "LOKASYONLARIMIZ", "GÖZLEM KOŞULLARI & EKİPMAN", "DENEYİMLER & REZERVASYON", "DİJİTAL UZAY & YAPAY ZEKA", "SÜRDÜRÜLEBİLİRLİK", "YATIRIMCI PORTALI"]
+    menu_secenekleri = ["ANA SAYFA", "LOKASYONLARIMIZ", "GÖZLEM KOŞULLARI & EKİPMAN", "DENEYİMLER & REZERVASYON", "DİJİTAL UZAY & YAPAY ZEKA", "ASTRO-FOTOĞRAF SİMÜLATÖRÜ", "SÜRDÜRÜLEBİLİRLİK", "YATIRIMCI PORTALI"]
     sistem_durumu = "Sistem Durumu: Çevrimiçi"
 else:
-    menu_secenekleri = ["HOME", "OUR LOCATIONS", "CONDITIONS & EQUIPMENT", "EXPERIENCES & BOOKING", "DIGITAL SPACE & AI", "SUSTAINABILITY", "INVESTOR PORTAL"]
+    menu_secenekleri = ["HOME", "OUR LOCATIONS", "CONDITIONS & EQUIPMENT", "EXPERIENCES & BOOKING", "DIGITAL SPACE & AI", "ASTRO-PHOTO SIMULATOR", "SUSTAINABILITY", "INVESTOR PORTAL"]
     sistem_durumu = "System Status: Online"
 
 menu_secimi = st.sidebar.radio("GizliNavigasyonBasligi", menu_secenekleri, label_visibility="collapsed")
@@ -234,7 +234,7 @@ elif menu_secimi in ["DENEYİMLER & REZERVASYON", "EXPERIENCES & BOOKING"]:
             st.success(msg_success)
 
 # ==============================================================================
-# YENİ SAYFA 5: DİJİTAL UZAY & YAPAY ZEKA SİMÜLASYONU
+# SAYFA 5: DİJİTAL UZAY & YAPAY ZEKA SİMÜLASYONU
 # ==============================================================================
 elif menu_secimi in ["DİJİTAL UZAY & YAPAY ZEKA", "DIGITAL SPACE & AI"]:
     if lang == "TR":
@@ -271,13 +271,11 @@ elif menu_secimi in ["DİJİTAL UZAY & YAPAY ZEKA", "DIGITAL SPACE & AI"]:
         st.write("")
         if st.button(s_btn):
             with st.spinner(s_loading):
-                # Gerçekçi bir "generation" süresi simülasyonu
                 time.sleep(3)
             
             st.success(s_success)
             st.write("---")
             
-            # Dinamik Görsel Çıktısı (Seçime göre değişen mantık)
             if "Galaksi" in secilen_cisim or "Galaxy" in secilen_cisim:
                 gen_img = "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?q=80&w=1200&auto=format&fit=crop"
             elif "Nebula" in secilen_cisim or "Doğumhanesi" in secilen_cisim:
@@ -288,7 +286,56 @@ elif menu_secimi in ["DİJİTAL UZAY & YAPAY ZEKA", "DIGITAL SPACE & AI"]:
             st.markdown(f'<div class="hero-container"><img class="hero-image" style="height:auto; filter: brightness(80%); border: 3px solid #D4AF37;" src="{gen_img}"></div>', unsafe_allow_html=True)
 
 # ==============================================================================
-# SAYFA 6: SÜRDÜRÜLEBİLİRLİK
+# YENİ SAYFA 6: ASTRO-FOTOĞRAF SİMÜLATÖRÜ (KAMERA MEKANİKLERİ)
+# ==============================================================================
+elif menu_secimi in ["ASTRO-FOTOĞRAF SİMÜLATÖRÜ", "ASTRO-PHOTO SIMULATOR"]:
+    if lang == "TR":
+        st.markdown("<h2>Astro-Fotoğrafçılık Simülatörü</h2>", unsafe_allow_html=True)
+        st.markdown("<p>Gerçekçi kamera parametreleriyle donanım sınırlarını test edin. Atacama workshop'umuza katılmadan önce, ISO ve pozlama süresinin sensör üzerinde yaratacağı ışık ve kumlanma (noise) etkilerini canlı olarak deneyimleyin.</p>", unsafe_allow_html=True)
+        iso_label = "ISO Değeri (Sensör Işık Hassasiyeti)"
+        exp_label = "Pozlama Süresi (Saniye)"
+        btn_label = "Deklanşöre Bas (Simüle Et)"
+        msg_success = "Görüntü sensöre başarıyla kaydedildi! Yüksek ISO değerlerinde artan kumlanmaya ve uzun pozlamadaki ışık kazancına dikkat edin."
+    else:
+        st.markdown("<h2>Astro-Photography Simulator</h2>", unsafe_allow_html=True)
+        st.markdown("<p>Test hardware limits with realistic camera parameters. Before joining our Atacama workshop, experience live how ISO and exposure time affect light gathering and sensor noise.</p>", unsafe_allow_html=True)
+        iso_label = "ISO Value (Sensor Light Sensitivity)"
+        exp_label = "Exposure Time (Seconds)"
+        btn_label = "Press Shutter (Simulate)"
+        msg_success = "Image successfully captured by the sensor! Notice the increased noise at high ISO values and the light gain during long exposures."
+
+    st.write("---")
+    
+    col_ctrl, col_view = st.columns([1, 2])
+    
+    with col_ctrl:
+        st.markdown(f"<h3 style='text-align: left !important;'>Parametreler</h3>", unsafe_allow_html=True)
+        iso_val = st.slider(iso_label, 100, 6400, 800, step=100)
+        exp_val = st.slider(exp_label, 1, 30, 10, step=1)
+        st.write("")
+        render_btn = st.button(btn_label)
+
+    # Simülasyon Matematiği:
+    # Çok düşük değerlerde fotoğraf karanlık çıkar. ISO arttıkça aydınlanır ama 'noise_opacity' artar.
+    brightness = 0.15 + (exp_val / 30.0) * 0.6 + (iso_val / 6400.0) * 0.5
+    noise_opacity = (iso_val / 6400.0) * 0.70 # ISO arttıkça kumlanma (noise) artar.
+    
+    base_img = "https://images.unsplash.com/photo-1464802686167-b939a6910659?q=80&w=1200&auto=format&fit=crop"
+    
+    with col_view:
+        # Sensör Görüntüsü
+        st.markdown(f"""
+        <div style="position: relative; width: 100%; border: 2px solid #B8860B; border-radius: 4px; overflow: hidden; background-color: #000; box-shadow: 0 5px 25px rgba(0,0,0,0.8);">
+            <img src="{base_img}" style="width: 100%; display: block; filter: brightness({brightness}) contrast(1.2); transition: filter 0.5s ease;">
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('https://www.transparenttextures.com/patterns/stardust.png'); opacity: {noise_opacity}; mix-blend-mode: screen; pointer-events: none; transition: opacity 0.5s ease;"></div>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        if render_btn:
+            st.success(msg_success)
+
+# ==============================================================================
+# SAYFA 7: SÜRDÜRÜLEBİLİRLİK
 # ==============================================================================
 elif menu_secimi in ["SÜRDÜRÜLEBİLİRLİK", "SUSTAINABILITY"]:
     if lang == "TR":
@@ -316,7 +363,7 @@ elif menu_secimi in ["SÜRDÜRÜLEBİLİRLİK", "SUSTAINABILITY"]:
         with st.expander(ex3[0]): st.write(ex3[1])
 
 # ==============================================================================
-# SAYFA 7: YATIRIMCI PORTALI
+# SAYFA 8: YATIRIMCI PORTALI
 # ==============================================================================
 elif menu_secimi in ["YATIRIMCI PORTALI", "INVESTOR PORTAL"]:
     if lang == "TR":
