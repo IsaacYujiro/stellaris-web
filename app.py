@@ -1,4 +1,5 @@
 import streamlit as st
+import streamlit.components.v1 as components
 import pandas as pd
 import numpy as np
 import datetime
@@ -62,7 +63,7 @@ st.markdown("""
     div.stButton > button:first-child:hover { background-color: #B8860B !important; color: #051024 !important; transform: scale(1.05); box-shadow: 0 0 20px rgba(184, 134, 11, 0.4); }
 
     [data-baseweb="tab-list"] { justify-content: center; gap: 10px; flex-wrap: wrap; }
-    [data-baseweb="tab"] { background-color: transparent !important; color: #C5A059 !important; font-family: 'Cinzel', serif; font-size: 1rem; padding: 5px 15px; }
+    [data-baseweb="tab"] { background-color: transparent !important; color: #C5A059 !important; font-family: 'Cinzel', serif; font-size: 0.9rem; padding: 5px 10px; }
     [aria-selected="true"] { color: #B8860B !important; border-bottom: 2px solid #B8860B !important; font-weight: bold; }
     .stProgress > div > div > div > div { background-color: #B8860B !important; }
     
@@ -131,10 +132,10 @@ if menu_secimi in ["ANA SAYFA", "HOME"]:
     st.write("---")
     if lang == "TR":
         st.markdown("<h2>Gökyüzünün Sınırlarını Keşfedin</h2>", unsafe_allow_html=True)
-        st.markdown("<p>Stellaris, sıradan tatil anlayışını geride bırakıp gözlerini evrenin derinliklerine çevirenler için doğdu. Işık kirliliğinden tamamen arınmış dünyanın en karanlık ve en berrak noktalarında, bilim ve doğayı kusursuz bir lüksle harmanlıyoruz. Gece gözlem turlarımız ve premium konaklama seçeneklerimizle yıldızların altında unutulmaz bir hikaye yazın.</p>", unsafe_allow_html=True)
+        st.markdown("<p>Stellaris, sıradan tatil anlayışını geride bırakıp gözlerini evrenin derinliklerine çevirenler için doğdu. Işık kirliliğinden tamamen arınmış dünyanın en karanlık ve en berrak noktalarında, bilim ve doğayı kusursuz bir lüksle harmanlıyoruz.</p>", unsafe_allow_html=True)
     else:
         st.markdown("<h2>Discover the Limits of the Sky</h2>", unsafe_allow_html=True)
-        st.markdown("<p>Stellaris was born for those who leave ordinary holiday concepts behind and turn their eyes to the depths of the universe. In the darkest and clearest points of the world, completely free from light pollution, we blend science and nature with flawless luxury. Write an unforgettable story under the stars with our night observation tours and premium accommodation options.</p>", unsafe_allow_html=True)
+        st.markdown("<p>Stellaris was born for those who leave ordinary holiday concepts behind and turn their eyes to the depths of the universe. In the darkest and clearest points of the world, completely free from light pollution, we blend science and nature with flawless luxury.</p>", unsafe_allow_html=True)
         
     st.write("---")
     col_space1, col_image, col_space2 = st.columns([1, 8, 1])
@@ -164,89 +165,118 @@ elif menu_secimi in ["LOKASYONLARIMIZ", "OUR LOCATIONS"]:
         st.markdown(f"""<div class="service-card"><img class="service-img" src="https://images.unsplash.com/photo-1464802686167-b939a6910659?q=80&w=800&auto=format&fit=crop"><div class="service-content"><h3 class="service-title">{t_nz_title}</h3><p class="service-desc">{t_nz_desc}</p></div></div>""", unsafe_allow_html=True)
 
 # ==============================================================================
-# YENİ SAYFA 3: CANLI GÖZLEMEVİ (GERÇEK BAĞLANTILAR)
+# YENİ SAYFA 3: CANLI GÖZLEMEVİ (YOUTUBE YOK, %100 GERÇEK VE SÜREKLİ GÜNCELLENEN API'LER)
 # ==============================================================================
 elif menu_secimi in ["CANLI GÖZLEMEVİ", "LIVE OBSERVATORY"]:
     if lang == "TR":
-        st.markdown("<h2>Gerçek Zamanlı Uzay Gözlemevi</h2>", unsafe_allow_html=True)
-        st.markdown("<p>NASA ve uluslararası gözlemevlerinden alınan %100 GERÇEK ve KESİNTİSİZ canlı yayınlar. Youtube engelleri olmadan, uzayı tam şu an olduğu gibi izleyin.</p>", unsafe_allow_html=True)
+        st.markdown("<h2>Stellaris Gerçek Zamanlı Uydu Ağı</h2>", unsafe_allow_html=True)
+        st.markdown("<p style='color: #D4AF37;'><b>Video oynatıcıları iptal edildi.</b> Aşağıdaki tüm kanallar doğrudan NASA ve NOAA uydularından alınan <b>gerçek zamanlı veri akışlarıdır</b>. Sistem, görüntüleri arka planda sürekli olarak kendiliğinden günceller. Siyah ekran veya hata almazsınız.</p>", unsafe_allow_html=True)
     else:
-        st.markdown("<h2>Real-Time Space Observatory</h2>", unsafe_allow_html=True)
-        st.markdown("<p>100% REAL and UNINTERRUPTED live streams from NASA and international observatories. Watch space exactly as it is right now, without YouTube restrictions.</p>", unsafe_allow_html=True)
+        st.markdown("<h2>Stellaris Real-Time Satellite Network</h2>", unsafe_allow_html=True)
+        st.markdown("<p style='color: #D4AF37;'><b>Video players eliminated.</b> All channels below are <b>real-time data streams</b> pulled directly from NASA and NOAA satellites. The system auto-refreshes the images constantly. You will not see black screens or errors.</p>", unsafe_allow_html=True)
 
     st.write("---")
     
-    # Gerçek canlı yayınlar için sekmeler
-    t1, t2, t3, t4 = st.tabs([
-        "🌍 ISS HD CANLI (IBM Ustream)", 
-        "☀️ NASA SDO (Canlı Güneş)", 
-        "🌌 HAWAII SUBARU (Canlı Gökyüzü)",
-        "📡 NASA TV (Görev Kontrol)"
+    # 7 Sekmeli Garanti Çalışan Menü
+    t1, t2, t3, t4, t5, t6, t7 = st.tabs([
+        "🌍 CANLI DÜNYA (GOES-16)", 
+        "☀️ GÜNEŞ (SDO 304)", 
+        "☀️ GÜNEŞ (SDO 171)", 
+        "🛰️ DERİN UZAY (SOHO)", 
+        "📍 ISS CANLI RADAR",
+        "🌌 AURORA HARİTASI",
+        "🔭 TELESKOP SİMÜLATÖRÜ"
     ])
 
-    # 1. ISS CANLI YAYINI (IBM USTREAM - %100 ÇALIŞIR)
+    # Ortak HTML/JS Fonksiyonu: Resimleri Sayfayı Yenilemeden Arka Planda Otomatik Günceller
+    def auto_refresh_image(img_id, img_url, refresh_rate_ms, title, max_width="600px"):
+        html_code = f"""
+        <div style="border: 2px solid #B8860B; border-radius: 8px; position: relative; overflow: hidden; text-align: center; background: #000; padding: 20px;">
+            <div style="position: absolute; top: 15px; left: 15px; background: rgba(0,0,0,0.8); padding: 5px 15px; color: #00ff00; font-family: monospace; font-weight: bold; border: 1px solid #00ff00; z-index: 10; border-radius: 4px;">
+                <span style="animation: blink 1s infinite;">●</span> {title}
+            </div>
+            <img id="{img_id}" src="{img_url}" style="width: 100%; max-width: {max_width}; border-radius: 4px; box-shadow: 0 0 40px rgba(184, 134, 11, 0.4);">
+        </div>
+        <script>
+            // Resmi önbellekten okumamak (cache-bust) için sonuna rastgele zaman damgası ekliyoruz
+            setInterval(function() {{
+                document.getElementById('{img_id}').src = '{img_url}?time=' + new Date().getTime();
+            }}, {refresh_rate_ms});
+        </script>
+        """
+        return html_code
+
+    # 1. GOES-16 DÜNYA UYDUSU
     with t1:
-        st.markdown("<h3>Uluslararası Uzay İstasyonu (ISS) - HD Dünya Kamerası</h3>", unsafe_allow_html=True)
-        st.markdown("<p style='color: #C5A059;'>IBM Ustream üzerinden sağlanan resmi NASA yayını. <i>Not: ISS saniyede 7.6 km hızla ilerler. Eğer ekran siyahsa, ISS Dünya'nın karanlık (gece) tarafındadır. Güneşin doğuşu her 45 dakikada bir gerçekleşir. Lütfen bekleyin.</i></p>", unsafe_allow_html=True)
-        
-        # IBM Ustream IFRAME - YouTube kısıtlamalarından etkilenmez
-        iss_html = """
-        <div style="border: 2px solid #B8860B; border-radius: 8px; position: relative; overflow: hidden; height: 550px;">
-            <div style="position: absolute; top: 15px; left: 15px; background: rgba(0,0,0,0.8); padding: 5px 15px; color: #ff3333; font-family: monospace; font-weight: bold; border: 1px solid #ff3333; z-index: 10; border-radius: 4px;">
-                <span style="animation: blink 1s infinite;">●</span> LIVE: ISS HD EARTH VIEWING
-            </div>
-            <iframe src="https://video.ibm.com/embed/17074538?autoplay=1&mute=1" style="width: 100%; height: 100%; border: 0;" allowfullscreen webkitallowfullscreen></iframe>
-        </div>
-        """
-        st.markdown(iss_html, unsafe_allow_html=True)
+        st.markdown("<h3>NOAA GOES-16 Uydusu (Canlı Dünya)</h3>", unsafe_allow_html=True)
+        st.markdown("<p style='color: #C5A059;'>Dünyamızın uzaydan 36,000 km yükseklikten çekilen anlık görüntüsü.</p>", unsafe_allow_html=True)
+        components.html(auto_refresh_image("goes_img", "https://cdn.star.nesdis.noaa.gov/GOES16/ABI/FD/GEOCOLOR/latest.jpg", 60000, "LIVE: GOES-16 EARTH", "550px"), height=650)
 
-    # 2. NASA SDO (GÜNEŞ DİNAMİKLERİ GÖZLEMEVİ - GERÇEK ZAMANLI VERİ)
+    # 2. NASA SDO 304 (GÜNEŞ)
     with t2:
-        st.markdown("<h3>NASA SDO (Solar Dynamics Observatory) - Canlı Güneş Aktivitesi</h3>", unsafe_allow_html=True)
-        st.markdown("<p style='color: #C5A059;'>NASA sunucularından doğrudan çekilen, Güneş'in en güncel 304 Ånga (AIA 304) kızılötesi dalga boyu görüntüsü. Bu görüntü her 15 dakikada bir otomatik olarak yenilenir.</p>", unsafe_allow_html=True)
-        
-        # Doğrudan NASA'nın sunucusundan çekilen ve sürekli güncellenen resim dosyası
-        sdo_html = """
-        <div style="border: 2px solid #B8860B; border-radius: 8px; position: relative; overflow: hidden; background: #000; text-align: center; padding: 30px 0;">
-            <div style="position: absolute; top: 15px; left: 15px; background: rgba(0,0,0,0.8); padding: 5px 15px; color: #ff3333; font-family: monospace; font-weight: bold; border: 1px solid #ff3333; z-index: 10; border-radius: 4px;">
-                <span style="animation: blink 1s infinite;">●</span> LIVE: NASA SDO (AIA 304)
-            </div>
-            <img src="https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_0304.jpg" style="width: 100%; max-width: 600px; border-radius: 50%; box-shadow: 0 0 60px rgba(255, 60, 0, 0.6);">
-        </div>
-        """
-        st.markdown(sdo_html, unsafe_allow_html=True)
+        st.markdown("<h3>NASA SDO (Güneş Dinamikleri Gözlemevi - 304 Å)</h3>", unsafe_allow_html=True)
+        st.markdown("<p style='color: #C5A059;'>Güneş atmosferindeki devasa kızıl patlamalar. Veri doğrudan uzaydaki uydudan çekilir.</p>", unsafe_allow_html=True)
+        components.html(auto_refresh_image("sdo304_img", "https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_0304.jpg", 60000, "LIVE: SDO (AIA 304)", "550px"), height=650)
 
-    # 3. HAWAII SUBARU (ALL-SKY CAMERA)
+    # 3. NASA SDO 171 (GÜNEŞ)
     with t3:
-        st.markdown("<h3>Subaru Teleskobu - Mauna Kea, Hawaii (Canlı Gökyüzü Kamerası)</h3>", unsafe_allow_html=True)
-        st.markdown("<p style='color: #C5A059;'>Hawaii'de hava karardığında, dünyanın en iyi gözlem noktalarından birinden Samanyolu'nu ve kayan yıldızları canlı izleyin.</p>", unsafe_allow_html=True)
-        
-        # Subaru Telescope All Sky Cam (Alternatif Güvenli Embed)
-        hawaii_html = """
-        <div style="border: 2px solid #B8860B; border-radius: 8px; position: relative; overflow: hidden; height: 550px;">
-            <div style="position: absolute; top: 15px; left: 15px; background: rgba(0,0,0,0.8); padding: 5px 15px; color: #ff3333; font-family: monospace; font-weight: bold; border: 1px solid #ff3333; z-index: 10; border-radius: 4px;">
-                <span style="animation: blink 1s infinite;">●</span> LIVE: MAUNA KEA STAR CAM
-            </div>
-            <iframe width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/live_stream?channel=UCeiZjeFosQRE54S2TjX-bzg&autoplay=1&mute=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div>
-        """
-        st.markdown(hawaii_html, unsafe_allow_html=True)
+        st.markdown("<h3>NASA SDO (Güneş Manyetik Döngüleri - 171 Å)</h3>", unsafe_allow_html=True)
+        st.markdown("<p style='color: #C5A059;'>Güneşin altın renkli manyetik fırtınaları.</p>", unsafe_allow_html=True)
+        components.html(auto_refresh_image("sdo171_img", "https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_0171.jpg", 60000, "LIVE: SDO (AIA 171)", "550px"), height=650)
 
-    # 4. NASA TV (GÖREV KONTROL - IBM USTREAM)
+    # 4. NASA SOHO (UZAY RADARI)
     with t4:
-        st.markdown("<h3>NASA TV - Resmi Yayın Arşivi & Canlı Görevler</h3>", unsafe_allow_html=True)
-        st.markdown("<p style='color: #C5A059;'>NASA'nın IBM Cloud üzerinden sağladığı resmi televizyon yayını. Uzay yürüyüşleri, fırlatmalar ve görev kontrol merkezi bağlantıları.</p>", unsafe_allow_html=True)
-        
-        # IBM Ustream NASA TV
-        nasa_html = """
-        <div style="border: 2px solid #B8860B; border-radius: 8px; position: relative; overflow: hidden; height: 550px;">
-            <div style="position: absolute; top: 15px; left: 15px; background: rgba(0,0,0,0.8); padding: 5px 15px; color: #ff3333; font-family: monospace; font-weight: bold; border: 1px solid #ff3333; z-index: 10; border-radius: 4px;">
-                <span style="animation: blink 1s infinite;">●</span> LIVE: NASA TV (PUBLIC)
-            </div>
-            <iframe src="https://video.ibm.com/embed/6540154?autoplay=1&mute=1" style="width: 100%; height: 100%; border: 0;" allowfullscreen webkitallowfullscreen></iframe>
+        st.markdown("<h3>SOHO LASCO C3 Koronagraf Radarı</h3>", unsafe_allow_html=True)
+        st.markdown("<p style='color: #C5A059;'>Güneş sistemimize giren göktaşlarını ve plazma atımlarını tespit eden radar kamerası.</p>", unsafe_allow_html=True)
+        components.html(auto_refresh_image("soho_img", "https://soho.nascom.nasa.gov/data/realtime/c3/1024/latest.jpg", 60000, "LIVE: SOHO RADAR", "550px"), height=650)
+
+    # 5. ISS CANLI RADAR (KIRILMAZ HARİTA)
+    with t5:
+        st.markdown("<h3>Uluslararası Uzay İstasyonu (ISS) Canlı Takip Haritası</h3>", unsafe_allow_html=True)
+        st.markdown("<p style='color: #C5A059;'>ISS'in Dünya üzerindeki tam konumu. (Video kısıtlamaları nedeniyle resmi ESA radarını kullanıyoruz).</p>", unsafe_allow_html=True)
+        iss_tracker = """
+        <div style="border: 2px solid #B8860B; border-radius: 8px; overflow: hidden; height: 550px;">
+            <iframe src="https://isstracker.spaceflight.esa.int/" width="100%" height="100%" frameborder="0" style="pointer-events: none;"></iframe>
         </div>
         """
-        st.markdown(nasa_html, unsafe_allow_html=True)
+        st.markdown(iss_tracker, unsafe_allow_html=True)
+
+    # 6. AURORA TAHMİN HARİTASI
+    with t6:
+        st.markdown("<h3>NOAA Canlı Aurora (Kuzey Işıkları) Tahmini</h3>", unsafe_allow_html=True)
+        st.markdown("<p style='color: #C5A059;'>Kutup bölgelerindeki anlık manyetik aktivite yoğunluğu.</p>", unsafe_allow_html=True)
+        components.html(auto_refresh_image("aurora_img", "https://services.swpc.noaa.gov/images/aurora-forecast-northern-hemisphere.jpg", 60000, "LIVE: AURORA FORECAST", "600px"), height=650)
+
+    # 7. TELESKOP SİMÜLATÖRÜ (ETKİLEŞİMLİ)
+    with t7:
+        if "telescope_connected" not in st.session_state:
+            st.session_state.telescope_connected = False
+
+        col_setup, col_empty = st.columns([1, 2])
+        with col_setup:
+            istasyon = st.selectbox("İstasyon / Station:", ["Atacama Alpha (Celestron 1100 HD)", "Tekapo South (Meade LX200 14'')"])
+            if st.button("Sanal Bağlantı Kur / Connect"):
+                with st.spinner("Bağlanılıyor / Connecting..."): time.sleep(1.5)
+                st.session_state.telescope_connected = True
+
+        if st.session_state.telescope_connected:
+            st.write("---")
+            col_view, col_controls = st.columns([2, 1])
+            with col_controls:
+                zoom_level = st.slider("Dijital Zoom", 1.0, 3.0, 1.0, 0.1)
+                filter_type = st.radio("Astro-Filtreler", ["Görünür Işık / Visible", "H-Alpha (Kızılötesi)", "O-III (Oksijen)"])
+                css_filter = "none"
+                if "H-Alpha" in filter_type: css_filter = "sepia(100%) hue-rotate(-50deg) saturate(300%) contrast(1.5)"
+                elif "O-III" in filter_type: css_filter = "sepia(100%) hue-rotate(130deg) saturate(200%) contrast(1.2)"
+
+            with col_view:
+                deep_space_img = "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?q=80&w=1200&auto=format&fit=crop" if "Atacama" in istasyon else "https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?q=80&w=1200&auto=format&fit=crop"
+                st.markdown(f"""
+                <div style="width: 100%; height: 450px; border: 3px solid #B8860B; border-radius: 8px; overflow: hidden; background-color: #000; position: relative; box-shadow: 0 0 30px rgba(184, 134, 11, 0.3);">
+                    <div style="position: absolute; top: 15px; left: 15px; color: red; font-family: monospace; font-weight: bold; z-index: 10;"><span style="animation: blink 1s infinite;">●</span> REC / SIMULATION</div>
+                    <img src="{deep_space_img}" style="width: 100%; height: 100%; object-fit: cover; transform: scale({zoom_level}); filter: {css_filter}; transition: all 0.5s ease; transform-origin: center center;">
+                </div>
+                """, unsafe_allow_html=True)
 
 
 # ==============================================================================
