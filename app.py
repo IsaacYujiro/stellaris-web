@@ -62,8 +62,9 @@ st.markdown("""
     div.stButton > button:first-child { background-color: #030814 !important; color: #B8860B !important; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 1.1rem; padding: 15px 50px; border: 1px solid #B8860B !important; border-radius: 2px; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); letter-spacing: 2px; text-transform: uppercase; }
     div.stButton > button:first-child:hover { background-color: #B8860B !important; color: #051024 !important; transform: scale(1.05); box-shadow: 0 0 20px rgba(184, 134, 11, 0.4); }
 
-    [data-baseweb="tab-list"] { justify-content: center; gap: 10px; flex-wrap: wrap; }
-    [data-baseweb="tab"] { background-color: transparent !important; color: #C5A059 !important; font-family: 'Cinzel', serif; font-size: 0.9rem; padding: 5px 10px; }
+    /* Sekmelerin (Tabs) Taşmasını Önleyen ve Şık Yapan CSS */
+    [data-baseweb="tab-list"] { justify-content: center; gap: 5px; flex-wrap: wrap; }
+    [data-baseweb="tab"] { background-color: transparent !important; color: #C5A059 !important; font-family: 'Cinzel', serif; font-size: 0.85rem; padding: 5px; }
     [aria-selected="true"] { color: #B8860B !important; border-bottom: 2px solid #B8860B !important; font-weight: bold; }
     .stProgress > div > div > div > div { background-color: #B8860B !important; }
     
@@ -116,14 +117,16 @@ menu_secimi = st.sidebar.radio("GizliNavigasyonBasligi", menu_secenekleri, label
 st.sidebar.write("---")
 st.sidebar.info(sistem_durumu)
 
-# Ortak Fonksiyon: Youtube kullanmayan, doğrudan uydu API'lerini yenileyen sistem
-def auto_refresh_image(img_id, img_url, refresh_rate_ms, title, max_width="600px"):
+# ==============================================================================
+# ORTAK FONKSİYON: KIRILMAZ CANLI YAYIN (AUTO-REFRESH API)
+# ==============================================================================
+def auto_refresh_image(img_id, img_url, refresh_rate_ms, title, max_width="600px", filter_css="none"):
     html_code = f"""
     <div style="border: 2px solid #B8860B; border-radius: 8px; position: relative; overflow: hidden; text-align: center; background: #000; padding: 20px;">
-        <div style="position: absolute; top: 15px; left: 15px; background: rgba(0,0,0,0.8); padding: 5px 15px; color: #00ff00; font-family: monospace; font-weight: bold; border: 1px solid #00ff00; z-index: 10; border-radius: 4px;">
+        <div style="position: absolute; top: 15px; left: 15px; background: rgba(0,0,0,0.8); padding: 5px 15px; color: #00ff00; font-family: monospace; font-weight: bold; border: 1px solid #00ff00; z-index: 10; border-radius: 4px; font-size:12px;">
             <span style="animation: blink 1s infinite;">●</span> {title}
         </div>
-        <img id="{img_id}" src="{img_url}" style="width: 100%; max-width: {max_width}; border-radius: 4px; box-shadow: 0 0 40px rgba(184, 134, 11, 0.4);">
+        <img id="{img_id}" src="{img_url}" style="width: 100%; max-width: {max_width}; border-radius: 4px; box-shadow: 0 0 40px rgba(184, 134, 11, 0.4); filter: {filter_css};">
     </div>
     <script>
         setInterval(function() {{
@@ -182,23 +185,27 @@ elif menu_secimi in ["LOKASYONLARIMIZ", "OUR LOCATIONS"]:
         st.markdown(f"""<div class="service-card"><img class="service-img" src="https://images.unsplash.com/photo-1464802686167-b939a6910659?q=80&w=800&auto=format&fit=crop"><div class="service-content"><h3 class="service-title">{t_nz_title}</h3><p class="service-desc">{t_nz_desc}</p></div></div>""", unsafe_allow_html=True)
 
 # ==============================================================================
-# SAYFA 3: CANLI GÖZLEMEVİ (YOUTUBE TAMAMEN SİLİNDİ - 100% GARANTİ API'LER)
+# YENİ SAYFA 3: CANLI GÖZLEMEVİ (11 SEKMELİ KESİNTİSİZ UYDU AĞI)
 # ==============================================================================
 elif menu_secimi in ["CANLI GÖZLEMEVİ", "LIVE OBSERVATORY"]:
     if lang == "TR":
         st.markdown("<h2>Stellaris Kesintisiz Uydu Ağı</h2>", unsafe_allow_html=True)
-        st.markdown("<p style='color: #D4AF37;'><b>YouTube ve Video Oynatıcıları tamamen kaldırıldı.</b> Aşağıdaki tüm kanallar doğrudan NASA ve NOAA uydularından çekilen <b>ham veri akışlarıdır</b>. Siz hiçbir şey yapmasanız da sistem arka planda her 60 saniyede bir yeni fotoğrafları çeker. Asla hata vermez.</p>", unsafe_allow_html=True)
+        st.markdown("<p style='color: #D4AF37;'><b>Video oynatıcıları iptal edildi.</b> Bu menüdeki tüm görseller doğrudan uydu API'leridir. Siz hiçbir şey yapmasanız da sistem arka planda her dakika görüntüleri yenileyerek gerçek zamanlı akış sağlar. (Siyah/Mavi ekranlar Dünya'nın gece tarafına işaret eder).</p>", unsafe_allow_html=True)
     else:
         st.markdown("<h2>Stellaris Uninterrupted Satellite Network</h2>", unsafe_allow_html=True)
-        st.markdown("<p style='color: #D4AF37;'><b>All YouTube and video players have been removed.</b> All channels below are <b>raw data streams</b> pulled directly from NASA and NOAA satellites. The system auto-refreshes seamlessly every 60 seconds.</p>", unsafe_allow_html=True)
+        st.markdown("<p style='color: #D4AF37;'><b>All video players eliminated.</b> All visuals are direct satellite APIs that auto-refresh every minute in the background.</p>", unsafe_allow_html=True)
     st.write("---")
     
-    t1, t2, t3, t4, t5, t6, t7 = st.tabs([
-        "🌍 GOES-16 (Amerika)", 
-        "🌍 HIMAWARI-9 (Asya)", 
-        "☀️ SDO 304 (Güneş)", 
-        "☀️ SDO 171 (Güneş)", 
-        "🛰️ SOHO C3 (Uzay Radarı)", 
+    t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11 = st.tabs([
+        "🌍 GOES-16 (AMERİKA)", 
+        "🌍 HIMAWARI (ASYA)", 
+        "🌍 GOES-16 (KIZILÖTESİ)", 
+        "☀️ SDO 304 (GÜNEŞ)", 
+        "☀️ SDO 171 (GÜNEŞ)", 
+        "☀️ SDO 211 (KORONA)",
+        "☀️ SDO (MANYETİK)",
+        "🛰️ SOHO C2 (İÇ KORONA)", 
+        "🛰️ SOHO C3 (RADAR)", 
         "📍 ISS CANLI RADAR",
         "🔭 TELESKOP SİM."
     ])
@@ -208,22 +215,38 @@ elif menu_secimi in ["CANLI GÖZLEMEVİ", "LIVE OBSERVATORY"]:
         components.html(auto_refresh_image("goes16_img", "https://cdn.star.nesdis.noaa.gov/GOES16/ABI/FD/GEOCOLOR/latest.jpg", 60000, "LIVE: GOES-16 (EAST)", "550px"), height=650)
 
     with t2:
-        st.markdown("<h3>Japonya Meteoroloji Ajansı HIMAWARI-9 (Asya & Pasifik)</h3>", unsafe_allow_html=True)
+        st.markdown("<h3>HIMAWARI-9 (Asya & Pasifik)</h3>", unsafe_allow_html=True)
         components.html(auto_refresh_image("goes18_img", "https://cdn.star.nesdis.noaa.gov/AHI/FD/GEOCOLOR/latest.jpg", 60000, "LIVE: HIMAWARI-9 (WEST)", "550px"), height=650)
 
     with t3:
+        st.markdown("<h3>NOAA GOES-16 Band 13 (Kızılötesi Sıcaklık / Gece Görüşü)</h3>", unsafe_allow_html=True)
+        components.html(auto_refresh_image("goes16ir_img", "https://cdn.star.nesdis.noaa.gov/GOES16/ABI/FD/Band13/latest.jpg", 60000, "LIVE: GOES-16 INFRARED", "550px"), height=650)
+
+    with t4:
         st.markdown("<h3>NASA SDO (AIA 304 - Kızılötesi Güneş Patlamaları)</h3>", unsafe_allow_html=True)
         components.html(auto_refresh_image("sdo304_img", "https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_0304.jpg", 60000, "LIVE: SDO (AIA 304)", "550px"), height=650)
 
-    with t4:
+    with t5:
         st.markdown("<h3>NASA SDO (AIA 171 - Manyetik Döngüler)</h3>", unsafe_allow_html=True)
         components.html(auto_refresh_image("sdo171_img", "https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_0171.jpg", 60000, "LIVE: SDO (AIA 171)", "550px"), height=650)
 
-    with t5:
+    with t6:
+        st.markdown("<h3>NASA SDO (AIA 211 - Güneş Koronası)</h3>", unsafe_allow_html=True)
+        components.html(auto_refresh_image("sdo211_img", "https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_0211.jpg", 60000, "LIVE: SDO (AIA 211)", "550px"), height=650)
+
+    with t7:
+        st.markdown("<h3>NASA SDO (HMI - Manyetik Alan Haritası)</h3>", unsafe_allow_html=True)
+        components.html(auto_refresh_image("sdohmi_img", "https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_HMIB.jpg", 60000, "LIVE: SDO MAGNETOGRAM", "550px", "contrast(1.5)"), height=650)
+
+    with t8:
+        st.markdown("<h3>NASA SOHO LASCO C2 (İç Koronagraf)</h3>", unsafe_allow_html=True)
+        components.html(auto_refresh_image("sohoc2_img", "https://soho.nascom.nasa.gov/data/realtime/c2/1024/latest.jpg", 60000, "LIVE: SOHO LASCO C2", "550px", "contrast(1.2)"), height=650)
+
+    with t9:
         st.markdown("<h3>NASA SOHO LASCO C3 (Geniş Açılı Uzay Radarı)</h3>", unsafe_allow_html=True)
         components.html(auto_refresh_image("sohoc3_img", "https://soho.nascom.nasa.gov/data/realtime/c3/1024/latest.jpg", 60000, "LIVE: SOHO LASCO C3", "550px"), height=650)
 
-    with t6:
+    with t10:
         st.markdown("<h3>Uluslararası Uzay İstasyonu (ISS) Canlı Konumu</h3>", unsafe_allow_html=True)
         st.markdown("""
         <div style="border: 2px solid #B8860B; border-radius: 8px; overflow: hidden; height: 550px;">
@@ -231,7 +254,7 @@ elif menu_secimi in ["CANLI GÖZLEMEVİ", "LIVE OBSERVATORY"]:
         </div>
         """, unsafe_allow_html=True)
 
-    with t7:
+    with t11:
         if "telescope_connected" not in st.session_state: st.session_state.telescope_connected = False
         istasyon = st.selectbox("İstasyon / Station:", ["Atacama Alpha (Celestron 1100 HD)", "Tekapo South (Meade LX200 14'')"])
         if st.button("Sanal Bağlantı Kur / Connect"):
@@ -261,7 +284,6 @@ elif menu_secimi in ["VİDEOLAR GALERİSİ", "VIDEO GALLERY"]:
     st.markdown("<p>{}</p>".format("Evrenin en büyüleyici anlarının yüksek çözünürlüklü kayıtları. Bu arşivdeki tüm videolar 'Embed' (Yerleştirme) izinleri açık olarak özel seçilmiştir, sorunsuz çalışır." if lang == "TR" else "High-definition recordings of the universe's most fascinating moments. All videos are verified to allow embedding without errors."), unsafe_allow_html=True)
     st.write("---")
 
-    # Metin hatası tamamen düzeltildi
     title_james = "James Webb Teleskobu: Uzayın Derinlikleri" if lang == "TR" else "James Webb: Depths of Space"
     title_spacex = "SpaceX Starship Uçuş Testi" if lang == "TR" else "SpaceX Starship Flight Test"
     title_mars = "Mars Yüzeyi 4K (Perseverance Uzay Aracı)" if lang == "TR" else "Mars Surface in 4K (Perseverance)"
@@ -270,7 +292,6 @@ elif menu_secimi in ["VİDEOLAR GALERİSİ", "VIDEO GALLERY"]:
     v_col1, v_col2 = st.columns(2)
     with v_col1:
         st.markdown(f"<h3>{title_james}</h3>", unsafe_allow_html=True)
-        # Dünyanın en popüler, izni kesin açık uzay belgeseli kanalı (Melodysheep)
         st.video("https://www.youtube.com/watch?v=uD4izuDMUQA")
         
         st.markdown(f"<br><h3>{title_spacex}</h3>", unsafe_allow_html=True)
@@ -281,7 +302,6 @@ elif menu_secimi in ["VİDEOLAR GALERİSİ", "VIDEO GALLERY"]:
         st.video("https://www.youtube.com/watch?v=ZEyAs3NWH4A")
         
         st.markdown(f"<br><h3>{title_earth}</h3>", unsafe_allow_html=True)
-        # Daha önce hata vermeyecek, genel kullanıma %100 açık başka bir 4K Uzay/Dünya videosu
         st.video("https://www.youtube.com/watch?v=Un5SEJ8MyPc")
 
 # ==============================================================================
