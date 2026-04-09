@@ -66,6 +66,9 @@ st.markdown("""
     [aria-selected="true"] { color: #B8860B !important; border-bottom: 2px solid #B8860B !important; font-weight: bold; }
     .streamlit-expanderHeader { font-family: 'Cinzel', serif; color: #B8860B !important; text-align: center; font-size: 1.1rem; }
     .stProgress > div > div > div > div { background-color: #B8860B !important; }
+    
+    /* Yanıp Sönen Kırmızı Kayıt İkonu Animasyonu */
+    @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
     </style>
     """, unsafe_allow_html=True)
 
@@ -162,20 +165,19 @@ elif menu_secimi in ["LOKASYONLARIMIZ", "OUR LOCATIONS"]:
         st.markdown(f"""<div class="service-card"><img class="service-img" src="https://images.unsplash.com/photo-1464802686167-b939a6910659?q=80&w=800&auto=format&fit=crop"><div class="service-content"><h3 class="service-title">{t_nz_title}</h3><p class="service-desc">{t_nz_desc}</p></div></div>""", unsafe_allow_html=True)
 
 # ==============================================================================
-# YENİ SAYFA 3: CANLI GÖZLEMEVİ (GERÇEK ZAMANLI YAYINLAR EKLENDİ)
+# YENİ SAYFA 3: CANLI GÖZLEMEVİ (HTML IFRAME İLE KUSURSUZ CANLI YAYIN)
 # ==============================================================================
 elif menu_secimi in ["CANLI GÖZLEMEVİ", "LIVE OBSERVATORY"]:
     if lang == "TR":
         st.markdown("<h2>Gözlemevi & Canlı Uzay Bağlantıları</h2>", unsafe_allow_html=True)
-        st.markdown("<p>Sadece hayal etmeyin, gerçek zamanlı olarak izleyin. Aşağıdaki sekmelerden simüle edilmiş teleskoplarımıza bağlanabilir veya NASA/ISS üzerinden dünyanın yörüngesini şu an canlı olarak izleyebilirsiniz.</p>", unsafe_allow_html=True)
+        st.markdown("<p>NASA/ISS üzerinden dünyanın yörüngesini şu an kesintisiz canlı olarak izleyin veya simülasyon teleskoplarımıza bağlanın.</p>", unsafe_allow_html=True)
         tab_sim, tab_iss, tab_nasa = "TELESKOP SİMÜLATÖRÜ", "ISS CANLI YAYINI", "NASA CANLI YAYINI"
     else:
         st.markdown("<h2>Observatory & Live Space Feeds</h2>", unsafe_allow_html=True)
-        st.markdown("<p>Don't just imagine it, watch it in real time. Connect to our simulated telescopes or watch Earth's orbit live right now via NASA/ISS feeds.</p>", unsafe_allow_html=True)
+        st.markdown("<p>Watch Earth's orbit live right now via NASA/ISS feeds seamlessly, or connect to our simulated telescopes.</p>", unsafe_allow_html=True)
         tab_sim, tab_iss, tab_nasa = "TELESCOPE SIMULATOR", "ISS LIVE FEED", "NASA LIVE FEED"
 
     st.write("---")
-    
     t1, t2, t3 = st.tabs([tab_sim, tab_iss, tab_nasa])
 
     with t1:
@@ -217,15 +219,41 @@ elif menu_secimi in ["CANLI GÖZLEMEVİ", "LIVE OBSERVATORY"]:
 
     with t2:
         st.markdown("<h3>Uluslararası Uzay İstasyonu (ISS) Canlı Kamerası</h3>", unsafe_allow_html=True)
-        st.markdown("<p style='color: #C5A059;'>Şu an Dünya'nın yörüngesinden canlı HD yayın. (Eğer ekran siyahsa, ISS gece tarafındadır, birkaç dakika bekleyin).</p>", unsafe_allow_html=True)
-        # ISS Canlı Yayın (YouTube Embed)
-        st.video("https://www.youtube.com/watch?v=xRPjKQtRXR8")
+        st.markdown("<p style='color: #C5A059;'>DİKKAT: Ekran siyah/gri ise ISS şu an Dünya'nın gece tarafındadır. Güneşin doğuşunu bekleyin.</p>", unsafe_allow_html=True)
+        
+        # Kirilmaz ISS Canlı Yayını (HTML iframe ile)
+        iss_html = """
+        <div style="border: 2px solid #B8860B; border-radius: 8px; overflow: hidden; position: relative; box-shadow: 0 0 30px rgba(184, 134, 11, 0.2);">
+            <div style="position: absolute; top: 15px; left: 15px; background: rgba(0,0,0,0.8); padding: 5px 15px; border-radius: 4px; color: #ff3333; font-family: monospace; font-size: 14px; font-weight: bold; border: 1px solid #ff3333; z-index: 10; letter-spacing: 1px;">
+                <span style="animation: blink 1s infinite;">●</span> LIVE: ISS ORBITAL CAM
+            </div>
+            <iframe width="100%" height="550" src="https://www.youtube.com/embed/live_stream?channel=UC8n-1aA3-H4uW0wEM2J3Iaw&autoplay=1&mute=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="display: block; pointer-events: none;"></iframe>
+        </div>
+        """
+        st.markdown(iss_html, unsafe_allow_html=True)
+        
+        # Telemetri Verileri (Simüle Edilmiş Gösterge Paneli)
+        st.write("")
+        c1, c2, c3, c4 = st.columns(4)
+        c1.metric("Orbital Speed / Hız", "27,560 km/h", "+12 km/h")
+        c2.metric("Altitude / İrtifa", "418 km", "-0.2 km")
+        c3.metric("Signal Latency / Sinyal", "124 ms", "Stabil / Stable")
+        c4.metric("Camera Status / Kamera", "Online", "Auto-Exposure")
 
     with t3:
         st.markdown("<h3>NASA Resmi Canlı Yayını</h3>", unsafe_allow_html=True)
-        st.markdown("<p style='color: #C5A059;'>NASA'nın derin uzay ağından, fırlatmalardan ve uzay yürüyüşlerinden eş zamanlı yayınlar.</p>", unsafe_allow_html=True)
-        # NASA Canlı Yayın (YouTube Embed)
-        st.video("https://www.youtube.com/watch?v=21X5lGlDOfg")
+        st.markdown("<p style='color: #C5A059;'>NASA'nın uzay yürüyüşleri ve operasyon merkezinden eş zamanlı 7/24 kesintisiz yayın.</p>", unsafe_allow_html=True)
+        
+        # Kirilmaz NASA Canlı Yayını (HTML iframe ile)
+        nasa_html = """
+        <div style="border: 2px solid #B8860B; border-radius: 8px; overflow: hidden; position: relative; box-shadow: 0 0 30px rgba(184, 134, 11, 0.2);">
+            <div style="position: absolute; top: 15px; left: 15px; background: rgba(0,0,0,0.8); padding: 5px 15px; border-radius: 4px; color: #ff3333; font-family: monospace; font-size: 14px; font-weight: bold; border: 1px solid #ff3333; z-index: 10; letter-spacing: 1px;">
+                <span style="animation: blink 1s infinite;">●</span> LIVE: NASA MISSION CONTROL
+            </div>
+            <iframe width="100%" height="550" src="https://www.youtube.com/embed/live_stream?channel=UCLA_DiR1FfKNvjuUpBHmylQ&autoplay=1&mute=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="display: block;"></iframe>
+        </div>
+        """
+        st.markdown(nasa_html, unsafe_allow_html=True)
 
 
 # ==============================================================================
