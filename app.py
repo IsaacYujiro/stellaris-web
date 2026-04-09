@@ -61,8 +61,8 @@ st.markdown("""
     div.stButton > button:first-child { background-color: #030814 !important; color: #B8860B !important; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 1.1rem; padding: 15px 50px; border: 1px solid #B8860B !important; border-radius: 2px; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); letter-spacing: 2px; text-transform: uppercase; }
     div.stButton > button:first-child:hover { background-color: #B8860B !important; color: #051024 !important; transform: scale(1.05); box-shadow: 0 0 20px rgba(184, 134, 11, 0.4); }
 
-    [data-baseweb="tab-list"] { justify-content: center; gap: 20px; }
-    [data-baseweb="tab"] { background-color: transparent !important; color: #C5A059 !important; font-family: 'Cinzel', serif; font-size: 1.2rem; }
+    [data-baseweb="tab-list"] { justify-content: center; gap: 15px; flex-wrap: wrap; }
+    [data-baseweb="tab"] { background-color: transparent !important; color: #C5A059 !important; font-family: 'Cinzel', serif; font-size: 1.1rem; padding: 10px; }
     [aria-selected="true"] { color: #B8860B !important; border-bottom: 2px solid #B8860B !important; font-weight: bold; }
     .streamlit-expanderHeader { font-family: 'Cinzel', serif; color: #B8860B !important; text-align: center; font-size: 1.1rem; }
     .stProgress > div > div > div > div { background-color: #B8860B !important; }
@@ -165,21 +165,29 @@ elif menu_secimi in ["LOKASYONLARIMIZ", "OUR LOCATIONS"]:
         st.markdown(f"""<div class="service-card"><img class="service-img" src="https://images.unsplash.com/photo-1464802686167-b939a6910659?q=80&w=800&auto=format&fit=crop"><div class="service-content"><h3 class="service-title">{t_nz_title}</h3><p class="service-desc">{t_nz_desc}</p></div></div>""", unsafe_allow_html=True)
 
 # ==============================================================================
-# YENİ SAYFA 3: CANLI GÖZLEMEVİ (YOUTUBE İPTAL, IBM/USTREAM ENTEGRASYONU EKLENDİ)
+# YENİ SAYFA 3: CANLI GÖZLEMEVİ (5 KADEMELİ GLOBAL AĞ - 7/24 KESİNTİSİZ)
 # ==============================================================================
 elif menu_secimi in ["CANLI GÖZLEMEVİ", "LIVE OBSERVATORY"]:
     if lang == "TR":
         st.markdown("<h2>Gözlemevi & Canlı Uzay Bağlantıları</h2>", unsafe_allow_html=True)
-        st.markdown("<p>Sadece hayal etmeyin, gerçek zamanlı olarak izleyin. Aşağıdaki sekmelerden simüle edilmiş teleskoplarımıza bağlanabilir veya NASA/ISS üzerinden dünyanın yörüngesini şu an canlı olarak izleyebilirsiniz.</p>", unsafe_allow_html=True)
-        tab_sim, tab_iss, tab_nasa = "TELESKOP SİMÜLATÖRÜ", "ISS CANLI YAYINI", "NASA CANLI YAYINI"
+        st.markdown("<p>Global ağımıza hoş geldiniz. İstasyonlarımız veya uydular kapalı olsa bile, Dünya'nın diğer ucundaki kameralarımızla 7/24 eşsiz gökyüzü manzaralarına kesintisiz ulaşabilirsiniz.</p>", unsafe_allow_html=True)
+        tab_sim = "🔭 TELESKOP SİM."
+        tab_iss = "🌍 ISS CANLI"
+        tab_nasa = "🚀 NASA KONTROL"
+        tab_sun = "☀️ CANLI GÜNEŞ (SDO)"
+        tab_hawaii = "🌌 HAWAII YILDIZ CAM"
     else:
         st.markdown("<h2>Observatory & Live Space Feeds</h2>", unsafe_allow_html=True)
-        st.markdown("<p>Don't just imagine it, watch it in real time. Connect to our simulated telescopes or watch Earth's orbit live right now via NASA/ISS feeds.</p>", unsafe_allow_html=True)
-        tab_sim, tab_iss, tab_nasa = "TELESCOPE SIMULATOR", "ISS LIVE FEED", "NASA LIVE FEED"
+        st.markdown("<p>Welcome to our global network. Even if some satellites are offline, you can seamlessly access 24/7 breathtaking sky views from our cameras on the other side of the Earth.</p>", unsafe_allow_html=True)
+        tab_sim = "🔭 TELESCOPE SIM."
+        tab_iss = "🌍 ISS LIVE"
+        tab_nasa = "🚀 NASA CONTROL"
+        tab_sun = "☀️ LIVE SUN (SDO)"
+        tab_hawaii = "🌌 HAWAII STAR CAM"
 
     st.write("---")
     
-    t1, t2, t3 = st.tabs([tab_sim, tab_iss, tab_nasa])
+    t1, t2, t3, t4, t5 = st.tabs([tab_sim, tab_sun, tab_hawaii, tab_iss, tab_nasa])
 
     with t1:
         if "telescope_connected" not in st.session_state:
@@ -219,13 +227,43 @@ elif menu_secimi in ["CANLI GÖZLEMEVİ", "LIVE OBSERVATORY"]:
                 """, unsafe_allow_html=True)
 
     with t2:
-        st.markdown("<h3>Uluslararası Uzay İstasyonu (ISS) Canlı Kamerası</h3>", unsafe_allow_html=True)
-        st.markdown("<p style='color: #C5A059;'>DİKKAT: Ekran siyah/gri ise ISS şu an Dünya'nın gece tarafındadır. Lütfen Güneşin doğuşunu bekleyin.</p>", unsafe_allow_html=True)
+        st.markdown("<h3>NASA SDO (Solar Dynamics Observatory)</h3>", unsafe_allow_html=True)
+        st.markdown(f"<p style='color: #C5A059;'>{'Güneş yüzeyindeki taçküre patlamaları ve devasa manyetik plazma fırtınaları. Yörüngedeki SDO uydusundan alınan bu kesintisiz veri her 15 dakikada bir güncellenir. Asla çevrimdışı olmaz.' if lang == 'TR' else 'Coronal mass ejections and massive magnetic plasma storms on the suns surface. Taken directly from the SDO satellite, this reliable feed updates every 15 minutes.'}</p>", unsafe_allow_html=True)
         
-        # YouTube İptal Edildi - IBM Cloud Video (Ustream) ISS Kanalı Entegre Edildi
+        # NASA'dan sürekli güncellenen ve asla bozulmayan CANLI GÜNEŞ resmi
+        sdo_html = """
+        <div style="border: 2px solid #B8860B; border-radius: 8px; overflow: hidden; position: relative; box-shadow: 0 0 30px rgba(184, 134, 11, 0.2); background: #000; text-align: center; padding: 20px 0;">
+            <div style="position: absolute; top: 15px; left: 15px; background: rgba(0,0,0,0.8); padding: 5px 15px; border-radius: 4px; color: #ff3333; font-family: monospace; font-size: 14px; font-weight: bold; border: 1px solid #ff3333; z-index: 10; letter-spacing: 1px;">
+                <span style="animation: blink 1s infinite;">●</span> SDO SATELLITE (AIA 304 - LIVE)
+            </div>
+            <img src="https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_0304.jpg" style="width: 100%; max-width: 550px; border-radius: 50%; box-shadow: 0 0 50px rgba(255, 50, 0, 0.4);">
+        </div>
+        """
+        st.markdown(sdo_html, unsafe_allow_html=True)
+
+    with t3:
+        st.markdown("<h3>Subaru Observatory - Mauna Kea, Hawaii</h3>", unsafe_allow_html=True)
+        st.markdown(f"<p style='color: #C5A059;'>{'Türkiye saatine göre Dünya\'nın ters yüzü. Bizde öğlen güneşi varken, burada zifiri karanlıkta Samanyolu\'nu canlı izleyebilirsiniz. (Hata verirse, YouTube güvenliği nedeniyle videonun içindeki Youtube logusuna tıklayıp sekmede açabilirsiniz).' if lang == 'TR' else 'The opposite side of the Earth. When its noon here, its pitch black here. Watch the Milky Way live 24/7.'}</p>", unsafe_allow_html=True)
+        
+        # Subaru Telescope 24/7 Star Cam (YouTube Embed)
+        hawaii_html = """
+        <div style="border: 2px solid #B8860B; border-radius: 8px; overflow: hidden; position: relative; box-shadow: 0 0 30px rgba(184, 134, 11, 0.2);">
+            <div style="position: absolute; top: 15px; left: 15px; background: rgba(0,0,0,0.8); padding: 5px 15px; border-radius: 4px; color: #ff3333; font-family: monospace; font-size: 14px; font-weight: bold; border: 1px solid #ff3333; z-index: 10; letter-spacing: 1px; pointer-events: none;">
+                <span style="animation: blink 1s infinite;">●</span> LIVE: MAUNA KEA SUMMIT
+            </div>
+            <iframe width="100%" height="550" src="https://www.youtube.com/embed/live_stream?channel=UCeiZjeFosQRE54S2TjX-bzg&autoplay=1&mute=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="display: block;"></iframe>
+        </div>
+        """
+        st.markdown(hawaii_html, unsafe_allow_html=True)
+
+    with t4:
+        st.markdown("<h3>Uluslararası Uzay İstasyonu (ISS) Canlı Kamerası</h3>", unsafe_allow_html=True)
+        st.markdown("<p style='color: #C5A059;'>IBM Cloud Video / Ustream üzerinden kesintisiz yayın. DİKKAT: Ekran siyah/gri ise ISS şu an Dünya'nın gece tarafındadır. Güneşin doğmasını bekleyin.</p>", unsafe_allow_html=True)
+        
+        # IBM Cloud (Ustream) ISS Kanalı
         iss_html = """
         <div style="border: 2px solid #B8860B; border-radius: 8px; overflow: hidden; position: relative; box-shadow: 0 0 30px rgba(184, 134, 11, 0.2);">
-            <div style="position: absolute; top: 15px; left: 15px; background: rgba(0,0,0,0.8); padding: 5px 15px; border-radius: 4px; color: #ff3333; font-family: monospace; font-size: 14px; font-weight: bold; border: 1px solid #ff3333; z-index: 10; letter-spacing: 1px;">
+            <div style="position: absolute; top: 15px; left: 15px; background: rgba(0,0,0,0.8); padding: 5px 15px; border-radius: 4px; color: #ff3333; font-family: monospace; font-size: 14px; font-weight: bold; border: 1px solid #ff3333; z-index: 10; letter-spacing: 1px; pointer-events: none;">
                 <span style="animation: blink 1s infinite;">●</span> LIVE: ISS ORBITAL CAM
             </div>
             <iframe src="https://video.ibm.com/embed/9408562?autoplay=1&mute=1" width="100%" height="550" style="border: 0;" allowfullscreen webkitallowfullscreen allow="autoplay"></iframe>
@@ -240,14 +278,14 @@ elif menu_secimi in ["CANLI GÖZLEMEVİ", "LIVE OBSERVATORY"]:
         c3.metric("Signal Latency / Sinyal", "124 ms", "Stabil / Stable")
         c4.metric("Camera Status / Kamera", "Online", "Auto-Exposure")
 
-    with t3:
+    with t5:
         st.markdown("<h3>NASA Resmi Canlı Yayını</h3>", unsafe_allow_html=True)
-        st.markdown("<p style='color: #C5A059;'>NASA'nın uzay yürüyüşleri ve operasyon merkezinden eş zamanlı 7/24 kesintisiz yayın.</p>", unsafe_allow_html=True)
+        st.markdown("<p style='color: #C5A059;'>NASA'nın uzay yürüyüşleri ve operasyon merkezinden eş zamanlı 7/24 kesintisiz IBM yayını.</p>", unsafe_allow_html=True)
         
-        # YouTube İptal Edildi - IBM Cloud Video (Ustream) NASA Kanalı Entegre Edildi
+        # IBM Cloud (Ustream) NASA Kanalı
         nasa_html = """
         <div style="border: 2px solid #B8860B; border-radius: 8px; overflow: hidden; position: relative; box-shadow: 0 0 30px rgba(184, 134, 11, 0.2);">
-            <div style="position: absolute; top: 15px; left: 15px; background: rgba(0,0,0,0.8); padding: 5px 15px; border-radius: 4px; color: #ff3333; font-family: monospace; font-size: 14px; font-weight: bold; border: 1px solid #ff3333; z-index: 10; letter-spacing: 1px;">
+            <div style="position: absolute; top: 15px; left: 15px; background: rgba(0,0,0,0.8); padding: 5px 15px; border-radius: 4px; color: #ff3333; font-family: monospace; font-size: 14px; font-weight: bold; border: 1px solid #ff3333; z-index: 10; letter-spacing: 1px; pointer-events: none;">
                 <span style="animation: blink 1s infinite;">●</span> LIVE: NASA MISSION CONTROL
             </div>
             <iframe src="https://video.ibm.com/embed/6540154?autoplay=1&mute=1" width="100%" height="550" style="border: 0;" allowfullscreen webkitallowfullscreen allow="autoplay"></iframe>
