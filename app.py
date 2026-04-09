@@ -162,86 +162,71 @@ elif menu_secimi in ["LOKASYONLARIMIZ", "OUR LOCATIONS"]:
         st.markdown(f"""<div class="service-card"><img class="service-img" src="https://images.unsplash.com/photo-1464802686167-b939a6910659?q=80&w=800&auto=format&fit=crop"><div class="service-content"><h3 class="service-title">{t_nz_title}</h3><p class="service-desc">{t_nz_desc}</p></div></div>""", unsafe_allow_html=True)
 
 # ==============================================================================
-# YENİ SAYFA 3: CANLI GÖZLEMEVİ (TELESKOP KONTROL PANELİ)
+# YENİ SAYFA 3: CANLI GÖZLEMEVİ (GERÇEK ZAMANLI YAYINLAR EKLENDİ)
 # ==============================================================================
 elif menu_secimi in ["CANLI GÖZLEMEVİ", "LIVE OBSERVATORY"]:
     if lang == "TR":
-        st.markdown("<h2>Gözlemevi Uzaktan Kontrol Paneli</h2>", unsafe_allow_html=True)
-        st.markdown("<p>Şili ve Yeni Zelanda'daki robotik teleskoplarımıza şifreli ağ üzerinden bağlanın. Derin uzay nesnelerini gerçek zamanlı inceleyin ve bilimsel ışık filtrelerini test edin.</p>", unsafe_allow_html=True)
-        t_select = "Bağlanılacak İstasyonu Seçin:"
-        t_opts = ["Atacama Alfa İstasyonu (Celestron 1100 HD)", "Tekapo Güney İstasyonu (Meade LX200 14'')"]
-        t_btn = "Uydu Bağlantısı Kur (Uplink)"
-        t_conn1 = "Güvenli bağlantı başlatılıyor..."
-        t_conn2 = "Lens kapağı açılıyor, sensörler soğutuluyor..."
-        t_conn3 = "Canlı yayın aktarıldı."
-        t_ctrl = "Kamera Kontrolleri"
-        t_zoom = "Dijital Yakınlaştırma (Zoom)"
-        t_filter = "Astro-Filtreler (Işık Dalga Boyu)"
-        t_f_opts = ["Görünür Işık (Visible Spectrum)", "H-Alpha Filtresi (Kızılötesi Algı)", "O-III Filtresi (Oksijen-3 İyonu)"]
+        st.markdown("<h2>Gözlemevi & Canlı Uzay Bağlantıları</h2>", unsafe_allow_html=True)
+        st.markdown("<p>Sadece hayal etmeyin, gerçek zamanlı olarak izleyin. Aşağıdaki sekmelerden simüle edilmiş teleskoplarımıza bağlanabilir veya NASA/ISS üzerinden dünyanın yörüngesini şu an canlı olarak izleyebilirsiniz.</p>", unsafe_allow_html=True)
+        tab_sim, tab_iss, tab_nasa = "TELESKOP SİMÜLATÖRÜ", "ISS CANLI YAYINI", "NASA CANLI YAYINI"
     else:
-        st.markdown("<h2>Observatory Remote Control Panel</h2>", unsafe_allow_html=True)
-        st.markdown("<p>Connect to our robotic telescopes in Chile and New Zealand via an encrypted network. Examine deep space objects in real-time and test scientific light filters.</p>", unsafe_allow_html=True)
-        t_select = "Select Station to Connect:"
-        t_opts = ["Atacama Alpha Station (Celestron 1100 HD)", "Tekapo South Station (Meade LX200 14'')"]
-        t_btn = "Establish Satellite Uplink"
-        t_conn1 = "Initiating secure connection..."
-        t_conn2 = "Opening lens cover, cooling sensors..."
-        t_conn3 = "Live feed established."
-        t_ctrl = "Camera Controls"
-        t_zoom = "Digital Zoom"
-        t_filter = "Astro-Filters (Light Wavelength)"
-        t_f_opts = ["Visible Spectrum", "H-Alpha Filter (Infrared Perception)", "O-III Filter (Oxygen-3 Ion)"]
+        st.markdown("<h2>Observatory & Live Space Feeds</h2>", unsafe_allow_html=True)
+        st.markdown("<p>Don't just imagine it, watch it in real time. Connect to our simulated telescopes or watch Earth's orbit live right now via NASA/ISS feeds.</p>", unsafe_allow_html=True)
+        tab_sim, tab_iss, tab_nasa = "TELESCOPE SIMULATOR", "ISS LIVE FEED", "NASA LIVE FEED"
 
     st.write("---")
     
-    if "telescope_connected" not in st.session_state:
-        st.session_state.telescope_connected = False
+    t1, t2, t3 = st.tabs([tab_sim, tab_iss, tab_nasa])
 
-    col_setup, col_empty = st.columns([1, 2])
-    with col_setup:
-        istasyon = st.selectbox(t_select, t_opts)
-        st.write("")
-        if st.button(t_btn):
-            with st.spinner(t_conn1): time.sleep(1.5)
-            with st.spinner(t_conn2): time.sleep(2)
-            st.success(t_conn3)
-            st.session_state.telescope_connected = True
+    with t1:
+        if "telescope_connected" not in st.session_state:
+            st.session_state.telescope_connected = False
 
-    if st.session_state.telescope_connected:
-        st.write("---")
-        col_view, col_controls = st.columns([2, 1])
-        
-        with col_controls:
-            st.markdown(f"<h3>{t_ctrl}</h3>", unsafe_allow_html=True)
-            zoom_level = st.slider(t_zoom, 1.0, 3.0, 1.0, 0.1)
-            filter_type = st.radio(t_filter, t_f_opts)
-            
-            # CSS Filtre Matematiği
-            css_filter = "none"
-            if "H-Alpha" in filter_type:
-                # Kırmızı ağırlıklı yüksek kontrast (Hidrojen Gazı simülasyonu)
-                css_filter = "sepia(100%) hue-rotate(-50deg) saturate(300%) contrast(1.5)"
-            elif "O-III" in filter_type:
-                # Mavi/Yeşil ağırlıklı (Oksijen iyonu simülasyonu)
-                css_filter = "sepia(100%) hue-rotate(130deg) saturate(200%) contrast(1.2)"
+        col_setup, col_empty = st.columns([1, 2])
+        with col_setup:
+            istasyon = st.selectbox("İstasyon / Station:", ["Atacama Alpha (Celestron 1100 HD)", "Tekapo South (Meade LX200 14'')"])
+            st.write("")
+            if st.button("Bağlan / Connect Uplink"):
+                with st.spinner("Bağlanılıyor / Connecting..."): time.sleep(1.5)
+                st.success("Canlı yayın aktarıldı / Feed established.")
+                st.session_state.telescope_connected = True
 
-        with col_view:
-            # Orion Bulutsusu veya Andromeda (Teleskopa göre)
-            if "Atacama" in istasyon:
-                deep_space_img = "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?q=80&w=1200&auto=format&fit=crop"
-            else:
-                deep_space_img = "https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?q=80&w=1200&auto=format&fit=crop"
+        if st.session_state.telescope_connected:
+            st.write("---")
+            col_view, col_controls = st.columns([2, 1])
+            with col_controls:
+                st.markdown("<h3>Kontroller / Controls</h3>", unsafe_allow_html=True)
+                zoom_level = st.slider("Dijital Zoom", 1.0, 3.0, 1.0, 0.1)
+                filter_type = st.radio("Astro-Filtreler", ["Görünür Işık / Visible", "H-Alpha (Kızılötesi)", "O-III (Oksijen)"])
+                
+                css_filter = "none"
+                if "H-Alpha" in filter_type: css_filter = "sepia(100%) hue-rotate(-50deg) saturate(300%) contrast(1.5)"
+                elif "O-III" in filter_type: css_filter = "sepia(100%) hue-rotate(130deg) saturate(200%) contrast(1.2)"
 
-            st.markdown(f"""
-            <div style="width: 100%; height: 450px; border: 3px solid #B8860B; border-radius: 8px; overflow: hidden; background-color: #000; position: relative; box-shadow: 0 0 30px rgba(184, 134, 11, 0.3);">
-                <div style="position: absolute; top: 15px; left: 15px; color: red; font-family: monospace; font-size: 14px; font-weight: bold; z-index: 10;">● REC / LIVE</div>
-                <div style="position: absolute; bottom: 15px; right: 15px; color: #B8860B; font-family: monospace; font-size: 12px; z-index: 10;">{istasyon.split(' ')[0]} - FOV: {zoom_level}x</div>
-                <img src="{deep_space_img}" style="width: 100%; height: 100%; object-fit: cover; transform: scale({zoom_level}); filter: {css_filter}; transition: all 0.5s ease; transform-origin: center center;">
-                <div style="position: absolute; top: 50%; left: 0; width: 100%; height: 1px; background-color: rgba(184, 134, 11, 0.4); pointer-events: none; z-index: 5;"></div>
-                <div style="position: absolute; top: 0; left: 50%; width: 1px; height: 100%; background-color: rgba(184, 134, 11, 0.4); pointer-events: none; z-index: 5;"></div>
-                <div style="position: absolute; top: 50%; left: 50%; width: 40px; height: 40px; border: 1px solid rgba(184, 134, 11, 0.8); border-radius: 50%; transform: translate(-50%, -50%); pointer-events: none; z-index: 5;"></div>
-            </div>
-            """, unsafe_allow_html=True)
+            with col_view:
+                deep_space_img = "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?q=80&w=1200&auto=format&fit=crop" if "Atacama" in istasyon else "https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?q=80&w=1200&auto=format&fit=crop"
+                st.markdown(f"""
+                <div style="width: 100%; height: 450px; border: 3px solid #B8860B; border-radius: 8px; overflow: hidden; background-color: #000; position: relative; box-shadow: 0 0 30px rgba(184, 134, 11, 0.3);">
+                    <div style="position: absolute; top: 15px; left: 15px; color: red; font-family: monospace; font-size: 14px; font-weight: bold; z-index: 10;">● REC / SIMULATION</div>
+                    <img src="{deep_space_img}" style="width: 100%; height: 100%; object-fit: cover; transform: scale({zoom_level}); filter: {css_filter}; transition: all 0.5s ease; transform-origin: center center;">
+                    <div style="position: absolute; top: 50%; left: 0; width: 100%; height: 1px; background-color: rgba(184, 134, 11, 0.4); pointer-events: none; z-index: 5;"></div>
+                    <div style="position: absolute; top: 0; left: 50%; width: 1px; height: 100%; background-color: rgba(184, 134, 11, 0.4); pointer-events: none; z-index: 5;"></div>
+                    <div style="position: absolute; top: 50%; left: 50%; width: 40px; height: 40px; border: 1px solid rgba(184, 134, 11, 0.8); border-radius: 50%; transform: translate(-50%, -50%); pointer-events: none; z-index: 5;"></div>
+                </div>
+                """, unsafe_allow_html=True)
+
+    with t2:
+        st.markdown("<h3>Uluslararası Uzay İstasyonu (ISS) Canlı Kamerası</h3>", unsafe_allow_html=True)
+        st.markdown("<p style='color: #C5A059;'>Şu an Dünya'nın yörüngesinden canlı HD yayın. (Eğer ekran siyahsa, ISS gece tarafındadır, birkaç dakika bekleyin).</p>", unsafe_allow_html=True)
+        # ISS Canlı Yayın (YouTube Embed)
+        st.video("https://www.youtube.com/watch?v=xRPjKQtRXR8")
+
+    with t3:
+        st.markdown("<h3>NASA Resmi Canlı Yayını</h3>", unsafe_allow_html=True)
+        st.markdown("<p style='color: #C5A059;'>NASA'nın derin uzay ağından, fırlatmalardan ve uzay yürüyüşlerinden eş zamanlı yayınlar.</p>", unsafe_allow_html=True)
+        # NASA Canlı Yayın (YouTube Embed)
+        st.video("https://www.youtube.com/watch?v=21X5lGlDOfg")
+
 
 # ==============================================================================
 # SAYFA 4: KOZMİK TAKVİM
