@@ -17,13 +17,11 @@ st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Cinzel:wght@400;600;700&display=swap');
 
-    /* 1. ÖZEL KAYDIRMA ÇUBUĞU (CUSTOM SCROLLBAR) */
     ::-webkit-scrollbar { width: 8px; height: 8px; }
     ::-webkit-scrollbar-track { background: #030814; }
     ::-webkit-scrollbar-thumb { background: #B8860B; border-radius: 4px; border: 1px solid #030814; }
     ::-webkit-scrollbar-thumb:hover { background: #D4AF37; }
 
-    /* 2. HAREKETLİ YILDIZ TOZU ARKA PLANI (ANIMATED STARFIELD) */
     .stApp { 
         background-color: #051024 !important; 
         background-image: 
@@ -42,7 +40,6 @@ st.markdown("""
     header { background-color: transparent !important; }
     html, body, [class*="css"] { font-family: 'Montserrat', sans-serif; color: #E0E0E0; text-align: center; }
     
-    /* Yan Menü (Sidebar) Glassmorphism */
     [data-testid="stSidebar"] { 
         background: rgba(3, 8, 20, 0.8) !important; 
         backdrop-filter: blur(15px) !important;
@@ -57,20 +54,15 @@ st.markdown("""
 
     [data-baseweb="select"] { background-color: rgba(3, 8, 20, 0.6) !important; border: 1px solid #B8860B !important; border-radius: 4px; backdrop-filter: blur(5px);}
     [data-baseweb="select"] * { color: #C5A059 !important; font-family: 'Montserrat', sans-serif !important; }
+    [data-testid="stSidebar"] .stAlert div { font-family: 'Montserrat', sans-serif !important; color: #B8860B !important; text-align: center !important; background-color: transparent !important; border: 1px solid #B8860B; }
     
     div[data-testid="stMetricValue"] { color: #D4AF37 !important; font-family: 'Cinzel', serif !important; font-size: 2.5rem !important; text-shadow: 0px 0px 15px rgba(212, 175, 55, 0.5); }
     div[data-testid="stMetricLabel"] { color: #8892b0 !important; font-family: 'Montserrat', sans-serif !important; font-size: 1.1rem !important; }
     
-    /* 3. ALTIN GRADYAN TİPOGRAFİ (GOLD GRADIENT HEADERS) */
     h1, h2, h3, h4, h5, h6 { 
-        font-family: 'Cinzel', serif; 
-        font-weight: 700; 
-        text-align: center !important; 
-        width: 100%; 
+        font-family: 'Cinzel', serif; font-weight: 700; text-align: center !important; width: 100%; 
         background: linear-gradient(45deg, #C5A059, #F3E5AB, #D4AF37, #B8860B);
-        background-size: 200% auto;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+        background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         animation: shine 5s linear infinite;
     }
     @keyframes shine { to { background-position: 200% center; } }
@@ -78,7 +70,6 @@ st.markdown("""
     p { text-align: center !important; margin: 0 auto 15px auto !important; max-width: 800px; line-height: 1.8; color: #a8b2d1 !important; font-weight: 300;}
     hr { border-top: 1px solid rgba(184, 134, 11, 0.3) !important; width: 60%; margin: 40px auto !important; }
 
-    /* Sayfa Giriş Animasyonu */
     .block-container { animation: fadeSlideUp 1s cubic-bezier(0.165, 0.84, 0.44, 1); }
     @keyframes fadeSlideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -86,44 +77,31 @@ st.markdown("""
     @keyframes slowZoom { from { transform: scale(1); } to { transform: scale(1.08); } }
     .hero-container { position: relative; text-align: center; margin-bottom: 40px; display: flex; justify-content: center; overflow: hidden; border-radius: 8px; box-shadow: 0 15px 40px rgba(0,0,0,0.6);}
 
-    /* 4. GLASSMORPHISM KARTLAR & ETKİLEŞİM */
-    .service-card, .boarding-pass, div[style*="border: 2px solid #B8860B"] { 
-        background: rgba(5, 16, 36, 0.4) !important; 
-        backdrop-filter: blur(12px) !important;
-        -webkit-backdrop-filter: blur(12px) !important;
-        border-radius: 12px !important; 
-        border: 1px solid rgba(184, 134, 11, 0.3) !important; 
-        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5) !important; 
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+    .service-card, .boarding-pass, div[style*="border: 2px solid #B8860B"], .planet-card { 
+        background: rgba(5, 16, 36, 0.4) !important; backdrop-filter: blur(12px) !important;
+        border-radius: 12px !important; border: 1px solid rgba(184, 134, 11, 0.3) !important; 
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5) !important; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
         overflow: hidden;
     }
-    .service-card:hover { transform: translateY(-10px) !important; border-color: rgba(212, 175, 55, 0.8) !important; box-shadow: 0 15px 40px rgba(184, 134, 11, 0.2) !important; }
+    .service-card:hover, .planet-card:hover { transform: translateY(-10px) !important; border-color: rgba(212, 175, 55, 0.8) !important; box-shadow: 0 15px 40px rgba(184, 134, 11, 0.2) !important; }
     
     .hero-title { font-size: 5rem; letter-spacing: 8px; margin-bottom: 10px; }
-    .hero-subtitle { font-size: 1.2rem; font-weight: 400; letter-spacing: 5px; text-transform: uppercase; margin-top: 15px !important; color: #D4AF37 !important;}
     .service-img { width: 100%; height: 220px; object-fit: cover; border-bottom: 1px solid rgba(184, 134, 11, 0.3); transition: transform 0.5s; }
     .service-card:hover .service-img { transform: scale(1.05); }
     .service-content { padding: 25px; }
     
     .price-tag { font-family: 'Cinzel', serif; font-size: 3rem; color: #D4AF37; font-weight: 700; margin: 25px 0; text-align: center; text-shadow: 0px 0px 20px rgba(184, 134, 11, 0.4); }
     
-    /* 5. NEON PARILTILI BUTONLAR (GLOW BUTTONS) */
     .stButton { display: flex; justify-content: center; margin-top: 20px; }
     div.stButton > button:first-child { 
-        background: linear-gradient(135deg, rgba(3,8,20,0.9) 0%, rgba(17,34,64,0.9) 100%) !important; 
-        color: #D4AF37 !important; 
+        background: linear-gradient(135deg, rgba(3,8,20,0.9) 0%, rgba(17,34,64,0.9) 100%) !important; color: #D4AF37 !important; 
         font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 1.1rem; padding: 15px 50px; 
         border: 1px solid rgba(184, 134, 11, 0.5) !important; border-radius: 30px; 
-        transition: all 0.4s ease; letter-spacing: 2px; text-transform: uppercase; 
-        backdrop-filter: blur(5px);
-        box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        transition: all 0.4s ease; letter-spacing: 2px; text-transform: uppercase; box-shadow: 0 4px 15px rgba(0,0,0,0.5);
     }
     div.stButton > button:first-child:hover { 
-        background: linear-gradient(135deg, rgba(184, 134, 11, 0.2) 0%, rgba(212, 175, 55, 0.3) 100%) !important; 
-        color: #FFF !important; 
-        border-color: #D4AF37 !important;
-        transform: translateY(-3px) scale(1.02); 
-        box-shadow: 0 0 20px rgba(212, 175, 55, 0.6), 0 0 40px rgba(212, 175, 55, 0.2) !important; 
+        background: linear-gradient(135deg, rgba(184, 134, 11, 0.2) 0%, rgba(212, 175, 55, 0.3) 100%) !important; color: #FFF !important; 
+        border-color: #D4AF37 !important; transform: translateY(-3px) scale(1.02); box-shadow: 0 0 20px rgba(212, 175, 55, 0.6) !important; 
     }
 
     [data-baseweb="tab-list"] { justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 20px;}
@@ -134,7 +112,6 @@ st.markdown("""
     .stProgress > div > div > div > div { background: linear-gradient(90deg, #8B6508, #D4AF37, #F3E5AB) !important; }
     .stChatMessage { background: rgba(5, 16, 36, 0.5) !important; backdrop-filter: blur(10px); border: 1px solid rgba(184, 134, 11, 0.3); border-radius: 12px; margin-bottom: 10px;}
     
-    /* Biniş Kartı Özel İçi */
     .boarding-pass { display: flex; justify-content: space-between; max-width: 850px; margin: 0 auto; }
     .pass-left { width: 72%; border-right: 2px dashed rgba(184, 134, 11, 0.5); padding-right: 25px; }
     .pass-right { width: 25%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
@@ -143,11 +120,16 @@ st.markdown("""
     .pass-value { color: #FFF; font-size: 1.3rem; font-weight: 600; margin-bottom: 20px; text-align: left !important; }
     .pass-barcode { margin-top: 15px; letter-spacing: 6px; font-family: monospace; color: #D4AF37; font-size: 1.8rem; text-align: center !important; text-shadow: 0 0 10px rgba(212,175,55,0.4);}
     .pass-logo { font-family: 'Cinzel', serif; color: #D4AF37; font-size: 2rem; writing-mode: vertical-rl; text-orientation: mixed; transform: rotate(180deg); letter-spacing: 5px; opacity: 0.8;}
+    
+    /* Dönen Gezegen Animasyonu */
+    .spinning-planet { width: 250px; height: 250px; border-radius: 50%; display: block; margin: 0 auto 20px auto; box-shadow: inset -25px -25px 40px rgba(0,0,0,0.9), 0 0 30px rgba(184, 134, 11, 0.3); animation: spin 40s linear infinite; object-fit: cover;}
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+    @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
     </style>
     """, unsafe_allow_html=True)
 
 # ==============================================================================
-# AKILLI LOGO BULUCU VE SİDEBAR
+# SİDEBAR, MÜZİK ÇALAR VE LOGO
 # ==============================================================================
 bulunan_logo = None
 resimler = glob.glob("*.jpeg") + glob.glob("*.jpg") + glob.glob("*.png")
@@ -165,12 +147,12 @@ lang = "TR" if dil_secimi == "Türkçe" else "EN"
 st.sidebar.write("---")
 
 menu_secenekleri = [
-    "ANA SAYFA", "LOKASYONLARIMIZ", "CANLI GÖZLEMEVİ", "3D SİMÜLASYONLAR", "KARA DELİK SİM.",
+    "ANA SAYFA", "LOKASYONLARIMIZ", "ÖTEGEZEGEN TURİZMİ", "CANLI GÖZLEMEVİ", "3D SİMÜLASYONLAR", "KARA DELİK SİM.",
     "STELLARIS AI", "UZAY PASAPORTU", "VİDEOLAR GALERİSİ", "KOZMİK TAKVİM", 
     "UZAY HAVADURUMU", "IŞIK KİRLİLİĞİ", "EKİPMANLAR", "ASTRO-FOTOĞRAF", 
     "REZERVASYON", "SÜRDÜRÜLEBİLİRLİK", "YATIRIMCI PORTALI"
 ] if lang == "TR" else [
-    "HOME", "OUR LOCATIONS", "LIVE OBSERVATORY", "3D SIMULATIONS", "BLACK HOLE SIM.",
+    "HOME", "OUR LOCATIONS", "EXOPLANET TOURISM", "LIVE OBSERVATORY", "3D SIMULATIONS", "BLACK HOLE SIM.",
     "STELLARIS AI", "SPACE PASSPORT", "VIDEO GALLERY", "COSMIC CALENDAR", 
     "SPACE WEATHER", "LIGHT POLLUTION", "EQUIPMENT", "ASTRO-PHOTO", 
     "BOOKING", "SUSTAINABILITY", "INVESTOR PORTAL"
@@ -178,9 +160,19 @@ menu_secenekleri = [
 
 menu_secimi = st.sidebar.radio("Nav", menu_secenekleri, label_visibility="collapsed")
 st.sidebar.write("---")
+
+# MÜZİK ÇALAR (KOZMİK AMBİYANS)
+st.sidebar.markdown(f"<p style='color:#C5A059; font-size:0.8rem; font-weight:bold; margin-bottom:5px !important;'>{'Kozmik Ambiyans Sesi' if lang == 'TR' else 'Cosmic Ambient Audio'}</p>", unsafe_allow_html=True)
+audio_html = """
+<audio controls autoplay loop style="width: 100%; height: 30px; outline: none; border-radius: 4px; opacity: 0.8;">
+  <source src="https://cdn.pixabay.com/audio/2022/11/22/audio_febc508520.mp3" type="audio/mpeg">
+</audio>
+"""
+st.sidebar.markdown(audio_html, unsafe_allow_html=True)
+
+st.sidebar.write("---")
 st.sidebar.info("Sistem: Çevrimiçi" if lang == "TR" else "System: Online")
 
-# Ortak Canlı Yayın Fonksiyonu (Glassmorphism Entegreli)
 def auto_refresh_image(img_id, img_url, refresh_rate_ms, title, max_width="600px", filter_css="none"):
     return f"""
     <div style="border: 1px solid rgba(184, 134, 11, 0.3); border-radius: 12px; position: relative; overflow: hidden; text-align: center; background: rgba(5,16,36,0.5); backdrop-filter: blur(10px); padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
@@ -193,7 +185,7 @@ def auto_refresh_image(img_id, img_url, refresh_rate_ms, title, max_width="600px
     """
 
 # ==============================================================================
-# SAYFA İÇERİKLERİ (İŞLEVSELLİK KORUNDU, TASARIM YENİLENDİ)
+# SAYFA 1: ANA SAYFA
 # ==============================================================================
 if menu_secimi in ["ANA SAYFA", "HOME"]:
     col_space1, col_hero, col_space3 = st.columns([1, 2, 1])
@@ -210,6 +202,9 @@ if menu_secimi in ["ANA SAYFA", "HOME"]:
     with col_image:
         st.markdown('<div class="hero-container"><img class="hero-image" src="https://images.unsplash.com/photo-1464802686167-b939a6910659?q=80&w=2000&auto=format&fit=crop"></div>', unsafe_allow_html=True)
 
+# ==============================================================================
+# SAYFA 2: LOKASYONLARIMIZ
+# ==============================================================================
 elif menu_secimi in ["LOKASYONLARIMIZ", "OUR LOCATIONS"]:
     st.markdown("<h2>Hedef Ülkeler ve Küresel Pazar</h2>", unsafe_allow_html=True)
     st.markdown("<p>Evrenin en muazzam manzaralarını sunan stratejik karanlık gökyüzü rezervleri.</p>", unsafe_allow_html=True)
@@ -220,11 +215,58 @@ elif menu_secimi in ["LOKASYONLARIMIZ", "OUR LOCATIONS"]:
     with col_nz:
         st.markdown("""<div class="service-card"><img class="service-img" src="https://images.unsplash.com/photo-1464802686167-b939a6910659?q=80&w=800"><div class="service-content"><h3 class="service-title">Tekapo Gölü, Yeni Zelanda</h3><p class="service-desc">Uluslararası karanlık gökyüzü rezervi. Güney Haçı takımyıldızını ve Aurora Australis'i deneyimleyin.</p></div></div>""", unsafe_allow_html=True)
 
+# ==============================================================================
+# YENİ SAYFA 3: ÖTEGEZEGEN TURİZMİ (FÜTÜRİSTİK SEYAHAT ACENTESİ)
+# ==============================================================================
+elif menu_secimi in ["ÖTEGEZEGEN TURİZMİ", "EXOPLANET TOURISM"]:
+    st.markdown("<h2>{}</h2>".format("Geleceğin Turizmi: Ötegezegenler" if lang == "TR" else "Future Tourism: Exoplanets"), unsafe_allow_html=True)
+    st.markdown("<p>{}</p>".format("Dünya'nın sınırları size yetmiyorsa, galaksinin derinliklerindeki yeni evleri keşfedin. Işık hızı motorlu gemilerimizle fütüristik seyahat planınızı şimdiden yapın." if lang == "TR" else "If Earth's borders aren't enough, discover new homes in the depths of the galaxy. Plan your futuristic travel with our warp-drive ships today."), unsafe_allow_html=True)
+    st.write("---")
+
+    c1, c2, c3 = st.columns(3)
+    
+    with c1:
+        st.markdown("""
+        <div class="planet-card" style="padding: 30px; text-align: center;">
+            <h3 style="color: #D4AF37; margin-bottom: 20px;">TRAPPIST-1e</h3>
+            <img class="spinning-planet" src="https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?q=80&w=400" style="filter: hue-rotate(150deg) saturate(200%);">
+            <p style="color: #E0E0E0; font-size: 0.9rem; text-align: left !important;"><b>Uzaklık:</b> 39 Işık Yılı<br><b>Yıldız:</b> Kırmızı Cüce<br><b>Durum:</b> Yaşanabilir Bölge (Okyanuslar)</p>
+            <div style="color: #B8860B; font-weight: bold; margin-top: 15px;">BİLET FİYATI: $4.5 Milyon</div>
+        </div>
+        """, unsafe_allow_html=True)
+        if st.button("TRAPPIST İçin Yer Ayırt", key="b1"): st.success("Talep VIP listeye eklendi!")
+
+    with c2:
+        st.markdown("""
+        <div class="planet-card" style="padding: 30px; text-align: center; border-color: #D4AF37 !important; box-shadow: 0 0 30px rgba(212,175,55,0.2) !important;">
+            <div style="background: #D4AF37; color: #000; padding: 5px; font-weight: bold; border-radius: 4px; margin-bottom: 10px; display: inline-block;">EN POPÜLER / MOST POPULAR</div>
+            <h3 style="color: #D4AF37; margin-bottom: 20px;">Kepler-186f</h3>
+            <img class="spinning-planet" src="https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?q=80&w=400" style="filter: hue-rotate(240deg) saturate(150%);">
+            <p style="color: #E0E0E0; font-size: 0.9rem; text-align: left !important;"><b>Uzaklık:</b> 582 Işık Yılı<br><b>Yıldız:</b> M-Tipi Cüce<br><b>Durum:</b> Dünya'nın Kuzeni (Kızıl Bitki Örtüsü)</p>
+            <div style="color: #B8860B; font-weight: bold; margin-top: 15px;">BİLET FİYATI: $8.2 Milyon</div>
+        </div>
+        """, unsafe_allow_html=True)
+        if st.button("Kepler İçin Yer Ayırt", key="b2"): st.success("Talep VIP listeye eklendi!")
+
+    with c3:
+        st.markdown("""
+        <div class="planet-card" style="padding: 30px; text-align: center;">
+            <h3 style="color: #D4AF37; margin-bottom: 20px;">Proxima Centauri b</h3>
+            <img class="spinning-planet" src="https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?q=80&w=400" style="filter: hue-rotate(60deg) saturate(80%);">
+            <p style="color: #E0E0E0; font-size: 0.9rem; text-align: left !important;"><b>Uzaklık:</b> 4.2 Işık Yılı<br><b>Yıldız:</b> Proxima Centauri<br><b>Durum:</b> En Yakın Komşu (Sert İklim)</p>
+            <div style="color: #B8860B; font-weight: bold; margin-top: 15px;">BİLET FİYATI: $1.2 Milyon</div>
+        </div>
+        """, unsafe_allow_html=True)
+        if st.button("Proxima İçin Yer Ayırt", key="b3"): st.success("Talep VIP listeye eklendi!")
+
+# ==============================================================================
+# SAYFA 4: CANLI GÖZLEMEVİ
+# ==============================================================================
 elif menu_secimi in ["CANLI GÖZLEMEVİ", "LIVE OBSERVATORY"]:
     st.markdown("<h2>Stellaris Kesintisiz Uydu Ağı</h2>", unsafe_allow_html=True)
-    st.markdown("<p>Video oynatıcıları iptal edildi. Aşağıdaki tüm kanallar doğrudan NASA ve NOAA uydularından alınan ham veri akışlarıdır.</p>", unsafe_allow_html=True)
+    st.markdown("<p>Aşağıdaki tüm kanallar doğrudan NASA ve NOAA uydularından alınan ham veri akışlarıdır. Sistem arka planda kendi kendini yeniler.</p>", unsafe_allow_html=True)
     st.write("---")
-    t1, t2, t3, t4, t5, t6 = st.tabs(["🌍 GOES-16 (Amerika)", "🌍 HIMAWARI (Asya)", "☀️ SDO 304 (Güneş)", "☀️ SDO 171 (Güneş)", "🛰️ SOHO C3 (Radar)", "📍 ISS CANLI RADAR"])
+    t1, t2, t3, t4, t5, t6 = st.tabs(["🌍 GOES-16", "🌍 HIMAWARI", "☀️ SDO 304", "☀️ SDO 171", "🛰️ SOHO C3", "📍 ISS RADAR"])
     with t1: components.html(auto_refresh_image("goes16_img", "https://cdn.star.nesdis.noaa.gov/GOES16/ABI/FD/GEOCOLOR/latest.jpg", 60000, "LIVE: GOES-16", "550px"), height=650)
     with t2: components.html(auto_refresh_image("himawari_img", "https://cdn.star.nesdis.noaa.gov/AHI/FD/GEOCOLOR/latest.jpg", 60000, "LIVE: HIMAWARI-9", "550px"), height=650)
     with t3: components.html(auto_refresh_image("sdo304_img", "https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_0304.jpg", 60000, "LIVE: SDO 304", "550px"), height=650)
@@ -232,6 +274,9 @@ elif menu_secimi in ["CANLI GÖZLEMEVİ", "LIVE OBSERVATORY"]:
     with t5: components.html(auto_refresh_image("sohoc3_img", "https://soho.nascom.nasa.gov/data/realtime/c3/1024/latest.jpg", 60000, "LIVE: SOHO C3", "550px"), height=650)
     with t6: st.markdown("""<div style="border: 1px solid rgba(184,134,11,0.3); border-radius: 12px; overflow: hidden; height: 550px; background: rgba(5,16,36,0.5); backdrop-filter: blur(10px);"><iframe src="https://isstracker.spaceflight.esa.int/" width="100%" height="100%" frameborder="0" style="pointer-events: none;"></iframe></div>""", unsafe_allow_html=True)
 
+# ==============================================================================
+# SAYFA 5: 3D SİMÜLASYONLAR
+# ==============================================================================
 elif menu_secimi in ["3D SİMÜLASYONLAR", "3D SIMULATIONS"]:
     st.markdown("<h2>İnteraktif 3D Uzay Simülatörleri</h2>", unsafe_allow_html=True)
     st.write("---")
@@ -247,9 +292,11 @@ elif menu_secimi in ["3D SİMÜLASYONLAR", "3D SIMULATIONS"]:
         sky_url = f"https://virtualsky.lco.global/embed/index.html?longitude={lon}&latitude={lat}&projection=stereo&constellations=true&constellationlabels=true&meteorshowers=true&showstarlabels=true&live=true&az=180&color=dark"
         st.markdown(f"""<div style="{style_str}"><iframe src="{sky_url}" width="100%" height="600" frameborder="0" scrolling="no"></iframe></div>""", unsafe_allow_html=True)
 
+# ==============================================================================
+# SAYFA 6: KARA DELİK FİZİK MOTORU
+# ==============================================================================
 elif menu_secimi in ["KARA DELİK SİM.", "BLACK HOLE SIM."]:
     st.markdown("<h2>Kara Delik & Kütleçekim Simülatörü</h2>", unsafe_allow_html=True)
-    st.markdown("<p>Aşağıdaki parametrelerle oynayarak uzay-zamanın nasıl büküldüğünü (Accretion Disk) gözlemleyin.</p>", unsafe_allow_html=True)
     st.write("---")
     bh_html = """
     <div style="border: 1px solid rgba(184,134,11,0.3); border-radius: 12px; overflow: hidden; background: rgba(5,16,36,0.6); backdrop-filter: blur(10px); padding: 30px; box-shadow: 0 10px 40px rgba(0,0,0,0.5);">
@@ -284,32 +331,38 @@ elif menu_secimi in ["KARA DELİK SİM.", "BLACK HOLE SIM."]:
     """
     components.html(bh_html, height=750)
 
+# ==============================================================================
+# SAYFA 7: STELLARIS AI 
+# ==============================================================================
 elif menu_secimi in ["STELLARIS AI"]:
     st.markdown("<h2>Stellaris Kozmik Rehber (AI Asistan)</h2>", unsafe_allow_html=True)
     st.write("---")
-    if "messages" not in st.session_state: st.session_state.messages = [{"role": "assistant", "content": "Stellaris VIP Kontrol Paneline hoş geldiniz. Ben Stellaris AI. Size unutulmaz bir uzay macerası planlamada nasıl yardımcı olabilirim?"}]
+    if "messages" not in st.session_state: st.session_state.messages = [{"role": "assistant", "content": "Stellaris VIP Kontrol Paneline hoş geldiniz. Ben Stellaris AI. Size nasıl yardımcı olabilirim?"}]
     for msg in st.session_state.messages:
         with st.chat_message(msg["role"]): st.markdown(msg["content"])
-    if prompt := st.chat_input("Mesajınızı yazın (Örn: Bana Atacama çölünü anlat)..."):
+    if prompt := st.chat_input("Mesajınızı yazın..."):
         st.session_state.messages.append({"role": "user", "content": prompt})
         with st.chat_message("user"): st.markdown(prompt)
         with st.chat_message("assistant"):
             with st.spinner("Kozmik veritabanı taranıyor..."):
                 time.sleep(1)
                 lower_prompt = prompt.lower()
-                if "atacama" in lower_prompt: response = "Şili'deki Atacama Çölü, yılda 300'den fazla bulutsuz gecesi ve sıfır ışık kirliliği ile dünyanın en iyi gözlem noktasıdır. VIP çöl konaklaması paketimizle ALMA gözlemevine komşu olabilirsiniz."
-                elif "tekapo" in lower_prompt: response = "Yeni Zelanda'daki Tekapo Gölü, Uluslararası Karanlık Gökyüzü Rezervidir. Güney Haçı takımyıldızını ve Aurora Australis'i izleyebilirsiniz."
-                else: response = "Harika bir soru. Uzman astronomlarımız size en iyi deneyimi sunmak için 'Uzay Pasaportu' oluşturmanızı öneriyor. Başka bir detay öğrenmek ister misiniz?"
+                if "atacama" in lower_prompt: response = "Şili'deki Atacama Çölü, yılda 300'den fazla bulutsuz gecesi ile dünyanın en iyi gözlem noktasıdır."
+                elif "tekapo" in lower_prompt: response = "Yeni Zelanda'daki Tekapo Gölü, Uluslararası Karanlık Gökyüzü Rezervidir."
+                else: response = "Uzman astronomlarımız size en iyi deneyimi sunmak için 'Uzay Pasaportu' oluşturmanızı öneriyor."
                 st.markdown(response)
                 st.session_state.messages.append({"role": "assistant", "content": response})
 
+# ==============================================================================
+# SAYFA 8: UZAY PASAPORTU
+# ==============================================================================
 elif menu_secimi in ["UZAY PASAPORTU", "SPACE PASSPORT"]:
     st.markdown("<h2>Kişisel Uzay Biniş Kartı</h2>", unsafe_allow_html=True)
     st.write("---")
     col_form, col_pass = st.columns([1, 2])
     with col_form:
         pass_name = st.text_input("Yolcu Adı / Name:", "Yusuf Sezer Korkmaz")
-        pass_dest = st.selectbox("Hedef / Destination:", ["Atacama Çölü", "Tekapo Gölü", "Uzay İstasyonu"])
+        pass_dest = st.selectbox("Hedef / Destination:", ["Atacama Çölü", "Tekapo Gölü", "TRAPPIST-1e", "Kepler-186f"])
         pass_class = st.selectbox("Sınıf / Class:", ["VIP Astro-Turist", "Uzay Komutanı"])
         pass_date = st.date_input("Tarih / Date:", datetime.date.today())
         generate_btn = st.button("Kartı Oluştur")
@@ -325,86 +378,55 @@ elif menu_secimi in ["UZAY PASAPORTU", "SPACE PASSPORT"]:
         """
         st.markdown(pass_html, unsafe_allow_html=True)
 
+# ==============================================================================
+# DİĞER SAYFALAR (VİDEOLAR, TAKVİM, HAVA DURUMU, IŞIK KİRLİLİĞİ, EKİPMAN, FOTO, REZERVASYON, SÜRDÜRÜLEBİLİRLİK, YATIRIMCI)
+# ==============================================================================
 elif menu_secimi in ["VİDEOLAR GALERİSİ", "VIDEO GALLERY"]:
-    st.markdown("<h2>Stellaris Uzay ve Bilim Sineması</h2>", unsafe_allow_html=True)
-    st.write("---")
+    st.markdown("<h2>Stellaris Uzay ve Bilim Sineması</h2>", unsafe_allow_html=True); st.write("---")
     v_col1, v_col2 = st.columns(2)
-    with v_col1:
-        st.markdown("<h3>James Webb Teleskobu</h3>", unsafe_allow_html=True); st.video("https://www.youtube.com/watch?v=uD4izuDMUQA")
-        st.markdown("<br><h3>SpaceX Starship Fırlatması</h3>", unsafe_allow_html=True); st.video("https://www.youtube.com/watch?v=-1wcilQ58hI")
-    with v_col2:
-        st.markdown("<h3>Mars Yüzeyi 4K</h3>", unsafe_allow_html=True); st.video("https://www.youtube.com/watch?v=ZEyAs3NWH4A")
-        st.markdown("<br><h3>Dünya 4K Manzaralar</h3>", unsafe_allow_html=True); st.video("https://www.youtube.com/watch?v=Un5SEJ8MyPc")
+    with v_col1: st.markdown("<h3>James Webb Teleskobu</h3>", unsafe_allow_html=True); st.video("https://www.youtube.com/watch?v=uD4izuDMUQA"); st.markdown("<br><h3>SpaceX Starship Fırlatması</h3>", unsafe_allow_html=True); st.video("https://www.youtube.com/watch?v=-1wcilQ58hI")
+    with v_col2: st.markdown("<h3>Mars Yüzeyi 4K</h3>", unsafe_allow_html=True); st.video("https://www.youtube.com/watch?v=ZEyAs3NWH4A"); st.markdown("<br><h3>Dünya 4K Manzaralar</h3>", unsafe_allow_html=True); st.video("https://www.youtube.com/watch?v=Un5SEJ8MyPc")
 
 elif menu_secimi in ["KOZMİK TAKVİM", "COSMIC CALENDAR"]:
-    st.markdown("<h2>Kozmik Takvim & Nadir Fenomenler</h2>", unsafe_allow_html=True)
-    st.write("---")
-    selected_event = st.selectbox("Seçiniz:", ["Perseid Göktaşı Yağmuru", "Satürn Karşı Konumu", "Tam Güneş Tutulması"])
+    st.markdown("<h2>Kozmik Takvim & Nadir Fenomenler</h2>", unsafe_allow_html=True); st.write("---")
+    selected_event = st.selectbox("Seçiniz / Select:", ["Perseid Göktaşı Yağmuru", "Satürn Karşı Konumu", "Tam Güneş Tutulması"])
     col_info, col_metrics = st.columns([2, 1])
     with col_info:
         img_url = "https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?q=80&w=800" if "Perseid" in selected_event else "https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?q=80&w=800" if "Sat" in selected_event else "https://images.unsplash.com/photo-1539321908154-049275965646?q=80&w=800"
         st.markdown(f"""<div style="border: 1px solid rgba(184,134,11,0.3); border-radius: 12px; padding: 25px; background: rgba(5,16,36,0.5); backdrop-filter: blur(10px);"><img src="{img_url}" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px;"></div>""", unsafe_allow_html=True)
-    with col_metrics:
-        st.metric("Görüş / Visibility", "Ultra HD", "99%")
-        st.progress(60 if "Perseid" in selected_event else 85 if "Sat" in selected_event else 98)
-        if st.button("Rezervasyon / Book"): st.success("İletildi / Submitted")
+    with col_metrics: st.metric("Görüş / Visibility", "Ultra HD", "99%"); st.progress(60 if "Perseid" in selected_event else 85 if "Sat" in selected_event else 98); st.button("Rezervasyon / Book")
 
 elif menu_secimi in ["UZAY HAVADURUMU", "SPACE WEATHER"]:
-    st.markdown("<h2>Canlı Uzay Hava Durumu & Aurora Tahmini</h2>", unsafe_allow_html=True)
-    st.write("---")
-    c1, c2, c3 = st.columns(3)
-    c1.metric("Kp İndeksi", "6.33", "+1.2 (G2)"); c2.metric("Güneş Rüzgarı", "540 km/s", "+45 km/s"); c3.metric("Bz (Manyetik)", "-5.2 nT", "Güney")
-    st.write("---")
-    st.area_chart(pd.DataFrame({"Kp": [2.3, 4.0, 6.3, 5.1, 3.2, 2.0, 4.5, 7.1, 5.0]}), color="#B8860B")
+    st.markdown("<h2>Canlı Uzay Hava Durumu</h2>", unsafe_allow_html=True); st.write("---")
+    c1, c2, c3 = st.columns(3); c1.metric("Kp İndeksi", "6.33", "+1.2"); c2.metric("Güneş Rüzgarı", "540 km/s", "+45"); c3.metric("Bz (Manyetik)", "-5.2 nT", "Güney")
+    st.write("---"); st.area_chart(pd.DataFrame({"Kp": [2.3, 4.0, 6.3, 5.1, 3.2, 2.0, 4.5, 7.1, 5.0]}), color="#B8860B")
 
 elif menu_secimi in ["IŞIK KİRLİLİĞİ", "LIGHT POLLUTION"]:
-    st.markdown("<h2>Bortle Scale: Işık Kirliliği Simülatörü</h2>", unsafe_allow_html=True)
-    st.write("---")
+    st.markdown("<h2>Bortle Scale: Işık Kirliliği Simülatörü</h2>", unsafe_allow_html=True); st.write("---")
     col_ctrl, col_view = st.columns([1, 2])
-    with col_ctrl: bortle_val = st.slider("Gökyüzü Kalitesi (9 = Şehir, 1 = Çöl)", 1, 9, 9, step=2)
-    sky_glow_opacity = (bortle_val - 1) / 8.0; star_brightness = 1.2 - sky_glow_opacity   
-    with col_view:
-        st.markdown(f"""
-        <div style="position: relative; width: 100%; height: 400px; border: 1px solid rgba(184,134,11,0.3); border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-            <img src="https://images.unsplash.com/photo-1464802686167-b939a6910659?q=80&w=1200" style="width: 100%; height: 100%; object-fit: cover; filter: brightness({star_brightness}) contrast(1.2);">
-            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to top, rgba(200,100,50,0.9), rgba(50,70,100,0.8)); opacity: {sky_glow_opacity}; pointer-events: none;"></div>
-        </div>
-        """, unsafe_allow_html=True)
+    with col_ctrl: bortle_val = st.slider("Gökyüzü Kalitesi", 1, 9, 9, step=2)
+    with col_view: st.markdown(f"""<div style="position: relative; width: 100%; height: 400px; border: 1px solid rgba(184,134,11,0.3); border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5);"><img src="https://images.unsplash.com/photo-1464802686167-b939a6910659?q=80&w=1200" style="width: 100%; height: 100%; object-fit: cover; filter: brightness({1.2 - ((bortle_val - 1) / 8.0)}) contrast(1.2);"><div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to top, rgba(200,100,50,0.9), rgba(50,70,100,0.8)); opacity: {(bortle_val - 1) / 8.0}; pointer-events: none;"></div></div>""", unsafe_allow_html=True)
 
 elif menu_secimi in ["EKİPMANLAR", "EQUIPMENT"]:
-    st.markdown("<h2>VIP Gözlem Ekipmanları</h2>", unsafe_allow_html=True)
-    st.write("---")
+    st.markdown("<h2>VIP Gözlem Ekipmanları</h2>", unsafe_allow_html=True); st.write("---")
     e1, e2, e3 = st.columns(3)
     with e1: st.markdown("""<div class="service-card"><img class="service-img" src="https://images.unsplash.com/photo-1517976487492-5750f3195933?q=80&w=800"><div class="service-content"><h3 class="service-title">Celestron CPC 1100</h3></div></div>""", unsafe_allow_html=True)
     with e2: st.markdown("""<div class="service-card"><img class="service-img" src="https://images.unsplash.com/photo-1506443432602-ac2fcd6f54e0?q=80&w=800"><div class="service-content"><h3 class="service-title">Meade LX200 14''</h3></div></div>""", unsafe_allow_html=True)
-    with e3: st.markdown("""<div class="service-card"><img class="service-img" src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=800"><div class="service-content"><h3 class="service-title">Lunt Solar Systems</h3></div></div>""", unsafe_allow_html=True)
+    with e3: st.markdown("""<div class="service-card"><img class="service-img" src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=800"><div class="service-content"><h3 class="service-title">Lunt Solar</h3></div></div>""", unsafe_allow_html=True)
 
 elif menu_secimi in ["ASTRO-FOTOĞRAF", "ASTRO-PHOTO"]:
-    st.markdown("<h2>Astro-Fotoğrafçılık Simülatörü</h2>", unsafe_allow_html=True)
-    st.write("---")
+    st.markdown("<h2>Astro-Fotoğrafçılık Simülatörü</h2>", unsafe_allow_html=True); st.write("---")
     col_ctrl, col_view = st.columns([1, 2])
-    with col_ctrl:
-        iso_val = st.slider("ISO Değeri", 100, 6400, 800, step=100)
-        exp_val = st.slider("Pozlama Süresi (s)", 1, 30, 10, step=1)
-    with col_view:
-        brightness = 0.15 + (exp_val / 30.0) * 0.6 + (iso_val / 6400.0) * 0.5
-        st.markdown(f"""<div style="border: 1px solid rgba(184,134,11,0.3); border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5);"><img src="https://images.unsplash.com/photo-1464802686167-b939a6910659?q=80&w=1200" style="width: 100%; filter: brightness({brightness});"></div>""", unsafe_allow_html=True)
+    with col_ctrl: iso_val = st.slider("ISO Değeri", 100, 6400, 800, step=100); exp_val = st.slider("Pozlama Süresi", 1, 30, 10, step=1)
+    with col_view: st.markdown(f"""<div style="border: 1px solid rgba(184,134,11,0.3); border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5);"><img src="https://images.unsplash.com/photo-1464802686167-b939a6910659?q=80&w=1200" style="width: 100%; filter: brightness({0.15 + (exp_val / 30.0) * 0.6 + (iso_val / 6400.0) * 0.5});"></div>""", unsafe_allow_html=True)
 
 elif menu_secimi in ["REZERVASYON", "BOOKING"]:
-    st.markdown("<h2>Online Rezervasyon</h2>", unsafe_allow_html=True)
-    st.write("---")
-    kisi_sayisi = st.slider("Misafir Sayısı", 1, 8, 2)
-    st.markdown(f"<div class='price-tag'>${(250 * kisi_sayisi):,}</div>", unsafe_allow_html=True)
-    if st.button("Rezervasyon Gönder"): st.success("Talebiniz alınmıştır.")
+    st.markdown("<h2>Online Rezervasyon</h2>", unsafe_allow_html=True); st.write("---")
+    kisi_sayisi = st.slider("Misafir Sayısı", 1, 8, 2); st.markdown(f"<div class='price-tag'>${(250 * kisi_sayisi):,}</div>", unsafe_allow_html=True); st.button("Gönder")
 
 elif menu_secimi in ["SÜRDÜRÜLEBİLİRLİK", "SUSTAINABILITY"]:
-    st.markdown("<h2>Sürdürülebilir Bilimsel Turizm</h2>", unsafe_allow_html=True)
-    st.write("---")
-    st.markdown('<div class="hero-container"><img class="hero-image" style="height:40vh;" src="https://images.unsplash.com/photo-1502481851512-e9e2529bfbf9?q=80&w=1200"></div>', unsafe_allow_html=True)
+    st.markdown("<h2>Sürdürülebilirlik</h2>", unsafe_allow_html=True); st.write("---"); st.markdown('<div class="hero-container"><img class="hero-image" style="height:40vh;" src="https://images.unsplash.com/photo-1502481851512-e9e2529bfbf9?q=80&w=1200"></div>', unsafe_allow_html=True)
 
 elif menu_secimi in ["YATIRIMCI PORTALI", "INVESTOR PORTAL"]:
-    st.markdown("<h2>Kurumsal İş Modeli (Yatırımcı Portalı)</h2>", unsafe_allow_html=True)
-    st.write("---")
-    if st.text_input("Şifre (stellaris2026):", type="password") == "stellaris2026":
-        st.success("Erişim Sağlandı")
-        st.area_chart(pd.DataFrame({"Şili": [1000, 2500, 4800, 7500, 12000], "Yeni Zelanda": [800, 1900, 3500, 6000, 9500]}, index=["Yıl 1", "Yıl 2", "Yıl 3", "Yıl 4", "Yıl 5"]), color=["#B8860B", "#C5A059"])
+    st.markdown("<h2>Yatırımcı Portalı</h2>", unsafe_allow_html=True); st.write("---")
+    if st.text_input("Şifre (stellaris2026):", type="password") == "stellaris2026": st.area_chart(pd.DataFrame({"Şili": [1000, 2500, 4800, 7500], "Yeni Zelanda": [800, 1900, 3500, 6000]}), color=["#B8860B", "#C5A059"])
