@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-import numpy as np
 import datetime
 import time
 import os
@@ -18,31 +17,18 @@ st.markdown("""
     .stApp { background-color: #051024 !important; }
     header { background-color: transparent !important; }
 
-    html, body, [class*="css"] { 
-        font-family: 'Montserrat', sans-serif; 
-        background-color: #051024 !important; 
-        color: #C5A059; 
-        text-align: center; 
-    }
-
+    html, body, [class*="css"] { font-family: 'Montserrat', sans-serif; background-color: #051024 !important; color: #C5A059; text-align: center; }
     [data-testid="stSidebar"] { background-color: #030814 !important; border-right: 1px solid #B8860B !important; }
 
-    /* --- GÜVENLİ MENÜ KODU --- */
     div[role="radiogroup"] > label > div:first-of-type { display: none !important; }
-    div[role="radiogroup"] p {
-        color: #B8860B !important; font-family: 'Cinzel', serif !important; font-size: 1.15rem !important;
-        font-weight: 600 !important; text-align: center !important; visibility: visible !important;
-        display: block !important; width: 100%; margin-top: 5px; transition: all 0.3s ease;
-    }
+    div[role="radiogroup"] p { color: #B8860B !important; font-family: 'Cinzel', serif !important; font-size: 1.15rem !important; font-weight: 600 !important; text-align: center !important; visibility: visible !important; display: block !important; width: 100%; margin-top: 5px; transition: all 0.3s ease; }
     div[role="radiogroup"] label:hover p { color: #D4AF37 !important; text-shadow: 0px 0px 10px rgba(212, 175, 55, 0.4); }
     div[role="radiogroup"] label[aria-checked="true"] p { color: #D4AF37 !important; text-shadow: 0px 0px 15px rgba(212, 175, 55, 0.8); border-bottom: 1px solid #B8860B; }
 
     [data-baseweb="select"] { background-color: #030814 !important; border: 1px solid #B8860B !important; border-radius: 4px; }
     [data-baseweb="select"] * { color: #C5A059 !important; font-family: 'Montserrat', sans-serif !important; }
-
     [data-testid="stSidebar"] .stAlert div { font-family: 'Montserrat', sans-serif !important; color: #B8860B !important; text-align: center !important; background-color: transparent !important; border: 1px solid #B8860B; }
     
-    /* Gelişmiş Metrik Tasarımı (Canlı Veri Ekranı İçin) */
     div[data-testid="stMetricValue"] { color: #D4AF37 !important; font-family: 'Cinzel', serif !important; font-size: 2.5rem !important; text-shadow: 0px 0px 10px rgba(212, 175, 55, 0.4); }
     div[data-testid="stMetricLabel"] { color: #C5A059 !important; font-family: 'Montserrat', sans-serif !important; font-size: 1.1rem !important; }
     div[data-testid="stMetricDelta"] svg { fill: #D4AF37 !important; color: #D4AF37 !important; }
@@ -102,22 +88,19 @@ else:
     st.sidebar.markdown("<h2 style='text-align: center; font-size: 2.5rem; margin-top: 20px; color: #B8860B;'>Stellaris</h2>", unsafe_allow_html=True)
 
 st.sidebar.write("---")
-
 dil_secimi = st.sidebar.selectbox("🌍 Dil / Language", ["Türkçe", "English"])
 lang = "TR" if dil_secimi == "Türkçe" else "EN"
-
 st.sidebar.write("---")
 
 if lang == "TR":
-    # YENİ MENÜ MADDESİ EKLENDİ
-    menu_secenekleri = ["ANA SAYFA", "LOKASYONLARIMIZ", "GÖZLEM KOŞULLARI & EKİPMAN", "DENEYİMLER & REZERVASYON", "ASTRO-GASTRONOMİ", "SÜRDÜRÜLEBİLİRLİK", "YATIRIMCI PORTALI"]
+    # GASTRONOMİ ÇIKARILDI, DİJİTAL UZAY VE YAPAY ZEKA EKLENDİ
+    menu_secenekleri = ["ANA SAYFA", "LOKASYONLARIMIZ", "GÖZLEM KOŞULLARI & EKİPMAN", "DENEYİMLER & REZERVASYON", "DİJİTAL UZAY & YAPAY ZEKA", "SÜRDÜRÜLEBİLİRLİK", "YATIRIMCI PORTALI"]
     sistem_durumu = "Sistem Durumu: Çevrimiçi"
 else:
-    menu_secenekleri = ["HOME", "OUR LOCATIONS", "CONDITIONS & EQUIPMENT", "EXPERIENCES & BOOKING", "ASTRO-GASTRONOMY", "SUSTAINABILITY", "INVESTOR PORTAL"]
+    menu_secenekleri = ["HOME", "OUR LOCATIONS", "CONDITIONS & EQUIPMENT", "EXPERIENCES & BOOKING", "DIGITAL SPACE & AI", "SUSTAINABILITY", "INVESTOR PORTAL"]
     sistem_durumu = "System Status: Online"
 
 menu_secimi = st.sidebar.radio("GizliNavigasyonBasligi", menu_secenekleri, label_visibility="collapsed")
-
 st.sidebar.write("---")
 st.sidebar.info(sistem_durumu)
 
@@ -168,22 +151,12 @@ elif menu_secimi in ["LOKASYONLARIMIZ", "OUR LOCATIONS"]:
     st.write("---")
     col_space1, col_chile, col_nz, col_space2 = st.columns([1, 4, 4, 1])
     with col_chile:
-        st.markdown(f"""
-        <div class="service-card">
-            <img class="service-img" src="https://images.unsplash.com/photo-1516339901601-2e1b62dc0c45?q=80&w=800&auto=format&fit=crop">
-            <div class="service-content"><h3 class="service-title">{t_chile_title}</h3><p class="service-desc">{t_chile_desc}</p></div>
-        </div>
-        """, unsafe_allow_html=True)
+        st.markdown(f"""<div class="service-card"><img class="service-img" src="https://images.unsplash.com/photo-1516339901601-2e1b62dc0c45?q=80&w=800&auto=format&fit=crop"><div class="service-content"><h3 class="service-title">{t_chile_title}</h3><p class="service-desc">{t_chile_desc}</p></div></div>""", unsafe_allow_html=True)
     with col_nz:
-        st.markdown(f"""
-        <div class="service-card">
-            <img class="service-img" src="https://images.unsplash.com/photo-1464802686167-b939a6910659?q=80&w=800&auto=format&fit=crop">
-            <div class="service-content"><h3 class="service-title">{t_nz_title}</h3><p class="service-desc">{t_nz_desc}</p></div>
-        </div>
-        """, unsafe_allow_html=True)
+        st.markdown(f"""<div class="service-card"><img class="service-img" src="https://images.unsplash.com/photo-1464802686167-b939a6910659?q=80&w=800&auto=format&fit=crop"><div class="service-content"><h3 class="service-title">{t_nz_title}</h3><p class="service-desc">{t_nz_desc}</p></div></div>""", unsafe_allow_html=True)
 
 # ==============================================================================
-# YENİ SAYFA 3: GÖZLEM KOŞULLARI & EKİPMAN
+# SAYFA 3: GÖZLEM KOŞULLARI & EKİPMAN
 # ==============================================================================
 elif menu_secimi in ["GÖZLEM KOŞULLARI & EKİPMAN", "CONDITIONS & EQUIPMENT"]:
     if lang == "TR":
@@ -203,44 +176,23 @@ elif menu_secimi in ["GÖZLEM KOŞULLARI & EKİPMAN", "CONDITIONS & EQUIPMENT"]:
         m1_v, m2_v, m3_v = "98%", "92%", "New Moon"
         m1_d, m2_d, m3_d = "+2% (Perfect)", "-1% (Excellent)", "Flawless for Observation"
         t_eq = "Our VIP Observation Equipment"
-        eq1_t, eq1_d = "Celestron CPC Deluxe 1100 HD", "Ultra-high-definition computerized telescope designed specifically for deep space objects (Galaxies and Nebulae)."
-        eq2_t, eq2_d = "Meade LX200 14'' Advanced", "A massive aperture professional observation tool for capturing the finest details of planets and lunar craters."
-        eq3_t, eq3_d = "Lunt Solar Systems", "Specialized H-Alpha telescope allowing you to safely observe solar flares and the corona during daytime activities."
+        eq1_t, eq1_d = "Celestron CPC Deluxe 1100 HD", "Ultra-high-definition computerized telescope designed specifically for deep space objects."
+        eq2_t, eq2_d = "Meade LX200 14'' Advanced", "A massive aperture professional observation tool for capturing the finest details of planets."
+        eq3_t, eq3_d = "Lunt Solar Systems", "Specialized H-Alpha telescope allowing you to safely observe solar flares during daytime."
 
     st.write("---")
-    # Veri Metrikleri
     col1, col2, col3 = st.columns(3)
     col1.metric(label=m1, value=m1_v, delta=m1_d)
     col2.metric(label=m2, value=m2_v, delta=m2_d)
     col3.metric(label=m3, value=m3_v, delta=m3_d, delta_color="off")
-    
     st.write("---")
     st.markdown(f"<h3>{t_eq}</h3>", unsafe_allow_html=True)
     st.write("")
     
-    # Ekipman Vitrini
     e1, e2, e3 = st.columns(3)
-    with e1:
-        st.markdown(f"""
-        <div class="service-card" style="box-shadow:none; border:none;">
-            <img class="service-img" src="https://images.unsplash.com/photo-1517976487492-5750f3195933?q=80&w=800&auto=format&fit=crop" style="border-radius:8px; border: 1px solid #B8860B;">
-            <div class="service-content" style="padding:15px;"><h3 class="service-title" style="font-size:1.1rem;">{eq1_t}</h3><p class="service-desc">{eq1_d}</p></div>
-        </div>
-        """, unsafe_allow_html=True)
-    with e2:
-        st.markdown(f"""
-        <div class="service-card" style="box-shadow:none; border:none;">
-            <img class="service-img" src="https://images.unsplash.com/photo-1506443432602-ac2fcd6f54e0?q=80&w=800&auto=format&fit=crop" style="border-radius:8px; border: 1px solid #B8860B;">
-            <div class="service-content" style="padding:15px;"><h3 class="service-title" style="font-size:1.1rem;">{eq2_t}</h3><p class="service-desc">{eq2_d}</p></div>
-        </div>
-        """, unsafe_allow_html=True)
-    with e3:
-        st.markdown(f"""
-        <div class="service-card" style="box-shadow:none; border:none;">
-            <img class="service-img" src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=800&auto=format&fit=crop" style="border-radius:8px; border: 1px solid #B8860B;">
-            <div class="service-content" style="padding:15px;"><h3 class="service-title" style="font-size:1.1rem;">{eq3_t}</h3><p class="service-desc">{eq3_d}</p></div>
-        </div>
-        """, unsafe_allow_html=True)
+    with e1: st.markdown(f"""<div class="service-card" style="box-shadow:none; border:none;"><img class="service-img" src="https://images.unsplash.com/photo-1517976487492-5750f3195933?q=80&w=800&auto=format&fit=crop" style="border-radius:8px; border: 1px solid #B8860B;"><div class="service-content" style="padding:15px;"><h3 class="service-title" style="font-size:1.1rem;">{eq1_t}</h3><p class="service-desc">{eq1_d}</p></div></div>""", unsafe_allow_html=True)
+    with e2: st.markdown(f"""<div class="service-card" style="box-shadow:none; border:none;"><img class="service-img" src="https://images.unsplash.com/photo-1506443432602-ac2fcd6f54e0?q=80&w=800&auto=format&fit=crop" style="border-radius:8px; border: 1px solid #B8860B;"><div class="service-content" style="padding:15px;"><h3 class="service-title" style="font-size:1.1rem;">{eq2_t}</h3><p class="service-desc">{eq2_d}</p></div></div>""", unsafe_allow_html=True)
+    with e3: st.markdown(f"""<div class="service-card" style="box-shadow:none; border:none;"><img class="service-img" src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=800&auto=format&fit=crop" style="border-radius:8px; border: 1px solid #B8860B;"><div class="service-content" style="padding:15px;"><h3 class="service-title" style="font-size:1.1rem;">{eq3_t}</h3><p class="service-desc">{eq3_d}</p></div></div>""", unsafe_allow_html=True)
 
 # ==============================================================================
 # SAYFA 4: DENEYİMLER & REZERVASYON
@@ -265,7 +217,6 @@ elif menu_secimi in ["DENEYİMLER & REZERVASYON", "EXPERIENCES & BOOKING"]:
     with col_center:
         st.markdown(f"<h3>{exp_title}</h3>", unsafe_allow_html=True)
         deneyim_turu = st.radio("", exp_options, label_visibility="collapsed")
-        
         st.write("---")
         st.markdown(f"<h3>{res_details}</h3>", unsafe_allow_html=True)
         
@@ -283,35 +234,58 @@ elif menu_secimi in ["DENEYİMLER & REZERVASYON", "EXPERIENCES & BOOKING"]:
             st.success(msg_success)
 
 # ==============================================================================
-# SAYFA 5: ASTRO-GASTRONOMI
+# YENİ SAYFA 5: DİJİTAL UZAY & YAPAY ZEKA SİMÜLASYONU
 # ==============================================================================
-elif menu_secimi in ["ASTRO-GASTRONOMİ", "ASTRO-GASTRONOMY"]:
+elif menu_secimi in ["DİJİTAL UZAY & YAPAY ZEKA", "DIGITAL SPACE & AI"]:
     if lang == "TR":
-        st.markdown("<h2>Yıldızların Altında Gastronomi</h2>", unsafe_allow_html=True)
-        st.markdown("<p>Yerel lezzetlerin Michelin standartlarında tekniklerle buluştuğu premium tadım deneyimi.</p>", unsafe_allow_html=True)
-        t_tab1, t_tab2 = "Atacama Çöl Menüsü (Şili)", "Tekapo Gölü Menüsü (Yeni Zelanda)"
-        t_chile = ["Tütsülenmiş Pasifik Okyanusu somonu, taze Şili avokadosu ve limonlu kinoa çıtırları.", "Ağır ateşte pişmiş Patagonya kuzusu, kavrulmuş yerel kök sebzeler ve Carmenere şarabı redüksiyonu.", "%80 Kakao oranlı organik Şili çikolatası moussé, yenilebilir altın yaprakları ve deniz tuzu karamel."]
-        t_nz = ["Buzul sularından Marlborough istiridyeleri, vahşi otlar ve yeşil elma granitası.", "Manuka balı ve kekik ile sırlanmış Yeni Zelanda geyiği, yer elması püresi.", "Geleneksel pavlova, orman meyveleri, taze krema ve yaban mersini tozu."]
-        t_note = "Sommelier Notu: Tüm menülerimiz ışık kirliliği yaratmayan özel masa aydınlatmaları eşliğinde servis edilmektedir."
+        st.markdown("<h2>Yapay Zeka Destekli Derin Uzay Simülasyonu</h2>", unsafe_allow_html=True)
+        st.markdown("<p>Gözlem saati gelene kadar kendi dijital galaksinizi tasarlayın. Simülasyon motorumuz parametrelerinizi işleyerek size özel kozmik yapıları görselleştirir.</p>", unsafe_allow_html=True)
+        s_title = "Simülasyon Parametreleri"
+        s_obj = "Gök Cismi Tipi"
+        s_opts = ["Sarmal Galaksi (Spiral Galaxy)", "Yıldız Doğumhanesi (Nebula)", "Süpernova Kalıntısı", "Kızıl Cüce Sistemi"]
+        s_color = "Ana Renk Paleti"
+        s_color_opts = ["Mistik Mor & Elektrik Mavisi", "Derin Kızıl & Altın", "Zümrüt Yeşili & Siyah", "Kozmik Toz (Beyaz/Gümüş)"]
+        s_btn = "Simülasyonu Başlat (AI Engine)"
+        s_loading = "Sinir ağları üzerinden piksel verileri işleniyor..."
+        s_success = "Simülasyon başarıyla tamamlandı. İşte kişisel kozmik dijital sanat eseriniz:"
     else:
-        st.markdown("<h2>Gastronomy Under the Stars</h2>", unsafe_allow_html=True)
-        st.markdown("<p>A premium tasting experience where local flavors meet the dark sky with Michelin standard techniques.</p>", unsafe_allow_html=True)
-        t_tab1, t_tab2 = "Atacama Desert Menu (Chile)", "Lake Tekapo Menu (New Zealand)"
-        t_chile = ["Smoked Pacific Ocean salmon, fresh Chilean avocado and lemon quinoa crisps.", "Slow-cooked Patagonian lamb, roasted local root vegetables and Carmenere wine reduction.", "80% Cacao organic Chilean chocolate moussé, edible gold leaves and sea salt caramel."]
-        t_nz = ["Marlborough oysters from glacial waters, wild herbs and green apple granita.", "New Zealand venison glazed with Manuka honey and thyme, Jerusalem artichoke puree.", "Traditional pavlova, forest fruits, fresh cream and blueberry dust."]
-        t_note = "Sommelier Note: All our menus are served with special table lighting that does not create light pollution."
+        st.markdown("<h2>AI-Powered Deep Space Simulation</h2>", unsafe_allow_html=True)
+        st.markdown("<p>Design your own digital galaxy while waiting for observation hours. Our simulation engine processes your parameters to visualize custom cosmic structures.</p>", unsafe_allow_html=True)
+        s_title = "Simulation Parameters"
+        s_obj = "Celestial Object Type"
+        s_opts = ["Spiral Galaxy", "Stellar Nursery (Nebula)", "Supernova Remnant", "Red Dwarf System"]
+        s_color = "Primary Color Palette"
+        s_color_opts = ["Mystic Purple & Electric Blue", "Deep Crimson & Gold", "Emerald Green & Black", "Cosmic Dust (White/Silver)"]
+        s_btn = "Run Simulation (AI Engine)"
+        s_loading = "Processing pixel data through neural networks..."
+        s_success = "Simulation successfully completed. Here is your personal cosmic digital artwork:"
 
     st.write("---")
-    col_space1, col_center, col_space2 = st.columns([1, 8, 1])
-    with col_center:
-        st.markdown('<div class="hero-container"><img class="hero-image" style="height:35vh; animation: slowZoom 30s infinite alternate linear;" src="https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?q=80&w=2000&auto=format&fit=crop"></div>', unsafe_allow_html=True)
+    col1, col2, col3 = st.columns([1, 6, 1])
+    
+    with col2:
+        st.markdown(f"<h3>{s_title}</h3>", unsafe_allow_html=True)
+        secilen_cisim = st.selectbox(s_obj, s_opts)
+        secilen_renk = st.selectbox(s_color, s_color_opts)
+        
         st.write("")
-        tab1, tab2 = st.tabs([t_tab1, t_tab2])
-        with tab1:
-            st.markdown(f"""<div style="padding: 20px;"><div class="menu-item"><div class="menu-title">I. "Supernova"</div><div class="menu-desc">{t_chile[0]}</div></div><div class="menu-item"><div class="menu-title">II. "Journey to the Center"</div><div class="menu-desc">{t_chile[1]}</div></div><div class="menu-item" style="border-bottom: none;"><div class="menu-title">III. "Dark Matter"</div><div class="menu-desc">{t_chile[2]}</div></div></div>""", unsafe_allow_html=True)
-        with tab2:
-            st.markdown(f"""<div style="padding: 20px;"><div class="menu-item"><div class="menu-title">I. "Aurora Lights"</div><div class="menu-desc">{t_nz[0]}</div></div><div class="menu-item"><div class="menu-title">II. "Galactic Forest"</div><div class="menu-desc">{t_nz[1]}</div></div><div class="menu-item" style="border-bottom: none;"><div class="menu-title">III. "Stardust Pavlova"</div><div class="menu-desc">{t_nz[2]}</div></div></div>""", unsafe_allow_html=True)
-        st.info(t_note)
+        if st.button(s_btn):
+            with st.spinner(s_loading):
+                # Gerçekçi bir "generation" süresi simülasyonu
+                time.sleep(3)
+            
+            st.success(s_success)
+            st.write("---")
+            
+            # Dinamik Görsel Çıktısı (Seçime göre değişen mantık)
+            if "Galaksi" in secilen_cisim or "Galaxy" in secilen_cisim:
+                gen_img = "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?q=80&w=1200&auto=format&fit=crop"
+            elif "Nebula" in secilen_cisim or "Doğumhanesi" in secilen_cisim:
+                gen_img = "https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?q=80&w=1200&auto=format&fit=crop"
+            else:
+                gen_img = "https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?q=80&w=1200&auto=format&fit=crop"
+
+            st.markdown(f'<div class="hero-container"><img class="hero-image" style="height:auto; filter: brightness(80%); border: 3px solid #D4AF37;" src="{gen_img}"></div>', unsafe_allow_html=True)
 
 # ==============================================================================
 # SAYFA 6: SÜRDÜRÜLEBİLİRLİK
@@ -322,13 +296,13 @@ elif menu_secimi in ["SÜRDÜRÜLEBİLİRLİK", "SUSTAINABILITY"]:
         title, desc = "Doğaya ve Gökyüzüne Saygı", "Evrenin güzelliklerini keşfederken dünyamızı korumaktır. Sürdürülebilirlik ilkelerimiz sadece çevresel değil, kültürel uyumu da kapsar."
         ex1 = ("Işık Kirliliği Azaltımı", "Tesislerimizde gökyüzü gözlemini engellememesi için yalnızca kırmızı bazlı, düşük lümenli zemin aydınlatmaları ve harekete duyarlı sensörler kullanılmaktadır.")
         ex2 = ("Sıfır Karbon Ayak İzi", "Gözlem noktalarına ulaşım sağlayan turlarımızda tamamen sıfır emisyonlu elektrikli araçlar ve enerji ihtiyacını karşılayan güneş paneli destekli üniteler kullanılmaktadır.")
-        ex3 = ("Yerel İş Birliği ve Tasarım", "Bölge halkı istihdam edilmekte, menülerde tamamen yerel üreticilerden alınan ürünler kullanılmaktadır. Mimari yapılarımız doğanın silüetini bozmayan minimal yaklaşımla tasarlanmıştır.")
+        ex3 = ("Yerel İş Birliği ve Tasarım", "Bölge halkı istihdam edilmekte, tesis mimarisinde doğanın silüetini bozmayan minimal yaklaşım tercih edilmektedir.")
     else:
         st.markdown("<h2>Sustainable Scientific Tourism</h2>", unsafe_allow_html=True)
         title, desc = "Respect for Nature and the Sky", "Our fundamental mission while exploring the universe is to protect our world. Our sustainability principles cover not only environmental but also cultural harmony."
         ex1 = ("Light Pollution Reduction", "To prevent interfering with sky observation, only red-based, low-lumen floor lighting and motion-sensitive sensors are used in our facilities.")
         ex2 = ("Zero Carbon Footprint", "Our tours providing access to observation points use completely zero-emission electric vehicles and solar panel-supported units.")
-        ex3 = ("Local Collaboration and Design", "Local people are employed, and products sourced entirely from local producers are used in menus. Our architectural structures are designed with a minimal approach that preserves nature's silhouette.")
+        ex3 = ("Local Collaboration and Design", "Local people are employed, and our architectural structures are designed with a minimal approach that preserves nature's silhouette.")
 
     st.write("---")
     col_space1, col_center, col_space2 = st.columns([1, 6, 1])
