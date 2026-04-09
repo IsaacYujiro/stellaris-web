@@ -6,7 +6,7 @@ import os
 import glob
 
 # ==============================================================================
-# SİTE YAPILANDIRMASI VE AGRESİF LÜKS CSS (TİKLER İPTAL, GECE MAVİSİ)
+# SİTE YAPILANDIRMASI VE AGRESİF LÜKS CSS (GECE MAVİSİ, TİKSİZ, EMOJİSİZ)
 # ==============================================================================
 st.set_page_config(page_title="Stellaris | Premium Astro-Tourism", layout="wide", initial_sidebar_state="expanded")
 
@@ -16,7 +16,7 @@ st.markdown("""
 
     /* STREAMLIT'IN BEYAZ TEMASINI ZORUNLU OLARAK GECE MAVİSİ YAP */
     .stApp {
-        background-color: #051024 !important; /* Derin Gece Mavisi */
+        background-color: #051024 !important; 
     }
     
     header {
@@ -54,7 +54,7 @@ st.markdown("""
     div[role="radiogroup"] label:hover p { color: #D4AF37 !important; text-shadow: 0px 0px 10px rgba(212, 175, 55, 0.4); }
     div[role="radiogroup"] label[aria-checked="true"] p { color: #D4AF37 !important; text-shadow: 0px 0px 15px rgba(212, 175, 55, 0.8); border-bottom: 1px solid #B8860B; }
 
-    /* Dil Seçici (Selectbox) Özel Tasarımı */
+    /* Dil Seçici Özel Tasarımı */
     [data-baseweb="select"] { background-color: #030814 !important; border: 1px solid #B8860B !important; border-radius: 4px; }
     [data-baseweb="select"] * { color: #C5A059 !important; font-family: 'Montserrat', sans-serif !important; }
 
@@ -99,8 +99,13 @@ st.markdown("""
 # AKILLI LOGO BULUCU
 # ==============================================================================
 bulunan_logo = None
+# Boşluklu veya farklı formatlı dosyaları da taramak için genişletildi
 resimler = glob.glob("*.jpeg") + glob.glob("*.jpg") + glob.glob("*.png")
-if resimler:
+for resim in resimler:
+    if "logo" in resim.lower() or "whatsapp" in resim.lower() or "image" in resim.lower():
+        bulunan_logo = resim
+        break
+if not bulunan_logo and resimler:
     bulunan_logo = resimler[0]
 
 # ==============================================================================
@@ -160,7 +165,7 @@ if menu_secimi in ["ANA SAYFA", "HOME"]:
         st.markdown('<div class="hero-container"><img class="hero-image" style="height:45vh; filter: brightness(60%);" src="https://images.unsplash.com/photo-1464802686167-b939a6910659?q=80&w=2000&auto=format&fit=crop"></div>', unsafe_allow_html=True)
 
 # ==============================================================================
-# SAYFA 2: LOKASYONLARIMIZ (RESİMLER DÜZELTİLDİ)
+# SAYFA 2: LOKASYONLARIMIZ (KART İÇİ RESİMLER TAMAMEN DÜZELTİLDİ)
 # ==============================================================================
 elif menu_secimi in ["LOKASYONLARIMIZ", "OUR LOCATIONS"]:
     if lang == "TR":
@@ -182,19 +187,19 @@ elif menu_secimi in ["LOKASYONLARIMIZ", "OUR LOCATIONS"]:
     col_space1, col_chile, col_nz, col_space2 = st.columns([1, 4, 4, 1])
     
     with col_chile:
+        # ATACAMA KARTI: Kırık link %100 çalışan yeni gece gökyüzü görseliyle değiştirildi. Altındaki ekstra resim kodu silindi.
         st.markdown(f"""
         <div class="service-card">
-            <img class="service-img" src="https://images.unsplash.com/photo-1504333638930-c8787321efa0?q=80&w=800&auto=format&fit=crop">
+            <img class="service-img" src="https://images.unsplash.com/photo-1516339901601-2e1b62dc0c45?q=80&w=800&auto=format&fit=crop">
             <div class="service-content">
                 <h3 class="service-title">{t_chile_title}</h3>
                 <p class="service-desc">{t_chile_desc}</p>
             </div>
         </div>
         """, unsafe_allow_html=True)
-        # Sağlam Alternatif Atacama Görseli
-        st.image("https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?q=80&w=800&auto=format&fit=crop", use_container_width=True)
 
     with col_nz:
+        # YENİ ZELANDA KARTI: Altındaki ekstra resim kodu silindi.
         st.markdown(f"""
         <div class="service-card">
             <img class="service-img" src="https://images.unsplash.com/photo-1464802686167-b939a6910659?q=80&w=800&auto=format&fit=crop">
@@ -204,7 +209,6 @@ elif menu_secimi in ["LOKASYONLARIMIZ", "OUR LOCATIONS"]:
             </div>
         </div>
         """, unsafe_allow_html=True)
-        st.image("https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=800&auto=format&fit=crop", use_container_width=True)
 
 # ==============================================================================
 # SAYFA 3: DENEYİMLER & REZERVASYON
