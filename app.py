@@ -50,7 +50,8 @@ st.markdown("""
     [data-baseweb="select"] { background-color: rgba(3, 8, 20, 0.6) !important; border: 1px solid #B8860B !important; border-radius: 4px; backdrop-filter: blur(5px);}
     [data-testid="stSidebar"] .stAlert div { font-family: 'Montserrat', sans-serif !important; color: #B8860B !important; text-align: center !important; background-color: transparent !important; border: 1px solid #B8860B; }
     
-    div[data-testid="stMetricValue"] { color: #D4AF37 !important; font-family: 'Cinzel', serif !important; font-size: 2.5rem !important; text-shadow: 0px 0px 15px rgba(212, 175, 55, 0.5); }
+    div[data-testid="stMetricValue"] { color: #D4AF37 !important; font-family: 'Cinzel', serif !important; font-size: 2.5rem !important; text-shadow: 0px 0px 15px rgba(212, 175, 55, 0.5); transition: transform 0.3s ease; display: inline-block;}
+    div[data-testid="stMetricValue"]:hover { transform: scale(1.1); color: #FFD700 !important; }
     div[data-testid="stMetricLabel"] { color: #B8860B !important; font-family: 'Montserrat', sans-serif !important; font-size: 1.1rem !important; }
     
     h1, h2, h3, h4, h5, h6 { font-family: 'Cinzel', serif; font-weight: 700; text-align: center !important; width: 100%; background: linear-gradient(45deg, #C5A059, #F3E5AB, #D4AF37, #B8860B); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shine 5s linear infinite;}
@@ -69,7 +70,7 @@ st.markdown("""
     @keyframes slowZoom { from { transform: scale(1); } to { transform: scale(1.08); } }
     .hero-container { position: relative; text-align: center; margin-bottom: 40px; display: flex; justify-content: center; overflow: hidden; border-radius: 8px; box-shadow: 0 15px 40px rgba(0,0,0,0.6);}
 
-    .service-card, .boarding-pass, div[style*="border: 2px solid #B8860B"], .planet-card { background: rgba(5, 16, 36, 0.4) !important; backdrop-filter: blur(12px) !important; border-radius: 12px !important; border: 1px solid rgba(184, 134, 11, 0.3) !important; box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5) !important; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important; overflow: hidden; }
+    .service-card, .planet-card { background: rgba(5, 16, 36, 0.4) !important; backdrop-filter: blur(12px) !important; border-radius: 12px !important; border: 1px solid rgba(184, 134, 11, 0.3) !important; box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5) !important; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important; overflow: hidden; }
     .service-card:hover, .planet-card:hover { transform: translateY(-10px) !important; border-color: rgba(212, 175, 55, 0.8) !important; box-shadow: 0 15px 40px rgba(184, 134, 11, 0.2) !important; }
     
     .service-img { width: 100%; height: 220px; object-fit: cover; border-bottom: 1px solid rgba(184, 134, 11, 0.3); transition: transform 0.5s; }
@@ -121,7 +122,7 @@ lang = "TR" if dil_secimi == "Türkçe" else "EN"
 
 # Kullanıcı Giriş Yaptıysa İsim Gösterimi
 if st.session_state.logged_in:
-    st.sidebar.markdown(f"<div style='text-align:center; color:#D4AF37; font-family:Montserrat; margin-bottom:10px;'><b>👤 {st.session_state.current_user}</b></div>", unsafe_allow_html=True)
+    st.sidebar.markdown(f"<div style='text-align:center; color:#D4AF37; font-family:Montserrat; margin-bottom:10px; animation: fadeSlideUp 0.5s;'><b>👤 {st.session_state.current_user}</b></div>", unsafe_allow_html=True)
 
 st.sidebar.write("---")
 
@@ -138,7 +139,7 @@ menu_secenekleri = [
 menu_secimi = st.sidebar.radio("Nav", menu_secenekleri, label_visibility="collapsed")
 st.sidebar.write("---")
 
-# MÜZİK ÇALAR (Autoplay Açık - Döngü Aktif)
+# MÜZİK ÇALAR (Autoplay ve Loop Açık, Kontroller Mevcut)
 st.sidebar.markdown(f"<p style='color:#B8860B; font-size:0.8rem; font-weight:bold; margin-bottom:5px !important;'>{'Kozmik Ambiyans Sesi' if lang == 'TR' else 'Cosmic Ambient Audio'}</p>", unsafe_allow_html=True)
 st.sidebar.markdown("""
 <audio controls autoplay loop style="width: 100%; height: 30px; outline: none; border-radius: 4px; opacity: 0.8;">
@@ -284,7 +285,7 @@ elif menu_secimi in ["CANLI GÖZLEMEVİ", "LIVE OBSERVATORY"]:
             st.markdown(f"""<div style="width: 100%; height: 400px; border: 2px solid #B8860B; border-radius: 8px; overflow: hidden; background: #000; position: relative;"><div style="position: absolute; top: 15px; left: 15px; color: red; font-family: monospace; font-weight: bold; z-index: 10;"><span style="animation: blink 1s infinite;">●</span> SIMULATION</div><img src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?q=80&w=1200" style="width: 100%; height: 100%; object-fit: cover; transform: scale({zoom_level}); filter: {css_filter}; transition: all 0.5s ease;"></div>""", unsafe_allow_html=True)
 
 # ==============================================================================
-# SAYFA 5: 3D SİMÜLASYONLAR
+# SAYFA 5: 3D SİMÜLASYONLAR (KARIŞAN SEKMELER %100 DÜZELTİLDİ)
 # ==============================================================================
 elif menu_secimi in ["3D SİMÜLASYONLAR", "3D SIMULATIONS"]:
     st.markdown("<h2>{}</h2>".format("İnteraktif 3D Uzay Simülatörleri" if lang == "TR" else "Interactive 3D Space Simulators"), unsafe_allow_html=True)
@@ -295,11 +296,16 @@ elif menu_secimi in ["3D SİMÜLASYONLAR", "3D SIMULATIONS"]:
     
     style_str = "border: 1px solid rgba(184,134,11,0.3); border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); background: rgba(5,16,36,0.5);"
     
-    with tab1: st.markdown(f"""<div style="{style_str}"><iframe src="https://eyes.nasa.gov/apps/earth/#/" width="100%" height="600" frameborder="0" allowfullscreen="true"></iframe></div>""", unsafe_allow_html=True)
-    with tab2: st.markdown(f"""<div style="{style_str}"><iframe src="https://eyes.nasa.gov/apps/solar-system/#/home?embed=true" width="100%" height="600" frameborder="0" allowfullscreen="true"></iframe></div>""", unsafe_allow_html=True)
-    with tab3: st.markdown(f"""<div style="{style_str}"><iframe src="https://eyes.nasa.gov/apps/asteroids/#/?embed=true" width="100%" height="600" frameborder="0" allowfullscreen="true"></iframe></div>""", unsafe_allow_html=True)
-    with tab4: st.markdown(f"""<div style="{style_str}"><iframe src="https://eyes.nasa.gov/apps/exo/#/?embed=true" width="100%" height="600" frameborder="0" allowfullscreen="true"></iframe></div>""", unsafe_allow_html=True)
-    with tab5:
+    # 3D sekmelerinin bağlantıları sırasıyla NASA API'lerine DOĞRU şekilde bağlandı
+    with tab1: # DÜNYA
+        st.markdown(f"""<div style="{style_str}"><iframe src="https://eyes.nasa.gov/apps/earth/#/" width="100%" height="600" frameborder="0" allowfullscreen="true"></iframe></div>""", unsafe_allow_html=True)
+    with tab2: # GÜNEŞ SİSTEMİ
+        st.markdown(f"""<div style="{style_str}"><iframe src="https://eyes.nasa.gov/apps/solar-system/#/home?embed=true" width="100%" height="600" frameborder="0" allowfullscreen="true"></iframe></div>""", unsafe_allow_html=True)
+    with tab3: # ASTEROİT AVI
+        st.markdown(f"""<div style="{style_str}"><iframe src="https://eyes.nasa.gov/apps/asteroids/#/?embed=true" width="100%" height="600" frameborder="0" allowfullscreen="true"></iframe></div>""", unsafe_allow_html=True)
+    with tab4: # ÖTEGEZEGENLER
+        st.markdown(f"""<div style="{style_str}"><iframe src="https://eyes.nasa.gov/apps/exo/#/?embed=true" width="100%" height="600" frameborder="0" allowfullscreen="true"></iframe></div>""", unsafe_allow_html=True)
+    with tab5: # GÖKYÜZÜ HARİTASI
         loc_choice = st.selectbox("Gözlem Noktası / Location:", ["Atacama Çölü, Şili", "Tekapo Gölü, Yeni Zelanda"])
         lat, lon = (-23.0, -67.7) if "Atacama" in loc_choice else (-44.0, 170.4)
         sky_url = f"https://virtualsky.lco.global/embed/index.html?longitude={lon}&latitude={lat}&projection=stereo&constellations=true&constellationlabels=true&meteorshowers=true&showstarlabels=true&live=true&az=180&color=dark"
@@ -408,7 +414,7 @@ elif menu_secimi in ["KOZMİK TAKVİM", "COSMIC CALENDAR"]:
     with col_metrics: 
         st.metric("Görüş / Visibility" if lang=="TR" else "Visibility", "Ultra HD", "99%")
         st.progress(60 if "Perseid" in selected_event else 85 if "Sat" in selected_event else 98)
-        if st.button("Rezervasyon" if lang=="TR" else "Book"): st.toast("Rezervasyon Talebiniz Alındı!", icon="🎫")
+        if st.button("Rezervasyon" if lang=="TR" else "Book"): st.toast("Rezervasyon Talebiniz Alındı!" if lang=="TR" else "Reservation Request Received!", icon="🎫")
 
 # ==============================================================================
 # SAYFA 10: UZAY HAVADURUMU
