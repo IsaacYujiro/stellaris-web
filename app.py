@@ -92,6 +92,10 @@ st.markdown("""
     .spinning-planet { width: 250px; height: 250px; border-radius: 50%; display: block; margin: 0 auto 20px auto; box-shadow: inset -25px -25px 40px rgba(0,0,0,0.9), 0 0 30px rgba(184, 134, 11, 0.3); animation: spin 40s linear infinite; object-fit: cover;}
     @keyframes spin { 100% { transform: rotate(360deg); } }
     @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+    
+    .mission-box { background: rgba(3, 8, 20, 0.7); border-left: 4px solid #D4AF37; padding: 25px; margin-bottom: 25px; border-radius: 0 8px 8px 0; text-align: left !important; }
+    .mission-box h3 { text-align: left !important; margin-bottom: 10px; color: #D4AF37; font-size: 1.5rem;}
+    .mission-box p { text-align: left !important; font-size: 1rem; color: #E0E0E0 !important; line-height: 1.6;}
     </style>
     """, unsafe_allow_html=True)
 
@@ -127,11 +131,11 @@ if st.session_state.logged_in:
 st.sidebar.write("---")
 
 menu_secenekleri = [
-    "ANA SAYFA", "GİRİŞ / KAYIT", "LOKASYONLARIMIZ", "CANLI GÖZLEMEVİ", "3D SİMÜLASYONLAR", "KARA DELİK SİM.",
+    "ANA SAYFA", "LOKASYONLARIMIZ", "CANLI GÖZLEMEVİ", "3D SİMÜLASYONLAR", "KARA DELİK SİM.",
     "STELLARIS AI", "VİDEOLAR GALERİSİ", "KOZMİK TAKVİM", "UZAY HAVADURUMU", "IŞIK KİRLİLİĞİ", 
     "EKİPMANLAR", "ASTRO-FOTOĞRAF", "REZERVASYON", "VİZYON & SÜRDÜRÜLEBİLİRLİK", "YATIRIMCI PORTALI"
 ] if lang == "TR" else [
-    "HOME", "LOGIN / REGISTER", "OUR LOCATIONS", "LIVE OBSERVATORY", "3D SIMULATIONS", "BLACK HOLE SIM.",
+    "HOME", "OUR LOCATIONS", "LIVE OBSERVATORY", "3D SIMULATIONS", "BLACK HOLE SIM.",
     "STELLARIS AI", "VIDEO GALLERY", "COSMIC CALENDAR", "SPACE WEATHER", "LIGHT POLLUTION", 
     "EQUIPMENT", "ASTRO-PHOTO", "BOOKING", "VISION & SUSTAINABILITY", "INVESTOR PORTAL"
 ]
@@ -184,69 +188,7 @@ if menu_secimi in ["ANA SAYFA", "HOME"]:
         st.markdown('<div class="hero-container"><img class="hero-image" src="https://images.unsplash.com/photo-1464802686167-b939a6910659?q=80&w=2000&auto=format&fit=crop"></div>', unsafe_allow_html=True)
 
 # ==============================================================================
-# SAYFA 2: GİRİŞ / KAYIT (USER PORTAL)
-# ==============================================================================
-elif menu_secimi in ["GİRİŞ / KAYIT", "LOGIN / REGISTER"]:
-    st.markdown("<h2>{}</h2>".format("Kullanıcı Portalı" if lang == "TR" else "User Portal"), unsafe_allow_html=True)
-    st.write("---")
-
-    if not st.session_state.logged_in:
-        t_login, t_register = st.tabs(["🔑 Giriş Yap" if lang == "TR" else "🔑 Login", "📝 Kayıt Ol" if lang == "TR" else "📝 Register"])
-
-        with t_login:
-            c1, c2, c3 = st.columns([1, 2, 1])
-            with c2:
-                st.markdown(f"<h3 style='color:#D4AF37; margin-bottom:20px; text-align:center;'>{'Hesabınıza Giriş Yapın' if lang == 'TR' else 'Log In to Your Account'}</h3>", unsafe_allow_html=True)
-                l_email = st.text_input("E-Mail:", key="l_email")
-                l_pass = st.text_input("Şifre / Password:" if lang == "TR" else "Password:", type="password", key="l_pass")
-                if st.button("Giriş Yap" if lang == "TR" else "Login", use_container_width=True):
-                    if l_email and l_pass:
-                        st.session_state.logged_in = True
-                        st.session_state.current_user = l_email.split('@')[0].capitalize()
-                        st.toast("Giriş başarılı! Yönlendiriliyorsunuz..." if lang == "TR" else "Login successful!", icon="✅")
-                        time.sleep(1)
-                        st.rerun()
-                    else:
-                        st.error("Lütfen bilgileri eksiksiz girin." if lang == "TR" else "Please fill in all fields.")
-
-        with t_register:
-            c1, c2, c3 = st.columns([1, 2, 1])
-            with c2:
-                st.markdown(f"<h3 style='color:#D4AF37; margin-bottom:20px; text-align:center;'>{'Yeni Stellaris Hesabı' if lang == 'TR' else 'New Stellaris Account'}</h3>", unsafe_allow_html=True)
-                r_name = st.text_input("Ad Soyad / Full Name:" if lang == "TR" else "Full Name:", key="r_name")
-                r_email = st.text_input("E-Mail:", key="r_email")
-                r_pass1 = st.text_input("Şifre / Password:" if lang == "TR" else "Password:", type="password", key="r_pass1")
-                r_pass2 = st.text_input("Şifre Tekrar / Confirm Password:" if lang == "TR" else "Confirm Password:", type="password", key="r_pass2")
-                if st.button("Kayıt Ol" if lang == "TR" else "Register", use_container_width=True):
-                    if r_pass1 != r_pass2:
-                        st.error("Şifreler eşleşmiyor!" if lang == "TR" else "Passwords do not match!")
-                    elif r_name and r_email and r_pass1:
-                        st.session_state.logged_in = True
-                        st.session_state.current_user = r_name.title()
-                        st.toast("Kayıt başarılı! Yıldızlara hoş geldiniz..." if lang == "TR" else "Registration successful!", icon="🚀")
-                        st.balloons()
-                        time.sleep(1.5)
-                        st.rerun()
-                    else:
-                        st.error("Tüm alanları doldurmanız gerekmektedir." if lang == "TR" else "All fields are required.")
-
-    else:
-        c1, c2, c3 = st.columns([1, 2, 1])
-        with c2:
-            st.markdown(f"""
-            <div style='background: rgba(5,16,36,0.6); padding: 40px; border-radius: 12px; border: 1px solid rgba(184,134,11,0.3); box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align:center;'>
-                <h2 style='color:#D4AF37;'>{'Hoş Geldiniz' if lang == 'TR' else 'Welcome'}, {st.session_state.current_user}!</h2>
-                <p style='color:#E0E0E0;'>{'Yıldızlara yolculuğunuz için hazırsınız. Premium içeriklere tam erişiminiz bulunmaktadır.' if lang == 'TR' else 'You are ready for your journey to the stars. You have full access to premium content.'}</p>
-            </div>
-            """, unsafe_allow_html=True)
-            st.write("")
-            if st.button("Çıkış Yap" if lang == "TR" else "Logout", use_container_width=True):
-                st.session_state.logged_in = False
-                st.session_state.current_user = ""
-                st.rerun()
-
-# ==============================================================================
-# SAYFA 3: LOKASYONLARIMIZ
+# SAYFA 2: LOKASYONLARIMIZ
 # ==============================================================================
 elif menu_secimi in ["LOKASYONLARIMIZ", "OUR LOCATIONS"]:
     st.markdown("<h2>{}</h2>".format("Hedef Ülkeler ve Küresel Pazar" if lang == "TR" else "Target Locations & Global Market"), unsafe_allow_html=True)
@@ -259,7 +201,7 @@ elif menu_secimi in ["LOKASYONLARIMIZ", "OUR LOCATIONS"]:
         st.markdown(f"""<div class="service-card"><img class="service-img" src="https://images.unsplash.com/photo-1464802686167-b939a6910659?q=80&w=800"><div class="service-content"><h3 class="service-title">{"Tekapo Gölü, Y. Zelanda" if lang=="TR" else "Lake Tekapo, New Zealand"}</h3><p class="service-desc">{"Uluslararası karanlık gökyüzü rezervi. Güney Haçı takımyıldızını ve Aurora Australis'i deneyimleyin." if lang=="TR" else "International dark sky reserve. Experience the Southern Cross and Aurora Australis."}</p></div></div>""", unsafe_allow_html=True)
 
 # ==============================================================================
-# SAYFA 4: CANLI GÖZLEMEVİ
+# SAYFA 3: CANLI GÖZLEMEVİ
 # ==============================================================================
 elif menu_secimi in ["CANLI GÖZLEMEVİ", "LIVE OBSERVATORY"]:
     st.markdown("<h2>{}</h2>".format("Stellaris Kesintisiz Uydu Ağı" if lang == "TR" else "Stellaris Live Satellite Network"), unsafe_allow_html=True)
@@ -285,7 +227,7 @@ elif menu_secimi in ["CANLI GÖZLEMEVİ", "LIVE OBSERVATORY"]:
             st.markdown(f"""<div style="width: 100%; height: 400px; border: 2px solid #B8860B; border-radius: 8px; overflow: hidden; background: #000; position: relative;"><div style="position: absolute; top: 15px; left: 15px; color: red; font-family: monospace; font-weight: bold; z-index: 10;"><span style="animation: blink 1s infinite;">●</span> SIMULATION</div><img src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?q=80&w=1200" style="width: 100%; height: 100%; object-fit: cover; transform: scale({zoom_level}); filter: {css_filter}; transition: all 0.5s ease;"></div>""", unsafe_allow_html=True)
 
 # ==============================================================================
-# SAYFA 5: 3D SİMÜLASYONLAR (KARIŞAN SEKMELER %100 DÜZELTİLDİ)
+# SAYFA 4: 3D SİMÜLASYONLAR 
 # ==============================================================================
 elif menu_secimi in ["3D SİMÜLASYONLAR", "3D SIMULATIONS"]:
     st.markdown("<h2>{}</h2>".format("İnteraktif 3D Uzay Simülatörleri" if lang == "TR" else "Interactive 3D Space Simulators"), unsafe_allow_html=True)
@@ -296,7 +238,6 @@ elif menu_secimi in ["3D SİMÜLASYONLAR", "3D SIMULATIONS"]:
     
     style_str = "border: 1px solid rgba(184,134,11,0.3); border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); background: rgba(5,16,36,0.5);"
     
-    # 3D sekmelerinin bağlantıları sırasıyla NASA API'lerine DOĞRU şekilde bağlandı
     with tab1: # DÜNYA
         st.markdown(f"""<div style="{style_str}"><iframe src="https://eyes.nasa.gov/apps/earth/#/" width="100%" height="600" frameborder="0" allowfullscreen="true"></iframe></div>""", unsafe_allow_html=True)
     with tab2: # GÜNEŞ SİSTEMİ
@@ -312,7 +253,7 @@ elif menu_secimi in ["3D SİMÜLASYONLAR", "3D SIMULATIONS"]:
         components.iframe(sky_url, height=600)
 
 # ==============================================================================
-# SAYFA 6: KARA DELİK FİZİK MOTORU
+# SAYFA 5: KARA DELİK FİZİK MOTORU
 # ==============================================================================
 elif menu_secimi in ["KARA DELİK SİM.", "BLACK HOLE SIM."]:
     st.markdown("<h2>{}</h2>".format("Kara Delik & Kütleçekim Simülatörü" if lang == "TR" else "Black Hole & Gravity Simulator"), unsafe_allow_html=True)
@@ -351,7 +292,7 @@ elif menu_secimi in ["KARA DELİK SİM.", "BLACK HOLE SIM."]:
     components.html(bh_html, height=750)
 
 # ==============================================================================
-# SAYFA 7: STELLARIS AI
+# SAYFA 6: STELLARIS AI
 # ==============================================================================
 elif menu_secimi in ["STELLARIS AI"]:
     st.markdown("<h2>{}</h2>".format("Stellaris Kozmik Rehber (AI Asistan)" if lang == "TR" else "Stellaris Cosmic Guide (AI Assistant)"), unsafe_allow_html=True)
@@ -377,18 +318,18 @@ elif menu_secimi in ["STELLARIS AI"]:
                     elif "tekapo" in lower_prompt: response = "Yeni Zelanda'daki Tekapo Gölü, Uluslararası Karanlık Gökyüzü Rezervidir. Güney Haçı takımyıldızı mükemmel görünür."
                     elif "bilet" in lower_prompt or "fiyat" in lower_prompt: response = "Turlarımız $150 ile $800 arasında değişmektedir. Detaylar Rezervasyon sekmesinde."
                     elif "kara delik" in lower_prompt: response = "Kara delikler ışığın bile kaçamayacağı kadar güçlü kütleçekimine sahip kozmik canavarlardır. Simülasyon sekmesinde test edebilirsiniz!"
-                    else: response = "Bu harika bir soru. Müşteri temsilcilerimiz ve uzman astronomlarımız size en iyi deneyimi sunmak için menüdeki diğer turlarımıza göz atmanızı öneriyor."
+                    else: response = "Bu harika bir soru. Müşteri temsilcilerimiz ve uzman astronomlarımız size en iyi deneyimi sunmak için menüdeki diğer sekmelerimize göz atmanızı öneriyor."
                 else:
                     if "atacama" in lower_prompt: response = "Atacama Desert in Chile is the best observation point with over 300 clear nights a year. You can book a VIP tour from the Booking tab."
                     elif "tekapo" in lower_prompt: response = "Lake Tekapo in New Zealand is an International Dark Sky Reserve. The Southern Cross constellation is perfectly visible."
                     elif "ticket" in lower_prompt or "price" in lower_prompt: response = "Our tours range from $150 to $800. See the Booking tab for details."
                     elif "black hole" in lower_prompt: response = "Black holes have immense gravity that not even light can escape. Try our simulation tab!"
-                    else: response = "That's a great question. Our experts are always improving the system to give you the best experience. Would you like to check out our other tours in the menu?"
+                    else: response = "That's a great question. Our experts recommend exploring the other tabs in the menu for the best experience."
                 st.markdown(response)
                 st.session_state.messages.append({"role": "assistant", "content": response})
 
 # ==============================================================================
-# SAYFA 8: VİDEOLAR GALERİSİ
+# SAYFA 7: VİDEOLAR GALERİSİ
 # ==============================================================================
 elif menu_secimi in ["VİDEOLAR GALERİSİ", "VIDEO GALLERY"]:
     st.markdown("<h2>{}</h2>".format("Stellaris Uzay ve Bilim Sineması" if lang == "TR" else "Stellaris Space Cinema"), unsafe_allow_html=True); st.write("---")
@@ -401,7 +342,7 @@ elif menu_secimi in ["VİDEOLAR GALERİSİ", "VIDEO GALLERY"]:
         st.markdown(f"<br><h3>{'Dünya 4K Manzaralar' if lang=='TR' else 'Earth 4K Views'}</h3>", unsafe_allow_html=True); st.video("https://www.youtube.com/watch?v=Un5SEJ8MyPc")
 
 # ==============================================================================
-# SAYFA 9: KOZMİK TAKVİM
+# SAYFA 8: KOZMİK TAKVİM
 # ==============================================================================
 elif menu_secimi in ["KOZMİK TAKVİM", "COSMIC CALENDAR"]:
     st.markdown("<h2>{}</h2>".format("Kozmik Takvim & Nadir Fenomenler" if lang == "TR" else "Cosmic Calendar & Phenomena"), unsafe_allow_html=True); st.write("---")
@@ -417,7 +358,7 @@ elif menu_secimi in ["KOZMİK TAKVİM", "COSMIC CALENDAR"]:
         if st.button("Rezervasyon" if lang=="TR" else "Book"): st.toast("Rezervasyon Talebiniz Alındı!" if lang=="TR" else "Reservation Request Received!", icon="🎫")
 
 # ==============================================================================
-# SAYFA 10: UZAY HAVADURUMU
+# SAYFA 9: UZAY HAVADURUMU
 # ==============================================================================
 elif menu_secimi in ["UZAY HAVADURUMU", "SPACE WEATHER"]:
     st.markdown("<h2>{}</h2>".format("Canlı Uzay Hava Durumu & Fırtına İndeksi" if lang == "TR" else "Live Space Weather & Storm Index"), unsafe_allow_html=True); st.write("---")
@@ -434,7 +375,7 @@ elif menu_secimi in ["UZAY HAVADURUMU", "SPACE WEATHER"]:
     st.bar_chart(df, color="#D4AF37")
 
 # ==============================================================================
-# SAYFA 11: IŞIK KİRLİLİĞİ
+# SAYFA 10: IŞIK KİRLİLİĞİ
 # ==============================================================================
 elif menu_secimi in ["IŞIK KİRLİLİĞİ", "LIGHT POLLUTION"]:
     st.markdown("<h2>{}</h2>".format("Bortle Scale: Işık Kirliliği Simülatörü" if lang == "TR" else "Light Pollution Simulator"), unsafe_allow_html=True); st.write("---")
@@ -454,19 +395,19 @@ elif menu_secimi in ["IŞIK KİRLİLİĞİ", "LIGHT POLLUTION"]:
         """, unsafe_allow_html=True)
 
 # ==============================================================================
-# SAYFA 12: EKİPMANLAR
+# SAYFA 11: EKİPMANLAR
 # ==============================================================================
 elif menu_secimi in ["EKİPMANLAR", "EQUIPMENT"]:
     st.markdown("<h2>{}</h2>".format("VIP Gözlem Ekipmanları" if lang == "TR" else "VIP Observation Equipment"), unsafe_allow_html=True)
     st.markdown("<p>{}</p>".format("Gözlemlerimiz sırasında misafirlerimize sunulan en üst düzey teknolojik optik ekipmanlar." if lang == "TR" else "Top-tier optical equipment provided during our sessions."), unsafe_allow_html=True)
     st.write("---")
     e1, e2, e3 = st.columns(3)
-    with e1: st.markdown(f"""<div class="service-card"><img class="service-img" src="https://images.unsplash.com/photo-1518066000714-58c45f1a2c08?q=80&w=800"><div class="service-content"><h3 class="service-title">Celestron CPC 1100</h3><p class="service-desc">{"Derin uzay nesneleri (Galaksiler ve Bulutsular) için tasarlanmış ultra HD teleskop." if lang=="TR" else "Ultra HD telescope for deep space objects."}</p></div></div>""", unsafe_allow_html=True)
-    with e2: st.markdown(f"""<div class="service-card"><img class="service-img" src="https://images.unsplash.com/photo-1581093458791-9f3c3900df4b?q=80&w=800"><div class="service-content"><h3 class="service-title">Meade LX200 14''</h3><p class="service-desc">{"Gezegenlerin ince detaylarını yakalamak için devasa diyaframlı profesyonel araç." if lang=="TR" else "Massive aperture for capturing planetary details."}</p></div></div>""", unsafe_allow_html=True)
-    with e3: st.markdown(f"""<div class="service-card"><img class="service-img" src="https://images.unsplash.com/photo-1542641728-6ca359b085f4?q=80&w=800"><div class="service-content"><h3 class="service-title">Lunt Solar Systems</h3><p class="service-desc">{"Güneş patlamalarını güvenle izlemenizi sağlayan teleskop." if lang=="TR" else "Specialized telescope for viewing solar flares safely."}</p></div></div>""", unsafe_allow_html=True)
+    with e1: st.markdown(f"""<div class="service-card"><img class="service-img" src="https://images.unsplash.com/photo-1516849841032-87cbac4d88f7?auto=format&fit=crop&w=800&q=80"><div class="service-content"><h3 class="service-title">Celestron CPC 1100</h3><p class="service-desc">{"Derin uzay nesneleri (Galaksiler ve Bulutsular) için tasarlanmış ultra HD teleskop." if lang=="TR" else "Ultra HD telescope for deep space objects."}</p></div></div>""", unsafe_allow_html=True)
+    with e2: st.markdown(f"""<div class="service-card"><img class="service-img" src="https://images.unsplash.com/photo-1555562479-7c64e56c52a0?auto=format&fit=crop&w=800&q=80"><div class="service-content"><h3 class="service-title">Meade LX200 14''</h3><p class="service-desc">{"Gezegenlerin ince detaylarını yakalamak için devasa diyaframlı profesyonel araç." if lang=="TR" else "Massive aperture for capturing planetary details."}</p></div></div>""", unsafe_allow_html=True)
+    with e3: st.markdown(f"""<div class="service-card"><img class="service-img" src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80"><div class="service-content"><h3 class="service-title">Lunt Solar Systems</h3><p class="service-desc">{"Güneş patlamalarını güvenle izlemenizi sağlayan teleskop." if lang=="TR" else "Specialized telescope for viewing solar flares safely."}</p></div></div>""", unsafe_allow_html=True)
 
 # ==============================================================================
-# SAYFA 13: ASTRO-FOTOĞRAF
+# SAYFA 12: ASTRO-FOTOĞRAF
 # ==============================================================================
 elif menu_secimi in ["ASTRO-FOTOĞRAF", "ASTRO-PHOTO"]:
     st.markdown("<h2>{}</h2>".format("Astro-Fotoğrafçılık Simülatörü" if lang == "TR" else "Astro-Photography Simulator"), unsafe_allow_html=True); st.write("---")
@@ -475,7 +416,7 @@ elif menu_secimi in ["ASTRO-FOTOĞRAF", "ASTRO-PHOTO"]:
     with col_view: st.markdown(f"""<div style="border: 1px solid rgba(184,134,11,0.3); border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5);"><img src="https://images.unsplash.com/photo-1464802686167-b939a6910659?q=80&w=1200" style="width: 100%; filter: brightness({0.15 + (exp_val / 30.0) * 0.6 + (iso_val / 6400.0) * 0.5});"></div>""", unsafe_allow_html=True)
 
 # ==============================================================================
-# SAYFA 14: REZERVASYON
+# SAYFA 13: REZERVASYON
 # ==============================================================================
 elif menu_secimi in ["REZERVASYON", "BOOKING"]:
     st.markdown("<h2>{}</h2>".format("Online Rezervasyon & Biletleme" if lang == "TR" else "Online Booking & Ticketing"), unsafe_allow_html=True)
@@ -493,14 +434,28 @@ elif menu_secimi in ["REZERVASYON", "BOOKING"]:
             st.balloons()
 
 # ==============================================================================
-# SAYFA 15: VİZYON & SÜRDÜRÜLEBİLİRLİK (ÖTEGEZEGENLER)
+# SAYFA 14: VİZYON & SÜRDÜRÜLEBİLİRLİK (YENİLENMİŞ KURUMSAL YAPI)
 # ==============================================================================
 elif menu_secimi in ["VİZYON & SÜRDÜRÜLEBİLİRLİK", "VISION & SUSTAINABILITY"]:
     st.markdown("<h2>{}</h2>".format("Vizyonumuz & Gelecek Planlarımız" if lang == "TR" else "Our Vision & Future Plans"), unsafe_allow_html=True)
     st.write("---")
     
-    t_sus, t_exo = st.tabs(["🍃 Sürdürülebilirlik" if lang == "TR" else "🍃 Sustainability", "🚀 Gelecek Vizyonumuz (Ötegezegen Turizmi)" if lang == "TR" else "🚀 Future Vision (Exoplanet Tourism)"])
+    t_vis, t_sus, t_exo = st.tabs(["🌟 Vizyon & Misyon" if lang == "TR" else "🌟 Vision & Mission", "🍃 Sürdürülebilirlik" if lang == "TR" else "🍃 Sustainability", "🚀 Ötegezegen Turizmi" if lang == "TR" else "🚀 Exoplanet Tourism"])
     
+    with t_vis:
+        col_space1, col_center, col_space2 = st.columns([1, 8, 1])
+        with col_center:
+            st.markdown(f"""
+            <div class="mission-box">
+                <h3>{"Misyonumuz" if lang=="TR" else "Our Mission"}</h3>
+                <p>{"İnsanlığı unuttuğu kökleriyle, yani yıldızlarla yeniden buluşturmak. Dünyanın en bakir ve karanlık noktalarında, lüks ve konforu bilimle harmanlayarak misafirlerimize evrenin ihtişamını yaşatmak." if lang=="TR" else "To reconnect humanity with its forgotten roots: the stars. By blending luxury and science in the most pristine and darkest spots on Earth, we aim to let our guests experience the majesty of the universe."}</p>
+            </div>
+            <div class="mission-box">
+                <h3>{"Vizyonumuz" if lang=="TR" else "Our Vision"}</h3>
+                <p>{"Astro-Turizm kavramını Dünya sınırlarının ötesine taşımak. Sadece bir turizm acentesi değil, geleceğin yıldızlararası seyahatlerinin ilk adımı ve Dünya dışı yaşam arayışının sivil ayağı olmak." if lang=="TR" else "To push the concept of Astro-Tourism beyond the borders of Earth. To be not just a travel agency, but the first step of future interstellar travel and the civilian pillar of the search for extraterrestrial life."}</p>
+            </div>
+            """, unsafe_allow_html=True)
+
     with t_sus:
         col_space1, col_center, col_space2 = st.columns([1, 6, 1])
         with col_center:
@@ -528,7 +483,7 @@ elif menu_secimi in ["VİZYON & SÜRDÜRÜLEBİLİRLİK", "VISION & SUSTAINABILI
                 st.snow()
 
 # ==============================================================================
-# SAYFA 16: YATIRIMCI PORTALI
+# SAYFA 15: YATIRIMCI PORTALI
 # ==============================================================================
 elif menu_secimi in ["YATIRIMCI PORTALI", "INVESTOR PORTAL"]:
     st.markdown("<h2>{}</h2>".format("Yatırımcı Portalı" if lang == "TR" else "Investor Portal"), unsafe_allow_html=True); st.write("---")
