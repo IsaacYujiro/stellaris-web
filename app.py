@@ -1,9 +1,9 @@
 """
 =========================================================================================
 STELLARIS INTERNATIONAL ASTRO-TOURISM HOLDING - VIP PORTAL
-Versiyon: 6.0.0 (Production-Ready Final Build)
+Versiyon: 7.0.0 (Corporate Production-Ready Master Build)
 Açıklama: Ultra Yüksek Net Değere Sahip Bireyler (UHNWI) için tasarlanmış, 
-tamamen duyarlı (responsive), optimize edilmiş ve QA testlerinden geçmiş final sürümü.
+tamamen duyarlı, yasal/kurumsal sayfaları eklenmiş, optimize edilmiş final sürümü.
 =========================================================================================
 """
 
@@ -57,7 +57,7 @@ st.markdown("""
     div[role="radiogroup"] label:hover p { color: #D4AF37 !important; text-shadow: 0px 0px 10px rgba(212, 175, 55, 0.5); background: rgba(184, 134, 11, 0.1); transform: translateX(8px);}
     div[role="radiogroup"] label[aria-checked="true"] p { color: #FFD700 !important; text-shadow: 0px 0px 15px rgba(255, 215, 0, 0.8); border-bottom: 2px solid #B8860B; background: rgba(184, 134, 11, 0.2); transform: scale(1.02);}
 
-    [data-baseweb="select"], input[type="text"], input[type="password"] { background-color: rgba(3, 8, 20, 0.6) !important; border: 1px solid #B8860B !important; border-radius: 6px; backdrop-filter: blur(5px); color: #FFF !important;}
+    [data-baseweb="select"], input[type="text"], input[type="password"], textarea { background-color: rgba(3, 8, 20, 0.6) !important; border: 1px solid #B8860B !important; border-radius: 6px; backdrop-filter: blur(5px); color: #FFF !important;}
     [data-baseweb="select"] * { color: #C5A059 !important; font-family: 'Montserrat', sans-serif !important; }
     
     div[data-testid="stMetricValue"] { color: #D4AF37 !important; font-family: 'Cinzel', serif !important; font-size: 2.8rem !important; text-shadow: 0px 0px 20px rgba(212, 175, 55, 0.6); transition: transform 0.4s ease; display: inline-block;}
@@ -147,11 +147,13 @@ st.sidebar.write("---")
 menu_secenekleri = [
     "ANA SAYFA", "LOKASYONLARIMIZ", "CANLI GÖZLEMEVİ", "3D SİMÜLASYONLAR", "KARA DELİK SİM.",
     "VİDEOLAR GALERİSİ", "KOZMİK TAKVİM", "UZAY HAVADURUMU", "IŞIK KİRLİLİĞİ", 
-    "EKİPMAN KATALOĞU", "ASTRO-FOTOĞRAF", "VIP REZERVASYON", "VİZYON & SÜRDÜRÜLEBİLİRLİK", "YATIRIMCI PORTALI"
+    "EKİPMAN KATALOĞU", "ASTRO-FOTOĞRAF", "VIP REZERVASYON", "VİZYON & SÜRDÜRÜLEBİLİRLİK",
+    "DESTEK & SSS", "YASAL & ÇEREZLER", "YATIRIMCI PORTALI"
 ] if lang == "TR" else [
     "HOME", "OUR LOCATIONS", "LIVE OBSERVATORY", "3D SIMULATIONS", "BLACK HOLE SIM.",
     "VIDEO GALLERY", "COSMIC CALENDAR", "SPACE WEATHER", "LIGHT POLLUTION", 
-    "EQUIPMENT CATALOG", "ASTRO-PHOTO", "VIP BOOKING", "VISION & SUSTAINABILITY", "INVESTOR PORTAL"
+    "EQUIPMENT CATALOG", "ASTRO-PHOTO", "VIP BOOKING", "VISION & SUSTAINABILITY",
+    "SUPPORT & FAQ", "LEGAL & COOKIES", "INVESTOR PORTAL"
 ]
 
 menu_secimi = st.sidebar.radio("Nav", menu_secenekleri, label_visibility="collapsed")
@@ -166,7 +168,7 @@ st.sidebar.markdown("""
 
 st.sidebar.write("---")
 st.sidebar.info("Sistem: Çevrimiçi / Şifreli Bağlantı" if lang == "TR" else "System: Online / Secured")
-st.sidebar.markdown("<div class='sidebar-footer'>Stellaris Corp. © 2026 | v6.0.0</div>", unsafe_allow_html=True)
+st.sidebar.markdown("<div class='sidebar-footer'>Stellaris Corp. © 2026 | v7.0.0</div>", unsafe_allow_html=True)
 
 def auto_refresh_image(img_id, img_url, refresh_rate_ms, title, max_width="600px", filter_css="none"):
     return f"""
@@ -237,7 +239,7 @@ elif menu_secimi in ["LOKASYONLARIMIZ", "OUR LOCATIONS"]:
             "desc_en": "Declared an 'International Dark Sky Reserve' by UNESCO. Experience the Southern Cross and Aurora Australis with VIP amenities."
         },
         {
-            "img": "https://images.unsplash.com/photo-1470434767159-ca7bee4abee1?q=80&w=800",
+            "img": "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&q=80",
             "title_tr": "NamibRand Doğa Koruma Alanı, Namibya", "title_en": "NamibRand Nature Reserve, Namibia",
             "desc_tr": "Afrika'nın en prestijli Gold Tier karanlık gökyüzü parkı. Çöl kumulları üzerinde vahşi yaşam safarisi ve olağanüstü derin uzay gözlemini bir arada sunar.",
             "desc_en": "Africa's most prestigious Gold Tier dark sky park. Offers a combination of wildlife safari over desert dunes and extraordinary deep space observation."
@@ -311,9 +313,9 @@ elif menu_secimi in ["CANLI GÖZLEMEVİ", "LIVE OBSERVATORY"]:
             </div>
             """, unsafe_allow_html=True)
 
-# ---------------------------------------------------------------------------------------
+# =======================================================================================
 # SAYFA 4: 3D SİMÜLASYONLAR
-# ---------------------------------------------------------------------------------------
+# =======================================================================================
 elif menu_secimi in ["3D SİMÜLASYONLAR", "3D SIMULATIONS"]:
     st.markdown("<h2>{}</h2>".format("İnteraktif 3D Uzay Simülatörleri" if lang == "TR" else "Interactive 3D Space Simulators"), unsafe_allow_html=True)
     st.markdown("<p>{}</p>".format("Tam ekran moduna geçerek uzayın derinliklerinde serbestçe gezinebilirsiniz." if lang == "TR" else "Enter full-screen mode to freely navigate the depths of space."), unsafe_allow_html=True)
@@ -338,9 +340,9 @@ elif menu_secimi in ["3D SİMÜLASYONLAR", "3D SIMULATIONS"]:
         sky_url = f"https://virtualsky.lco.global/embed/index.html?longitude={lon}&latitude={lat}&projection=stereo&constellations=true&constellationlabels=true&meteorshowers=true&showstarlabels=true&live=true&az=180&color=dark"
         st.markdown(f"""<div style="{style_str}"><iframe src="{sky_url}" width="100%" height="700" frameborder="0" allowfullscreen="true" scrolling="no"></iframe></div>""", unsafe_allow_html=True)
 
-# ---------------------------------------------------------------------------------------
-# SAYFA 5: KARA DELİK FİZİK MOTORU (Responsive Canvas)
-# ---------------------------------------------------------------------------------------
+# =======================================================================================
+# SAYFA 5: KARA DELİK FİZİK MOTORU 
+# =======================================================================================
 elif menu_secimi in ["KARA DELİK SİM.", "BLACK HOLE SIM."]:
     st.markdown("<h2>{}</h2>".format("Kütleçekim ve Kara Delik Simülatörü" if lang == "TR" else "Gravity & Black Hole Simulator"), unsafe_allow_html=True)
     st.markdown("<p>{}</p>".format("Aşağıdaki parametrelerle oynayarak uzay-zamanın nasıl büküldüğünü ve olay ufkunu (Event Horizon) analiz edin." if lang == "TR" else "Analyze how space-time bends and the Event Horizon behaves by tweaking the parameters below."), unsafe_allow_html=True)
@@ -411,9 +413,9 @@ elif menu_secimi in ["KARA DELİK SİM.", "BLACK HOLE SIM."]:
         """
         components.html(bh_html, height=720)
 
-# ---------------------------------------------------------------------------------------
+# =======================================================================================
 # SAYFA 6: VİDEOLAR GALERİSİ
-# ---------------------------------------------------------------------------------------
+# =======================================================================================
 elif menu_secimi in ["VİDEOLAR GALERİSİ", "VIDEO GALLERY"]:
     st.markdown("<h2>{}</h2>".format("Stellaris Uzay ve Bilim Sineması" if lang == "TR" else "Stellaris Space Cinema"), unsafe_allow_html=True); st.write("---")
     v_col1, v_col2 = st.columns(2)
@@ -428,9 +430,9 @@ elif menu_secimi in ["VİDEOLAR GALERİSİ", "VIDEO GALLERY"]:
         st.markdown(f"<br><h3>{'ISS Üzerinden Dünya (4K)' if lang=='TR' else 'Earth from ISS (4K)'}</h3>", unsafe_allow_html=True)
         st.video("https://www.youtube.com/watch?v=Un5SEJ8MyPc")
 
-# ---------------------------------------------------------------------------------------
+# =======================================================================================
 # SAYFA 7: KOZMİK TAKVİM 
-# ---------------------------------------------------------------------------------------
+# =======================================================================================
 elif menu_secimi in ["KOZMİK TAKVİM", "COSMIC CALENDAR"]:
     st.markdown("<h2>{}</h2>".format("Kozmik Takvim & Nadir Fenomenler" if lang == "TR" else "Cosmic Calendar & Phenomena"), unsafe_allow_html=True)
     st.markdown("<p>{}</p>".format("Gözlem turlarınızı gökyüzünün en aktif olduğu dönemlere göre planlayın." if lang == "TR" else "Plan your observation tours according to the most active periods of the sky."), unsafe_allow_html=True)
@@ -469,9 +471,9 @@ elif menu_secimi in ["KOZMİK TAKVİM", "COSMIC CALENDAR"]:
             st.toast("VIP Temsilcilerimiz Sizinle İletişime Geçecektir." if lang=="TR" else "Our VIP Reps Will Contact You.", icon="🎫")
         st.markdown("</div>", unsafe_allow_html=True)
 
-# ---------------------------------------------------------------------------------------
+# =======================================================================================
 # SAYFA 8: UZAY HAVADURUMU 
-# ---------------------------------------------------------------------------------------
+# =======================================================================================
 elif menu_secimi in ["UZAY HAVADURUMU", "SPACE WEATHER"]:
     st.markdown("<h2>{}</h2>".format("Jeomanyetik Fırtına & Uzay Hava Durumu" if lang == "TR" else "Geomagnetic Storm & Space Weather"), unsafe_allow_html=True)
     warn_text = "Jeomanyetik fırtınalar (Kp Index) muazzam kutup ışıkları yaratsa da, hassas astrofotografi sensörleri için parazit oluşturabilir. Profesyonel çekimlerinizi bu endekse göre planlayın." if lang == "TR" else "While geomagnetic storms create magnificent auroras, they can cause noise for sensitive astrophotography sensors. Plan your professional shoots according to this index."
@@ -498,9 +500,9 @@ elif menu_secimi in ["UZAY HAVADURUMU", "SPACE WEATHER"]:
         df_wind = pd.DataFrame({"Hız / Speed" if lang=="TR" else "Speed (km/s)": [350, 420, 540, 490, 400]}, index=days)
         st.line_chart(df_wind, color="#B8860B")
 
-# ---------------------------------------------------------------------------------------
+# =======================================================================================
 # SAYFA 9: IŞIK KİRLİLİĞİ 
-# ---------------------------------------------------------------------------------------
+# =======================================================================================
 elif menu_secimi in ["IŞIK KİRLİLİĞİ", "LIGHT POLLUTION"]:
     st.markdown("<h2>{}</h2>".format("Bortle Scale: Işık Kirliliği Simülatörü" if lang == "TR" else "Light Pollution Simulator"), unsafe_allow_html=True)
     st.markdown("<p>{}</p>".format("Işık kirliliğinin derin uzay gözlemine olan yıkıcı etkisini kaydırıcı (slider) ile test edin." if lang == "TR" else "Test the devastating effect of light pollution on deep space observation using the slider."), unsafe_allow_html=True)
@@ -527,9 +529,9 @@ elif menu_secimi in ["IŞIK KİRLİLİĞİ", "LIGHT POLLUTION"]:
         </div>
         """, unsafe_allow_html=True)
 
-# ---------------------------------------------------------------------------------------
+# =======================================================================================
 # SAYFA 10: EKİPMAN KATALOĞU 
-# ---------------------------------------------------------------------------------------
+# =======================================================================================
 elif menu_secimi in ["EKİPMAN KATALOĞU", "EQUIPMENT CATALOG", "EKİPMANLAR", "EQUIPMENT"]:
     st.markdown("<h2>{}</h2>".format("VIP Gözlem Envanteri" if lang == "TR" else "VIP Observation Inventory"), unsafe_allow_html=True)
     desc_text = "Tesislerimizde misafirlerimizin kullanımına sunulan askeri sınıf ve profesyonel araştırma düzeyindeki optik, takip ve görüntüleme ekipmanlarının teknik özellikleridir." if lang == "TR" else "Technical specifications of the military-grade and professional research-level optical, tracking, and imaging equipment available to our guests at our facilities."
@@ -697,7 +699,7 @@ elif menu_secimi in ["VIP REZERVASYON", "VIP BOOKING"]:
                 st.toast("VIP Temsilciniz jetinizi koordine ediyor..." if lang == "TR" else "Your VIP Rep is coordinating your jet...", icon="✈️")
                 st.balloons()
             else:
-                st.error("Lütfen sözleşmeyi onaylayın." if lang == "TR" else "Please agree to the terms.")
+                st.error("Lütfen VIP sözleşmeyi onaylayın." if lang == "TR" else "Please agree to the VIP terms.")
             
         st.markdown("</div>", unsafe_allow_html=True)
 
@@ -770,9 +772,81 @@ elif menu_secimi in ["VİZYON & SÜRDÜRÜLEBİLİRLİK", "VISION & SUSTAINABILI
                 st.toast(succ_str, icon="🚀")
                 st.snow()
 
-# ==============================================================================
-# SAYFA 15: YATIRIMCI PORTALI
-# ==============================================================================
+# ---------------------------------------------------------------------------------------
+# SAYFA 15: DESTEK & SSS (YENİ KURUMSAL SAYFA)
+# ---------------------------------------------------------------------------------------
+elif menu_secimi in ["DESTEK & SSS", "SUPPORT & FAQ"]:
+    st.markdown("<h2>{}</h2>".format("Destek Merkezi & İletişim" if lang == "TR" else "Support Center & Contact"), unsafe_allow_html=True)
+    st.write("---")
+    
+    t_faq, t_contact = st.tabs(["❓ S.S.S. / FAQ", "📩 İletişim / Contact"])
+    
+    with t_faq:
+        st.markdown("<h3>{}</h3>".format("Sıkça Sorulan Sorular" if lang == "TR" else "Frequently Asked Questions"), unsafe_allow_html=True)
+        with st.expander("VIP Rezervasyon iptal politikası nedir?" if lang == "TR" else "What is the VIP Booking cancellation policy?"):
+            st.write("Rezervasyonunuzu uçuştan 30 gün öncesine kadar ücretsiz iptal edebilirsiniz. Özel jet transferi içeren paketlerde jet tahsis bedeli kesilmektedir." if lang == "TR" else "You can cancel your booking free of charge up to 30 days before the flight. For packages including private jet transfers, the jet allocation fee is deducted.")
+        with st.expander("Gözlem turları için önceden astronomi bilgisi gerekiyor mu?" if lang == "TR" else "Is prior astronomy knowledge required for observation tours?"):
+            st.write("Hayır. Her turumuzda size özel tahsis edilmiş profesyonel bir astronom ve rehber eşlik etmektedir." if lang == "TR" else "No. A dedicated professional astronomer and guide will accompany you on every tour.")
+        with st.expander("Konaklama alanlarında sağlık ve güvenlik önlemleri nelerdir?" if lang == "TR" else "What are the health and safety measures in the accommodation areas?"):
+            st.write("Tüm tesislerimizde 7/24 tam donanımlı sağlık ekibi ve acil durum tahliye helikopteri hazır bekletilmektedir." if lang == "TR" else "A fully equipped medical team and emergency evacuation helicopter are on standby 24/7 at all our facilities.")
+            
+    with t_contact:
+        col1, col2 = st.columns([1, 1])
+        with col1:
+            st.markdown(f"""
+            <div class='info-panel' style='padding:30px;'>
+                <h3 style='color:#D4AF37;'>{'Bize Ulaşın' if lang=='TR' else 'Contact Us'}</h3>
+                <p style='text-align:left !important;'>
+                <b>Email:</b> vip@stellaris-holding.com<br>
+                <b>{'Telefon' if lang=='TR' else 'Phone'}:</b> +1 (800) 555-0199<br>
+                <b>Merkez / HQ:</b> Geneva, Switzerland</p>
+            </div>
+            """, unsafe_allow_html=True)
+        with col2:
+            st.markdown(f"<div class='info-panel' style='padding:30px;'>", unsafe_allow_html=True)
+            c_name = st.text_input("İsim / Name")
+            c_email = st.text_input("E-Mail")
+            c_msg = st.text_area("Mesajınız / Your Message", height=100)
+            if st.button("Gönder / Send", use_container_width=True):
+                st.toast("Mesajınız VIP masamıza iletildi." if lang == "TR" else "Your message has been sent to our VIP desk.", icon="✅")
+            st.markdown("</div>", unsafe_allow_html=True)
+
+# ---------------------------------------------------------------------------------------
+# SAYFA 16: YASAL & ÇEREZLER (YENİ KURUMSAL SAYFA)
+# ---------------------------------------------------------------------------------------
+elif menu_secimi in ["YASAL & ÇEREZLER", "LEGAL & COOKIES"]:
+    st.markdown("<h2>{}</h2>".format("Kurumsal Politikalar" if lang == "TR" else "Corporate Policies"), unsafe_allow_html=True)
+    st.write("---")
+    
+    t_cookie, t_privacy, t_terms = st.tabs(["🍪 Çerez Politikası / Cookie Policy", "🔒 Gizlilik / Privacy", "⚖️ Şartlar / Terms"])
+    
+    with t_cookie:
+        st.markdown(f"""
+        <div class='info-panel' style='padding:40px; text-align:left;'>
+            <h3 style='color:#D4AF37; margin-bottom:20px;'>{'Çerez Kullanımı' if lang=='TR' else 'Cookie Usage'}</h3>
+            <p style='text-align:left !important;'>{'Stellaris Holding, dijital platformlarında ultra-premium kullanıcı deneyimi sunmak, tercihlerinizi hatırlamak ve güvenliğinizi sağlamak amacıyla zorunlu ve analitik çerezler kullanmaktadır. Gizliliğiniz bizim için en üst düzey bir önceliktir. Çerez verileriniz asla üçüncü şahıslara satılmaz.' if lang=='TR' else 'Stellaris Holding uses essential and analytical cookies on its digital platforms to provide an ultra-premium user experience, remember your preferences, and ensure your security. Your privacy is a top priority for us. Your cookie data is never sold to third parties.'}</p>
+        </div>
+        """, unsafe_allow_html=True)
+        
+    with t_privacy:
+        st.markdown(f"""
+        <div class='info-panel' style='padding:40px; text-align:left;'>
+            <h3 style='color:#D4AF37; margin-bottom:20px;'>{'VIP Gizlilik Sözleşmesi' if lang=='TR' else 'VIP Privacy Policy'}</h3>
+            <p style='text-align:left !important;'>{'UHNWI misafirlerimizin kimlikleri, seyahat planları ve finansal verileri askeri düzeyde (AES-256) şifreleme ile korunmaktadır. Uçuş ve konaklama bilgileriniz, kişisel izniniz olmadan herhangi bir basın veya medya kuruluşu ile paylaşılamaz.' if lang=='TR' else 'The identities, travel plans, and financial data of our UHNWI guests are protected with military-grade (AES-256) encryption. Your flight and accommodation information cannot be shared with any press or media organization without your personal consent.'}</p>
+        </div>
+        """, unsafe_allow_html=True)
+        
+    with t_terms:
+        st.markdown(f"""
+        <div class='info-panel' style='padding:40px; text-align:left;'>
+            <h3 style='color:#D4AF37; margin-bottom:20px;'>{'Hizmet Şartları' if lang=='TR' else 'Terms of Service'}</h3>
+            <p style='text-align:left !important;'>{'Stellaris platformunu kullanan tüm ziyaretçiler, uluslararası sivil havacılık ve uzay turizmi ön şartlarını kabul etmiş sayılır. Tesislerimize girişler ön güvenlik taramasına ve davet/onay esasına tabidir.' if lang=='TR' else 'All visitors using the Stellaris platform are deemed to have accepted the preconditions of international civil aviation and space tourism. Entry to our facilities is subject to pre-security screening and invitation/approval basis.'}</p>
+        </div>
+        """, unsafe_allow_html=True)
+
+# ---------------------------------------------------------------------------------------
+# SAYFA 17: YATIRIMCI PORTALI
+# ---------------------------------------------------------------------------------------
 elif menu_secimi in ["YATIRIMCI PORTALI", "INVESTOR PORTAL"]:
     st.markdown("<h2>{}</h2>".format("Stellaris Holding Yatırımcı Portalı" if lang == "TR" else "Stellaris Holding Investor Portal"), unsafe_allow_html=True)
     st.markdown("<p>{}</p>".format("Sadece yetkili yönetim kurulu üyeleri ve hissedarlar içindir." if lang == "TR" else "Strictly for authorized board members and shareholders only."), unsafe_allow_html=True)
