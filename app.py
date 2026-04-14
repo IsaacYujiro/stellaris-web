@@ -128,7 +128,6 @@ if st.session_state.logged_in:
 
 st.sidebar.write("---")
 
-# Stellaris AI menüden tamamen kaldırıldı.
 menu_secenekleri = [
     "ANA SAYFA", "GİRİŞ / KAYIT", "LOKASYONLARIMIZ", "CANLI GÖZLEMEVİ", "3D SİMÜLASYONLAR", "KARA DELİK SİM.",
     "VİDEOLAR GALERİSİ", "KOZMİK TAKVİM", "UZAY HAVADURUMU", "IŞIK KİRLİLİĞİ", 
@@ -288,7 +287,7 @@ elif menu_secimi in ["CANLI GÖZLEMEVİ", "LIVE OBSERVATORY"]:
             st.markdown(f"""<div style="width: 100%; height: 400px; border: 2px solid #B8860B; border-radius: 8px; overflow: hidden; background: #000; position: relative;"><div style="position: absolute; top: 15px; left: 15px; color: red; font-family: monospace; font-weight: bold; z-index: 10;"><span style="animation: blink 1s infinite;">●</span> SIMULATION</div><img src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?q=80&w=1200" style="width: 100%; height: 100%; object-fit: cover; transform: scale({zoom_level}); filter: {css_filter}; transition: all 0.5s ease;"></div>""", unsafe_allow_html=True)
 
 # ==============================================================================
-# SAYFA 5: 3D SİMÜLASYONLAR
+# SAYFA 5: 3D SİMÜLASYONLAR (SEKMELER DÜZELTİLDİ)
 # ==============================================================================
 elif menu_secimi in ["3D SİMÜLASYONLAR", "3D SIMULATIONS"]:
     st.markdown("<h2>{}</h2>".format("İnteraktif 3D Uzay Simülatörleri" if lang == "TR" else "Interactive 3D Space Simulators"), unsafe_allow_html=True)
@@ -299,11 +298,15 @@ elif menu_secimi in ["3D SİMÜLASYONLAR", "3D SIMULATIONS"]:
     
     style_str = "border: 1px solid rgba(184,134,11,0.3); border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); background: rgba(5,16,36,0.5);"
     
-    with tab1: st.markdown(f"""<div style="{style_str}"><iframe src="https://eyes.nasa.gov/apps/earth/#/" width="100%" height="600" frameborder="0" allowfullscreen="true"></iframe></div>""", unsafe_allow_html=True)
-    with tab2: st.markdown(f"""<div style="{style_str}"><iframe src="https://eyes.nasa.gov/apps/solar-system/#/home?embed=true" width="100%" height="600" frameborder="0" allowfullscreen="true"></iframe></div>""", unsafe_allow_html=True)
-    with tab3: st.markdown(f"""<div style="{style_str}"><iframe src="https://eyes.nasa.gov/apps/asteroids/#/?embed=true" width="100%" height="600" frameborder="0" allowfullscreen="true"></iframe></div>""", unsafe_allow_html=True)
-    with tab4: st.markdown(f"""<div style="{style_str}"><iframe src="https://eyes.nasa.gov/apps/exo/#/?embed=true" width="100%" height="600" frameborder="0" allowfullscreen="true"></iframe></div>""", unsafe_allow_html=True)
-    with tab5:
+    with tab1: # DÜNYA
+        st.markdown(f"""<div style="{style_str}"><iframe src="https://eyes.nasa.gov/apps/earth/#/" width="100%" height="600" frameborder="0" allowfullscreen="true"></iframe></div>""", unsafe_allow_html=True)
+    with tab2: # GÜNEŞ SİSTEMİ
+        st.markdown(f"""<div style="{style_str}"><iframe src="https://eyes.nasa.gov/apps/solar-system/#/home?embed=true" width="100%" height="600" frameborder="0" allowfullscreen="true"></iframe></div>""", unsafe_allow_html=True)
+    with tab3: # ASTEROİT AVI
+        st.markdown(f"""<div style="{style_str}"><iframe src="https://eyes.nasa.gov/apps/asteroids/#/?embed=true" width="100%" height="600" frameborder="0" allowfullscreen="true"></iframe></div>""", unsafe_allow_html=True)
+    with tab4: # ÖTEGEZEGENLER
+        st.markdown(f"""<div style="{style_str}"><iframe src="https://eyes.nasa.gov/apps/exo/#/?embed=true" width="100%" height="600" frameborder="0" allowfullscreen="true"></iframe></div>""", unsafe_allow_html=True)
+    with tab5: # GÖKYÜZÜ HARİTASI
         loc_choice = st.selectbox("Gözlem Noktası / Location:", ["Atacama Çölü, Şili", "Tekapo Gölü, Yeni Zelanda"])
         lat, lon = (-23.0, -67.7) if "Atacama" in loc_choice else (-44.0, 170.4)
         sky_url = f"https://virtualsky.lco.global/embed/index.html?longitude={lon}&latitude={lat}&projection=stereo&constellations=true&constellationlabels=true&meteorshowers=true&showstarlabels=true&live=true&az=180&color=dark"
@@ -434,24 +437,24 @@ elif menu_secimi in ["EKİPMANLAR", "EQUIPMENT"]:
         st.markdown(f"""
         <div class="service-card" style="padding:25px; text-align:left; height:auto; margin-bottom:20px;">
             <h3 style="color:#D4AF37; margin-bottom:15px; text-align:left !important; border-bottom: 1px solid rgba(184,134,11,0.3); padding-bottom:10px;">🔭 Celestron CPC 1100 GPS (XLT)</h3>
-            <p style="text-align:left !important; color:#E0E0E0;"><b>{'Tür' if lang=='TR' else 'Type'}:</b> Schmidt-Cassegrain<br>
-            <b>{'Diyafram' if lang=='TR' else 'Aperture'}:</b> 280mm (11")<br>
-            <b>{'Odak Uzunluğu' if lang=='TR' else 'Focal Length'}:</b> 2800mm (f/10)<br>
-            <b>{'Kullanım' if lang=='TR' else 'Usage'}:</b> {'Derin uzay nesneleri, galaksiler ve bulutsuların yüksek çözünürlüklü gözlemi. Tam otomatik GPS hizalama sistemi.' if lang=='TR' else 'High-res observation of deep space objects, galaxies, and nebulas. Fully automated GPS alignment.'}</p>
+            <p style="text-align:left !important; color:#E0E0E0;"><b>{"Tür" if lang=="TR" else "Type"}:</b> Schmidt-Cassegrain<br>
+            <b>{"Diyafram" if lang=="TR" else "Aperture"}:</b> 280mm (11")<br>
+            <b>{"Odak Uzunluğu" if lang=="TR" else "Focal Length"}:</b> 2800mm (f/10)<br>
+            <b>{"Kullanım" if lang=="TR" else "Usage"}:</b> {"Derin uzay nesneleri, galaksiler ve bulutsuların yüksek çözünürlüklü gözlemi. Tam otomatik GPS hizalama sistemi." if lang=="TR" else "High-res observation of deep space objects, galaxies, and nebulas. Fully automated GPS alignment."}</p>
         </div>
         <div class="service-card" style="padding:25px; text-align:left; height:auto; margin-bottom:20px;">
             <h3 style="color:#D4AF37; margin-bottom:15px; text-align:left !important; border-bottom: 1px solid rgba(184,134,11,0.3); padding-bottom:10px;">☀️ Lunt LS100MT Solar Telescope</h3>
-            <p style="text-align:left !important; color:#E0E0E0;"><b>{'Tür' if lang=='TR' else 'Type'}:</b> Dedicated H-alpha Solar<br>
-            <b>{'Diyafram' if lang=='TR' else 'Aperture'}:</b> 100mm<br>
-            <b>{'Bant Genişliği' if lang=='TR' else 'Bandpass'}:</b> <0.7 Angstroms<br>
-            <b>{'Kullanım' if lang=='TR' else 'Usage'}:</b> {'Gündüz aktiviteleri için güneş patlamalarını, taçküreyi ve lekeleri güvenle izlemenizi sağlayan özel filtreli teleskop.' if lang=='TR' else 'Specialized telescope for viewing solar flares, prominences, and sunspots safely during daytime.'}</p>
+            <p style="text-align:left !important; color:#E0E0E0;"><b>{"Tür" if lang=="TR" else "Type"}:</b> Dedicated H-alpha Solar<br>
+            <b>{"Diyafram" if lang=="TR" else "Aperture"}:</b> 100mm<br>
+            <b>{"Bant Genişliği" if lang=="TR" else "Bandpass"}:</b> &lt;0.7 Angstroms<br>
+            <b>{"Kullanım" if lang=="TR" else "Usage"}:</b> {"Gündüz aktiviteleri için güneş patlamalarını, taçküreyi ve lekeleri güvenle izlemenizi sağlayan özel filtreli teleskop." if lang=="TR" else "Specialized telescope for viewing solar flares, prominences, and sunspots safely during daytime."}</p>
         </div>
         <div class="service-card" style="padding:25px; text-align:left; height:auto;">
             <h3 style="color:#D4AF37; margin-bottom:15px; text-align:left !important; border-bottom: 1px solid rgba(184,134,11,0.3); padding-bottom:10px;">👁️ Tele Vue Ethos Eyepiece Set</h3>
-            <p style="text-align:left !important; color:#E0E0E0;"><b>{'Görüş Alanı' if lang=='TR' else 'FOV'}:</b> 100° (Hyper-Wide)<br>
-            <b>{'Odak Aralıkları' if lang=='TR' else 'Focal Lengths'}:</b> 21mm, 13mm, 8mm, 6mm<br>
-            <b>{'Cam' if lang=='TR' else 'Glass'}:</b> Multi-coated High Transmission<br>
-            <b>{'Kullanım' if lang=='TR' else 'Usage'}:</b> {'Teleskopta adeta uzay yürüyüşü (spacewalk) hissi yaratan dünyanın en geniş açılı mercek seti.' if lang=='TR' else 'The widest angle eyepiece set in the world, creating a "spacewalk" feeling when looking through the scope.'}</p>
+            <p style="text-align:left !important; color:#E0E0E0;"><b>{"Görüş Alanı" if lang=="TR" else "FOV"}:</b> 100° (Hyper-Wide)<br>
+            <b>{"Odak Aralıkları" if lang=="TR" else "Focal Lengths"}:</b> 21mm, 13mm, 8mm, 6mm<br>
+            <b>{"Cam" if lang=="TR" else "Glass"}:</b> Multi-coated High Transmission<br>
+            <b>{"Kullanım" if lang=="TR" else "Usage"}:</b> {"Teleskopta adeta uzay yürüyüşü (spacewalk) hissi yaratan dünyanın en geniş açılı mercek seti." if lang=="TR" else "The widest angle eyepiece set in the world, creating a 'spacewalk' feeling when looking through the scope."}</p>
         </div>
         """, unsafe_allow_html=True)
 
@@ -459,24 +462,24 @@ elif menu_secimi in ["EKİPMANLAR", "EQUIPMENT"]:
         st.markdown(f"""
         <div class="service-card" style="padding:25px; text-align:left; height:auto; margin-bottom:20px;">
             <h3 style="color:#D4AF37; margin-bottom:15px; text-align:left !important; border-bottom: 1px solid rgba(184,134,11,0.3); padding-bottom:10px;">🔭 Meade LX200-ACF 14"</h3>
-            <p style="text-align:left !important; color:#E0E0E0;"><b>{'Tür' if lang=='TR' else 'Type'}:</b> Advanced Coma-Free (ACF)<br>
-            <b>{'Diyafram' if lang=='TR' else 'Aperture'}:</b> 355mm (14")<br>
-            <b>{'Odak Uzunluğu' if lang=='TR' else 'Focal Length'}:</b> 3556mm (f/10)<br>
-            <b>{'Kullanım' if lang=='TR' else 'Usage'}:</b> {'Gezegenlerin, Satürn halkalarının ve Ay kraterlerinin ince detaylarını yakalamak için devasa diyaframlı profesyonel araç.' if lang=='TR' else 'Massive aperture for capturing fine details of planets, Saturn rings, and Lunar craters.'}</p>
+            <p style="text-align:left !important; color:#E0E0E0;"><b>{"Tür" if lang=="TR" else "Type"}:</b> Advanced Coma-Free (ACF)<br>
+            <b>{"Diyafram" if lang=="TR" else "Aperture"}:</b> 355mm (14")<br>
+            <b>{"Odak Uzunluğu" if lang=="TR" else "Focal Length"}:</b> 3556mm (f/10)<br>
+            <b>{"Kullanım" if lang=="TR" else "Usage"}:</b> {"Gezegenlerin, Satürn halkalarının ve Ay kraterlerinin ince detaylarını yakalamak için devasa diyaframlı profesyonel araç." if lang=="TR" else "Massive aperture for capturing fine details of planets, Saturn rings, and Lunar craters."}</p>
         </div>
         <div class="service-card" style="padding:25px; text-align:left; height:auto; margin-bottom:20px;">
             <h3 style="color:#D4AF37; margin-bottom:15px; text-align:left !important; border-bottom: 1px solid rgba(184,134,11,0.3); padding-bottom:10px;">📸 ZWO ASI 6200MM Pro (Kamera)</h3>
-            <p style="text-align:left !important; color:#E0E0E0;"><b>{'Sensör' if lang=='TR' else 'Sensor'}:</b> Full Frame CMOS (Monochrome)<br>
-            <b>{'Çözünürlük' if lang=='TR' else 'Resolution'}:</b> 62 Megapixels<br>
-            <b>{'Soğutma' if lang=='TR' else 'Cooling'}:</b> Two Stage TEC (-35°C)<br>
-            <b>{'Kullanım' if lang=='TR' else 'Usage'}:</b> {'Astro-Fotoğrafçılık turlarında misafirlerin kullanımına sunulan ultra düşük parazitli derin uzay kamerası.' if lang=='TR' else 'Ultra-low noise deep space camera available for guests during Astro-Photography tours.'}</p>
+            <p style="text-align:left !important; color:#E0E0E0;"><b>{"Sensör" if lang=="TR" else "Sensor"}:</b> Full Frame CMOS (Monochrome)<br>
+            <b>{"Çözünürlük" if lang=="TR" else "Resolution"}:</b> 62 Megapixels<br>
+            <b>{"Soğutma" if lang=="TR" else "Cooling"}:</b> Two Stage TEC (-35°C)<br>
+            <b>{"Kullanım" if lang=="TR" else "Usage"}:</b> {"Astro-Fotoğrafçılık turlarında misafirlerin kullanımına sunulan ultra düşük parazitli derin uzay kamerası." if lang=="TR" else "Ultra-low noise deep space camera available for guests during Astro-Photography tours."}</p>
         </div>
         <div class="service-card" style="padding:25px; text-align:left; height:auto;">
             <h3 style="color:#D4AF37; margin-bottom:15px; text-align:left !important; border-bottom: 1px solid rgba(184,134,11,0.3); padding-bottom:10px;">⚙️ Software Bisque Paramount ME II</h3>
-            <p style="text-align:left !important; color:#E0E0E0;"><b>{'Tür' if lang=='TR' else 'Type'}:</b> Robotic Equatorial Mount<br>
-            <b>{'Kapasite' if lang=='TR' else 'Payload'}:</b> 109 kg (240 lbs)<br>
-            <b>{'Hassasiyet' if lang=='TR' else 'Precision'}:</b> Sub-arcsecond accuracy<br>
-            <b>{'Kullanım' if lang=='TR' else 'Usage'}:</b> {'Teleskopları titreşimsiz ve Dünya'nın dönüş hızıyla birebir senkronize hareket ettiren endüstriyel taşıyıcı ayak.' if lang=='TR' else 'Industrial-grade mount moving telescopes flawlessly synced with Earths rotation without vibration.'}</p>
+            <p style="text-align:left !important; color:#E0E0E0;"><b>{"Tür" if lang=="TR" else "Type"}:</b> Robotic Equatorial Mount<br>
+            <b>{"Kapasite" if lang=="TR" else "Payload"}:</b> 109 kg (240 lbs)<br>
+            <b>{"Hassasiyet" if lang=="TR" else "Precision"}:</b> Sub-arcsecond accuracy<br>
+            <b>{"Kullanım" if lang=="TR" else "Usage"}:</b> {"Teleskopları titreşimsiz ve Dünya'nın dönüş hızıyla birebir senkronize hareket ettiren endüstriyel taşıyıcı ayak." if lang=="TR" else "Industrial-grade mount moving telescopes flawlessly synced with Earth's rotation without vibration."}</p>
         </div>
         """, unsafe_allow_html=True)
 
@@ -538,7 +541,7 @@ elif menu_secimi in ["VİZYON & SÜRDÜRÜLEBİLİRLİK", "VISION & SUSTAINABILI
             with st.expander("Sıfır Karbon Ayak İzi" if lang == "TR" else "Zero Carbon Footprint"): st.write("Turlarımızda elektrikli araçlar kullanılır." if lang == "TR" else "We use 100% zero-emission electric vehicles.")
             
     with t_exo:
-        st.markdown("<p style='margin-top:20px !important;'>{}</p>".format("Dünya'nın sınırları size yetmiyorsa, galaksinin derinliklerindeki yeni evleri keşfedin." if lang == "TR" else "If Earth's borders aren't enough, discover new homes in the depths of the galaxy."), unsafe_allow_html=True)
+        st.markdown(f"<p style='margin-top:20px !important;'>{'Dünya\\'nın sınırları size yetmiyorsa, galaksinin derinliklerindeki yeni evleri keşfedin.' if lang == 'TR' else 'If Earth\\'s borders aren\\'t enough, discover new homes in the depths of the galaxy.'}</p>", unsafe_allow_html=True)
         c1, c2, c3 = st.columns(3)
         with c1:
             st.markdown(f"""<div class="planet-card" style="padding: 30px; text-align: center;"><h3 style="color: #D4AF37; margin-bottom: 20px;">TRAPPIST-1e</h3><img class="spinning-planet" src="https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?q=80&w=400" style="filter: hue-rotate(150deg) saturate(200%);"><p style="color: #E0E0E0; font-size: 0.9rem; text-align: left !important;"><b>{"Uzaklık" if lang=="TR" else "Distance"}:</b> 39 LY<br><b>{"Durum" if lang=="TR" else "Status"}:</b> {"Okyanus Gezegeni" if lang=="TR" else "Ocean Planet"}</p><div style="color: #B8860B; font-weight: bold; margin-top: 15px;">{"BİLET" if lang=="TR" else "TICKET"}: $4.5 M</div></div>""", unsafe_allow_html=True)
