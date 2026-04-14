@@ -1,7 +1,7 @@
 """
 =========================================================================================
 STELLARIS INTERNATIONAL ASTRO-TOURISM HOLDING - VIP PORTAL
-Versiyon: 6.0.0 (Production-Ready Master Build)
+Versiyon: 6.0.0 (Production-Ready Final Build)
 Açıklama: Ultra Yüksek Net Değere Sahip Bireyler (UHNWI) için tasarlanmış, 
 tamamen duyarlı (responsive), optimize edilmiş ve QA testlerinden geçmiş final sürümü.
 =========================================================================================
@@ -111,9 +111,10 @@ st.markdown("""
     .mission-box h3 { text-align: left !important; margin-bottom: 18px; color: #D4AF37; font-size: 1.8rem;}
     .mission-box p { text-align: left !important; font-size: 1.1rem; color: #E0E0E0 !important; line-height: 1.9;}
     
-    /* Özel Tablo Görünümü */
     th { background-color: rgba(184, 134, 11, 0.2) !important; color: #D4AF37 !important; font-family: 'Cinzel', serif; font-size: 1.1rem; }
     td { background-color: rgba(5, 16, 36, 0.4) !important; color: #E0E0E0 !important; border-bottom: 1px solid rgba(184, 134, 11, 0.2) !important;}
+    
+    .sidebar-footer { position: absolute; bottom: 10px; width: 100%; text-align: center; color: #8892b0; font-size: 0.75rem; font-family: 'Montserrat', sans-serif;}
     </style>
     """, unsafe_allow_html=True)
 
@@ -156,7 +157,6 @@ menu_secenekleri = [
 menu_secimi = st.sidebar.radio("Nav", menu_secenekleri, label_visibility="collapsed")
 st.sidebar.write("---")
 
-# Müzik Çalar 
 st.sidebar.markdown(f"<p style='color:#B8860B; font-size:0.85rem; font-weight:bold; margin-bottom:8px !important; letter-spacing:1px;'>{'Kozmik Ambiyans' if lang == 'TR' else 'Cosmic Ambient'}</p>", unsafe_allow_html=True)
 st.sidebar.markdown("""
 <audio controls autoplay loop style="width: 100%; height: 35px; outline: none; border-radius: 6px; opacity: 0.85; box-shadow: 0 2px 10px rgba(0,0,0,0.5);">
@@ -166,8 +166,8 @@ st.sidebar.markdown("""
 
 st.sidebar.write("---")
 st.sidebar.info("Sistem: Çevrimiçi / Şifreli Bağlantı" if lang == "TR" else "System: Online / Secured")
+st.sidebar.markdown("<div class='sidebar-footer'>Stellaris Corp. © 2026 | v6.0.0</div>", unsafe_allow_html=True)
 
-# Canlı Uydu Verisi Formatlayıcı
 def auto_refresh_image(img_id, img_url, refresh_rate_ms, title, max_width="600px", filter_css="none"):
     return f"""
     <div style="border: 1px solid rgba(184, 134, 11, 0.3); border-radius: 12px; position: relative; overflow: hidden; text-align: center; background: rgba(5,16,36,0.5); backdrop-filter: blur(10px); padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
@@ -294,7 +294,8 @@ elif menu_secimi in ["CANLI GÖZLEMEVİ", "LIVE OBSERVATORY"]:
         with col_controls:
             st.markdown(f"<div class='info-panel' style='padding:20px; height:100%;'>", unsafe_allow_html=True)
             zoom_level = st.slider("Zoom / Yakınlaştırma" if lang=="TR" else "Zoom Level", 1.0, 4.0, 1.0, 0.1)
-            filter_type = st.radio("Optik Filtre / Optical Filter", ["Görünür (Visible)", "H-Alpha (Kızılötesi)", "O-III (Mavi-Yeşil)"])
+            filter_options = ["Görünür", "H-Alpha (Kızılötesi)", "O-III (Mavi-Yeşil)"] if lang == "TR" else ["Visible", "H-Alpha (Infrared)", "O-III (Blue-Green)"]
+            filter_type = st.radio("Optik Filtre / Optical Filter" if lang=="TR" else "Optical Filter", filter_options)
             css_filter = "sepia(100%) hue-rotate(-50deg) saturate(300%)" if "H-Alpha" in filter_type else "sepia(100%) hue-rotate(130deg) saturate(200%)" if "O-III" in filter_type else "none"
             st.markdown("</div>", unsafe_allow_html=True)
         with col_view:
@@ -311,7 +312,7 @@ elif menu_secimi in ["CANLI GÖZLEMEVİ", "LIVE OBSERVATORY"]:
             """, unsafe_allow_html=True)
 
 # ---------------------------------------------------------------------------------------
-# SAYFA 4: 3D SİMÜLASYONLAR (NASA API)
+# SAYFA 4: 3D SİMÜLASYONLAR
 # ---------------------------------------------------------------------------------------
 elif menu_secimi in ["3D SİMÜLASYONLAR", "3D SIMULATIONS"]:
     st.markdown("<h2>{}</h2>".format("İnteraktif 3D Uzay Simülatörleri" if lang == "TR" else "Interactive 3D Space Simulators"), unsafe_allow_html=True)
@@ -329,7 +330,7 @@ elif menu_secimi in ["3D SİMÜLASYONLAR", "3D SIMULATIONS"]:
     with tab4: st.markdown(f"""<div style="{style_str}"><iframe src="https://eyes.nasa.gov/apps/exo/#/?embed=true" width="100%" height="700" frameborder="0" allowfullscreen="true"></iframe></div>""", unsafe_allow_html=True)
     with tab5:
         loc_options = ["Atacama Çölü, Şili", "Tekapo Gölü, Yeni Zelanda", "NamibRand, Namibya"] if lang == "TR" else ["Atacama Desert, Chile", "Lake Tekapo, New Zealand", "NamibRand, Namibia"]
-        loc_choice = st.selectbox("Gözlem Noktası Seçimi / Select Observation Point:", loc_options)
+        loc_choice = st.selectbox("Gözlem Noktası Seçimi / Select Observation Point:" if lang=="TR" else "Select Observation Point:", loc_options)
         if "Atacama" in loc_choice: lat, lon = -23.0, -67.7
         elif "Tekapo" in loc_choice: lat, lon = -44.0, 170.4
         else: lat, lon = -25.2, 15.9 
@@ -338,7 +339,7 @@ elif menu_secimi in ["3D SİMÜLASYONLAR", "3D SIMULATIONS"]:
         st.markdown(f"""<div style="{style_str}"><iframe src="{sky_url}" width="100%" height="700" frameborder="0" allowfullscreen="true" scrolling="no"></iframe></div>""", unsafe_allow_html=True)
 
 # ---------------------------------------------------------------------------------------
-# SAYFA 5: KARA DELİK FİZİK MOTORU (RESPONSIVE CANVAS)
+# SAYFA 5: KARA DELİK FİZİK MOTORU (Responsive Canvas)
 # ---------------------------------------------------------------------------------------
 elif menu_secimi in ["KARA DELİK SİM.", "BLACK HOLE SIM."]:
     st.markdown("<h2>{}</h2>".format("Kütleçekim ve Kara Delik Simülatörü" if lang == "TR" else "Gravity & Black Hole Simulator"), unsafe_allow_html=True)
@@ -355,13 +356,12 @@ elif menu_secimi in ["KARA DELİK SİM.", "BLACK HOLE SIM."]:
         """, unsafe_allow_html=True)
         
     with col2:
-        # Responsive wrapper added
         bh_html = f"""
         <div style="border: 1px solid rgba(184,134,11,0.3); border-radius: 12px; overflow: hidden; background: rgba(5,16,36,0.6); backdrop-filter: blur(10px); padding: 30px; box-shadow: 0 10px 40px rgba(0,0,0,0.5);">
             <div style="color: #D4AF37; font-family: 'Cinzel', serif; font-size:1.5rem; margin-bottom: 20px; text-align: center; letter-spacing: 2px;">STELLARIS GRAVITY ENGINE</div>
             <div style="display: flex; justify-content: center; gap: 40px; margin-bottom: 30px; flex-wrap: wrap;">
-                <label style="color: #E0E0E0; font-family: 'Montserrat', sans-serif; font-weight:bold;">{"Singularity Mass (Kütle)" if lang=="TR" else "Singularity Mass"}: <br><input type="range" id="massSlider" min="50" max="350" value="180" style="accent-color: #B8860B; width:200px; margin-top:10px;"></label>
-                <label style="color: #E0E0E0; font-family: 'Montserrat', sans-serif; font-weight:bold;">{"Disk Velocity (Hız)" if lang=="TR" else "Disk Velocity"}: <br><input type="range" id="speedSlider" min="1" max="15" value="6" style="accent-color: #B8860B; width:200px; margin-top:10px;"></label>
+                <label style="color: #E0E0E0; font-family: 'Montserrat', sans-serif; font-weight:bold;">{"Tekillik Kütlesi" if lang=="TR" else "Singularity Mass"}: <br><input type="range" id="massSlider" min="50" max="350" value="180" style="accent-color: #B8860B; width:200px; margin-top:10px;"></label>
+                <label style="color: #E0E0E0; font-family: 'Montserrat', sans-serif; font-weight:bold;">{"Disk Hızı" if lang=="TR" else "Disk Velocity"}: <br><input type="range" id="speedSlider" min="1" max="15" value="6" style="accent-color: #B8860B; width:200px; margin-top:10px;"></label>
             </div>
             <div style="max-width:100%; overflow-x:auto; text-align:center;">
                 <canvas id="bhCanvas" width="800" height="450" style="background: radial-gradient(circle at center, #0a1930 0%, #000 100%); border-radius: 8px; border: 1px solid rgba(184,134,11,0.2); box-shadow: 0 0 30px rgba(0,0,0,0.8) inset;"></canvas>
@@ -437,18 +437,18 @@ elif menu_secimi in ["KOZMİK TAKVİM", "COSMIC CALENDAR"]:
     st.write("---")
     
     events = ["Perseid Göktaşı Yağmuru", "Satürn Karşı Konumu", "Tam Güneş Tutulması"] if lang == "TR" else ["Perseid Meteor Shower", "Saturn Opposition", "Total Solar Eclipse"]
-    selected_event = st.selectbox("Astronomik Olay Seçiniz / Select Astronomical Event:", events)
+    selected_event = st.selectbox("Astronomik Olay Seçiniz / Select Astronomical Event:" if lang=="TR" else "Select Astronomical Event:", events)
     
     col_info, col_metrics = st.columns([2, 1])
     with col_info:
         if "Perseid" in selected_event:
-            img_url = "https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Meteor_shower.jpg/800px-Meteor_shower.jpg"
+            img_url = "https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?q=80&w=800"
             desc = "Yılın en görkemli meteor yağmuru. Saatte 100'e yakın kayan yıldız izleme fırsatı." if lang == "TR" else "The most spectacular meteor shower of the year. Opportunity to watch nearly 100 shooting stars per hour."
         elif "Sat" in selected_event:
-            img_url = "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Saturn_during_Equinox.jpg/800px-Saturn_during_Equinox.jpg"
+            img_url = "https://images.unsplash.com/photo-1614728263610-18fb23c7b505?auto=format&fit=crop&w=800"
             desc = "Satürn'ün Dünya'ya en yakın ve en parlak olduğu dönem. Halkalar kusursuz görünür." if lang == "TR" else "The period when Saturn is closest and brightest to Earth. The rings are perfectly visible."
         else:
-            img_url = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Solar_eclipse_1999_4.jpg/800px-Solar_eclipse_1999_4.jpg"
+            img_url = "https://images.unsplash.com/photo-1539321908154-049275965646?q=80&w=800"
             desc = "Ay'ın Güneş'i tamamen örtmesiyle oluşan muazzam taçküre (korona) parlaması." if lang == "TR" else "The magnificent coronal flare formed by the Moon completely covering the Sun."
             
         st.markdown(f"""
@@ -495,7 +495,7 @@ elif menu_secimi in ["UZAY HAVADURUMU", "SPACE WEATHER"]:
         
     with col_chart2:
         st.markdown("<h3>{}</h3>".format("Güneş Rüzgarı Hızı (km/s)" if lang == "TR" else "Solar Wind Speed (km/s)"), unsafe_allow_html=True)
-        df_wind = pd.DataFrame({"Hız / Speed": [350, 420, 540, 490, 400]}, index=days)
+        df_wind = pd.DataFrame({"Hız / Speed" if lang=="TR" else "Speed (km/s)": [350, 420, 540, 490, 400]}, index=days)
         st.line_chart(df_wind, color="#B8860B")
 
 # ---------------------------------------------------------------------------------------
@@ -510,7 +510,7 @@ elif menu_secimi in ["IŞIK KİRLİLİĞİ", "LIGHT POLLUTION"]:
     with col_ctrl: 
         st.markdown(f"<div class='info-panel' style='padding:30px; height:100%;'>", unsafe_allow_html=True)
         st.markdown(f"<p style='text-align:left !important;'><b>Bortle 1:</b> {'Kusursuz Karanlık (Stellaris Tesisleri)' if lang=='TR' else 'Perfect Darkness (Stellaris Facilities)'} <br><br><b>Bortle 9:</b> {'Şehir Merkezi (Yıldızlar Görünmez)' if lang=='TR' else 'City Center (Stars Invisible)'}</p>", unsafe_allow_html=True)
-        bortle_val = st.slider("Gökyüzü Kalitesi / Sky Quality", 1, 9, 1, step=1)
+        bortle_val = st.slider("Gökyüzü Kalitesi / Sky Quality" if lang=="TR" else "Sky Quality", 1, 9, 1, step=1)
         st.markdown("</div>", unsafe_allow_html=True)
     
     glow_opacity = (bortle_val - 1) / 8.0  
@@ -623,22 +623,50 @@ elif menu_secimi in ["ASTRO-FOTOĞRAF", "ASTRO-PHOTO"]:
         st.markdown(f"""<div style="border: 1px solid rgba(184,134,11,0.5); border-radius: 12px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.6);"><img src="https://images.unsplash.com/photo-1464802686167-b939a6910659?q=80&w=1200" style="width: 100%; filter: brightness({brightness}) contrast({1.0 + (iso_val/10000.0)}); transition:all 0.2s ease;"></div>""", unsafe_allow_html=True)
 
 # ---------------------------------------------------------------------------------------
-# SAYFA 12: VIP REZERVASYON (GELİŞMİŞ SPINNER VE KUTLAMA)
+# SAYFA 12: VIP REZERVASYON 
 # ---------------------------------------------------------------------------------------
-elif menu_secimi in ["VIP REZERVASYON", "VIP BOOKING", "REZERVASYON", "BOOKING"]:
+elif menu_secimi in ["VIP REZERVASYON", "VIP BOOKING"]:
     st.markdown("<h2>{}</h2>".format("Premium Rezervasyon & VIP Planlama" if lang == "TR" else "Premium Booking & VIP Planning"), unsafe_allow_html=True)
-    st.markdown("<p>{}</p>".format("Milyarderlerin tercihi olan tesislerimizde eşsiz bir deneyim yaşamak için seyahatinizi kişiselleştirin." if lang == "TR" else "Personalize your journey to experience the unique facilities chosen by billionaires."), unsafe_allow_html=True)
+    st.markdown("<p>{}</p>".format("UHNWI (Ultra Yüksek Net Değere Sahip Bireyler) standartlarındaki tesislerimizde eşsiz bir deneyim yaşamak için seyahatinizi kişiselleştirin." if lang == "TR" else "Personalize your journey to experience unique facilities at UHNWI standards."), unsafe_allow_html=True)
     st.write("---")
     
-    col_space1, col_center, col_space2 = st.columns([1, 6, 1])
+    if lang == "TR":
+        pkg_options = [
+            "Tekapo Explorer (3 Gece, Villa & Özel Astronom) - $35,000",
+            "Atacama Stratosphere (5 Gece, Glass Dome & ALMA VIP) - $85,000",
+            "NamibRand Ultimate Expedition (7 Gece, Sıfır-G Uçuş & Safari) - $150,000"
+        ]
+    else:
+        pkg_options = [
+            "Tekapo Explorer (3 Nights, Villa & Private Astronomer) - $35,000",
+            "Atacama Stratosphere (5 Nights, Glass Dome & ALMA VIP) - $85,000",
+            "NamibRand Ultimate Expedition (7 Nights, Zero-G Flight & Safari) - $150,000"
+        ]
+    
+    col_comp, col_center, col_space2 = st.columns([2, 5, 1])
+    
+    with col_comp:
+        if lang == "TR":
+            st.markdown("### Stellaris Değer Önerisi")
+            st.markdown("""<div class="info-panel" style="padding:20px;">
+            <b style="color:#D4AF37;">Standart Lüks Tatiller ($15K - $25K)</b><br>
+            <span style="font-size:0.85rem; color:#E0E0E0;">- 5 Yıldızlı Otel (Işık Kirliliği)<br>- Standart Fine-Dining<br>- Ticari Uçuş (First Class)</span><br><br>
+            <b style="color:#D4AF37;">Stellaris Deneyimi ($35K - $150K)</b><br>
+            <span style="font-size:0.85rem; color:#E0E0E0;">- Özel Cam Fanus (Bortle 1 Gökyüzü)<br>- Planewave 20'' & Kişisel Astronom<br>- Michelin Yıldızlı Şef & Sınırsız Havyar<br>- Helikopter & Özel Jet Transferleri<br>- Sıfır Yerçekimi (Zero-G) Simülasyon Uçuşu</span>
+            </div>""", unsafe_allow_html=True)
+        else:
+            st.markdown("### Stellaris Value Proposition")
+            st.markdown("""<div class="info-panel" style="padding:20px;">
+            <b style="color:#D4AF37;">Standard Luxury Vacations ($15K - $25K)</b><br>
+            <span style="font-size:0.85rem; color:#E0E0E0;">- 5 Star Hotel (Light Pollution)<br>- Standard Fine-Dining<br>- Commercial Flight (First Class)</span><br><br>
+            <b style="color:#D4AF37;">The Stellaris Experience ($35K - $150K)</b><br>
+            <span style="font-size:0.85rem; color:#E0E0E0;">- Private Glass Dome (Bortle 1 Sky)<br>- Planewave 20'' & Personal Astronomer<br>- Michelin Star Chef & Unlimited Caviar<br>- Helicopter & Private Jet Transfers<br>- Zero-Gravity Simulation Flight</span>
+            </div>""", unsafe_allow_html=True)
+
     with col_center:
         st.markdown(f"<div class='info-panel' style='padding:40px;'>", unsafe_allow_html=True)
         
-        deneyim_turu = st.radio("Ana Paket Seçimi / Select Main Package:" if lang == "TR" else "Select Main Package:", [
-            "Atacama Glass Dome VIP (3 Gece / Nights) - $15,000", 
-            "Tekapo Observatory Exclusive (2 Gece / Nights) - $12,500", 
-            "NamibRand Ultimate Expedition (Heli-Transfer & Private Chef) - $45,000"
-        ])
+        deneyim_turu = st.radio("Ana Paket Seçimi / Select Main Package:" if lang == "TR" else "Select Main Package:", pkg_options)
         
         st.write("---")
         st.markdown(f"<p style='text-align:left !important; color:#D4AF37; font-size:1.2rem;'><b>{'Lüks Eklentiler / Luxury Add-ons:' if lang == 'TR' else 'Luxury Add-ons:'}</b></p>", unsafe_allow_html=True)
@@ -652,22 +680,29 @@ elif menu_secimi in ["VIP REZERVASYON", "VIP BOOKING", "REZERVASYON", "BOOKING"]
         with col_form1: secilen_tarih = st.date_input("Tahmini Geliş Tarihi / Estimated Date" if lang == "TR" else "Estimated Date", min_value=datetime.date.today())
         with col_form2: kisi_sayisi = st.slider("VIP Konuk Sayısı / VIP Guests" if lang == "TR" else "VIP Guests", 1, 6, 2)
         
-        taban_fiyat = 15000 if "15" in deneyim_turu else 12500 if "12" in deneyim_turu else 45000
+        # Privacy Agreement Checkbox
+        agree = st.checkbox("VIP Gizlilik ve Uçuş Şartlarını Kabul Ediyorum." if lang == "TR" else "I agree to the VIP Confidentiality & Flight Terms.")
+        
+        # Fiyat Hesaplama
+        taban_fiyat = 35000 if "35" in deneyim_turu else 85000 if "85" in deneyim_turu else 150000
         ekstra_toplam = (12500 if ekstra1 else 0) + (8000 if ekstra2 else 0) + (15000 if ekstra3 else 0)
         toplam_fiyat = (taban_fiyat * kisi_sayisi) + ekstra_toplam
         
         st.markdown(f"<div class='price-tag' style='font-size:4rem;'>${(toplam_fiyat):,} <span style='font-size: 1.2rem; color: #C5A059;'>USD Toplam / Total</span></div>", unsafe_allow_html=True)
         
         if st.button("Ödeme ve Uçuş Ekranına Geç / Proceed to Payment & Flight" if lang == "TR" else "Proceed to Payment", use_container_width=True): 
-            with st.spinner("Güvenli ağ üzerinden şifreli işlem yapılıyor..." if lang == "TR" else "Processing via secure network..."):
-                time.sleep(2)
-            st.toast("VIP Temsilciniz jetinizi koordine ediyor..." if lang == "TR" else "Your VIP Rep is coordinating your jet...", icon="✈️")
-            st.balloons()
+            if agree:
+                with st.spinner("Güvenli ağ üzerinden şifreli işlem yapılıyor..." if lang == "TR" else "Processing via secure network..."):
+                    time.sleep(2)
+                st.toast("VIP Temsilciniz jetinizi koordine ediyor..." if lang == "TR" else "Your VIP Rep is coordinating your jet...", icon="✈️")
+                st.balloons()
+            else:
+                st.error("Lütfen sözleşmeyi onaylayın." if lang == "TR" else "Please agree to the terms.")
             
         st.markdown("</div>", unsafe_allow_html=True)
 
 # ---------------------------------------------------------------------------------------
-# SAYFA 14: VİZYON & SÜRDÜRÜLEBİLİRLİK 
+# SAYFA 13: VİZYON & SÜRDÜRÜLEBİLİRLİK
 # ---------------------------------------------------------------------------------------
 elif menu_secimi in ["VİZYON & SÜRDÜRÜLEBİLİRLİK", "VISION & SUSTAINABILITY"]:
     st.markdown("<h2>{}</h2>".format("Kurumsal Vizyon & Gelecek Planlarımız" if lang == "TR" else "Corporate Vision & Future Plans"), unsafe_allow_html=True)
@@ -735,9 +770,9 @@ elif menu_secimi in ["VİZYON & SÜRDÜRÜLEBİLİRLİK", "VISION & SUSTAINABILI
                 st.toast(succ_str, icon="🚀")
                 st.snow()
 
-# ---------------------------------------------------------------------------------------
+# ==============================================================================
 # SAYFA 15: YATIRIMCI PORTALI
-# ---------------------------------------------------------------------------------------
+# ==============================================================================
 elif menu_secimi in ["YATIRIMCI PORTALI", "INVESTOR PORTAL"]:
     st.markdown("<h2>{}</h2>".format("Stellaris Holding Yatırımcı Portalı" if lang == "TR" else "Stellaris Holding Investor Portal"), unsafe_allow_html=True)
     st.markdown("<p>{}</p>".format("Sadece yetkili yönetim kurulu üyeleri ve hissedarlar içindir." if lang == "TR" else "Strictly for authorized board members and shareholders only."), unsafe_allow_html=True)
