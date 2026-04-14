@@ -1,9 +1,9 @@
 """
 =========================================================================================
 STELLARIS INTERNATIONAL ASTRO-TOURISM HOLDING - VIP PORTAL
-Versiyon: 7.0.0 (Corporate Production-Ready Master Build)
+Versiyon: 8.0.0 (Production-Ready Final Corporate Build)
 Açıklama: Ultra Yüksek Net Değere Sahip Bireyler (UHNWI) için tasarlanmış, 
-tamamen duyarlı, yasal/kurumsal sayfaları eklenmiş, optimize edilmiş final sürümü.
+optimize edilmiş video galerisi, rafine rezervasyon sistemi ve QA testli final sürüm.
 =========================================================================================
 """
 
@@ -15,7 +15,6 @@ import datetime
 import time
 import os
 import glob
-import random
 
 # =======================================================================================
 # 1. SİTE YAPILANDIRMASI VE ULTRA-LÜKS ANİMASYONLU CSS MİMARİSİ
@@ -168,7 +167,7 @@ st.sidebar.markdown("""
 
 st.sidebar.write("---")
 st.sidebar.info("Sistem: Çevrimiçi / Şifreli Bağlantı" if lang == "TR" else "System: Online / Secured")
-st.sidebar.markdown("<div class='sidebar-footer'>Stellaris Corp. © 2026 | v7.0.0</div>", unsafe_allow_html=True)
+st.sidebar.markdown("<div class='sidebar-footer'>Stellaris Corp. © 2026 | v8.0.0</div>", unsafe_allow_html=True)
 
 def auto_refresh_image(img_id, img_url, refresh_rate_ms, title, max_width="600px", filter_css="none"):
     return f"""
@@ -414,21 +413,43 @@ elif menu_secimi in ["KARA DELİK SİM.", "BLACK HOLE SIM."]:
         components.html(bh_html, height=720)
 
 # =======================================================================================
-# SAYFA 6: VİDEOLAR GALERİSİ
+# SAYFA 6: VİDEOLAR GALERİSİ (BÖLÜNMÜŞ VE ZENGİNLEŞTİRİLMİŞ)
 # =======================================================================================
 elif menu_secimi in ["VİDEOLAR GALERİSİ", "VIDEO GALLERY"]:
-    st.markdown("<h2>{}</h2>".format("Stellaris Uzay ve Bilim Sineması" if lang == "TR" else "Stellaris Space Cinema"), unsafe_allow_html=True); st.write("---")
-    v_col1, v_col2 = st.columns(2)
-    with v_col1: 
-        st.markdown(f"<h3>{'James Webb Uzay Teleskobu' if lang=='TR' else 'James Webb Space Telescope'}</h3>", unsafe_allow_html=True)
-        st.video("https://www.youtube.com/watch?v=uD4izuDMUQA")
-        st.markdown(f"<br><h3>{'SpaceX Starship Fırlatması' if lang=='TR' else 'SpaceX Starship Launch'}</h3>", unsafe_allow_html=True)
-        st.video("https://www.youtube.com/watch?v=-1wcilQ58hI")
-    with v_col2: 
-        st.markdown(f"<h3>{'Mars Yüzeyi 4K Simülasyon' if lang=='TR' else 'Mars Surface in 4K'}</h3>", unsafe_allow_html=True)
-        st.video("https://www.youtube.com/watch?v=ZEyAs3NWH4A")
-        st.markdown(f"<br><h3>{'ISS Üzerinden Dünya (4K)' if lang=='TR' else 'Earth from ISS (4K)'}</h3>", unsafe_allow_html=True)
-        st.video("https://www.youtube.com/watch?v=Un5SEJ8MyPc")
+    st.markdown("<h2>{}</h2>".format("Stellaris Uzay ve Bilim Sineması" if lang == "TR" else "Stellaris Space Cinema"), unsafe_allow_html=True)
+    st.write("---")
+    
+    t_space, t_locations = st.tabs([
+        "🚀 Uzay Görevleri / Space Missions" if lang == "TR" else "🚀 Space Missions", 
+        "🌌 Destinasyonlarımız / Our Destinations" if lang == "TR" else "🌌 Our Destinations"
+    ])
+
+    with t_space:
+        v_col1, v_col2 = st.columns(2)
+        with v_col1: 
+            st.markdown(f"<h3>{'James Webb Uzay Teleskobu' if lang=='TR' else 'James Webb Space Telescope'}</h3>", unsafe_allow_html=True)
+            st.video("https://www.youtube.com/watch?v=uD4izuDMUQA")
+            st.markdown(f"<br><h3>{'SpaceX Starship Fırlatması' if lang=='TR' else 'SpaceX Starship Launch'}</h3>", unsafe_allow_html=True)
+            st.video("https://www.youtube.com/watch?v=-1wcilQ58hI")
+        with v_col2: 
+            st.markdown(f"<h3>{'Mars Yüzeyi 4K Simülasyon' if lang=='TR' else 'Mars Surface in 4K'}</h3>", unsafe_allow_html=True)
+            st.video("https://www.youtube.com/watch?v=ZEyAs3NWH4A")
+            st.markdown(f"<br><h3>{'ISS Üzerinden Dünya (4K)' if lang=='TR' else 'Earth from ISS (4K)'}</h3>", unsafe_allow_html=True)
+            st.video("https://www.youtube.com/watch?v=Un5SEJ8MyPc")
+
+    with t_locations:
+        st.markdown(f"<p>{'Gözlem noktalarımızın eşsiz 4K zaman atlamalı (timelapse) manzaraları.' if lang=='TR' else 'Unique 4K timelapse views of our observation points.'}</p>", unsafe_allow_html=True)
+        loc_col1, loc_col2 = st.columns(2)
+        with loc_col1:
+            st.markdown(f"<h3>{'Atacama Çölü Gece Gökyüzü' if lang=='TR' else 'Atacama Desert Night Sky'}</h3>", unsafe_allow_html=True)
+            st.video("https://www.youtube.com/watch?v=17jymDn0W6U")
+            st.markdown(f"<br><h3>{'Tekapo Gölü Aurora ve Yıldızlar' if lang=='TR' else 'Lake Tekapo Aurora & Stars'}</h3>", unsafe_allow_html=True)
+            st.video("https://www.youtube.com/watch?v=wX-y00b6e9Q")
+        with loc_col2:
+            st.markdown(f"<h3>{'Namibya Çölü Samanyolu' if lang=='TR' else 'Namibia Desert Milky Way'}</h3>", unsafe_allow_html=True)
+            st.video("https://www.youtube.com/watch?v=w30j5O08qD8")
+            st.markdown(f"<br><h3>{'Astro-Turizm Vizyonumuz' if lang=='TR' else 'Our Astro-Tourism Vision'}</h3>", unsafe_allow_html=True)
+            st.video("https://www.youtube.com/watch?v=4mR4VwM9d4o")
 
 # =======================================================================================
 # SAYFA 7: KOZMİK TAKVİM 
@@ -634,36 +655,18 @@ elif menu_secimi in ["VIP REZERVASYON", "VIP BOOKING"]:
     
     if lang == "TR":
         pkg_options = [
-            "Tekapo Explorer (3 Gece, Villa & Özel Astronom) - $35,000",
+            "Tekapo Explorer (3 Gece, Villa & Özel Astronom) - $55,000",
             "Atacama Stratosphere (5 Gece, Glass Dome & ALMA VIP) - $85,000",
             "NamibRand Ultimate Expedition (7 Gece, Sıfır-G Uçuş & Safari) - $150,000"
         ]
     else:
         pkg_options = [
-            "Tekapo Explorer (3 Nights, Villa & Private Astronomer) - $35,000",
+            "Tekapo Explorer (3 Nights, Villa & Private Astronomer) - $55,000",
             "Atacama Stratosphere (5 Nights, Glass Dome & ALMA VIP) - $85,000",
             "NamibRand Ultimate Expedition (7 Nights, Zero-G Flight & Safari) - $150,000"
         ]
     
-    col_comp, col_center, col_space2 = st.columns([2, 5, 1])
-    
-    with col_comp:
-        if lang == "TR":
-            st.markdown("### Stellaris Değer Önerisi")
-            st.markdown("""<div class="info-panel" style="padding:20px;">
-            <b style="color:#D4AF37;">Standart Lüks Tatiller ($15K - $25K)</b><br>
-            <span style="font-size:0.85rem; color:#E0E0E0;">- 5 Yıldızlı Otel (Işık Kirliliği)<br>- Standart Fine-Dining<br>- Ticari Uçuş (First Class)</span><br><br>
-            <b style="color:#D4AF37;">Stellaris Deneyimi ($35K - $150K)</b><br>
-            <span style="font-size:0.85rem; color:#E0E0E0;">- Özel Cam Fanus (Bortle 1 Gökyüzü)<br>- Planewave 20'' & Kişisel Astronom<br>- Michelin Yıldızlı Şef & Sınırsız Havyar<br>- Helikopter & Özel Jet Transferleri<br>- Sıfır Yerçekimi (Zero-G) Simülasyon Uçuşu</span>
-            </div>""", unsafe_allow_html=True)
-        else:
-            st.markdown("### Stellaris Value Proposition")
-            st.markdown("""<div class="info-panel" style="padding:20px;">
-            <b style="color:#D4AF37;">Standard Luxury Vacations ($15K - $25K)</b><br>
-            <span style="font-size:0.85rem; color:#E0E0E0;">- 5 Star Hotel (Light Pollution)<br>- Standard Fine-Dining<br>- Commercial Flight (First Class)</span><br><br>
-            <b style="color:#D4AF37;">The Stellaris Experience ($35K - $150K)</b><br>
-            <span style="font-size:0.85rem; color:#E0E0E0;">- Private Glass Dome (Bortle 1 Sky)<br>- Planewave 20'' & Personal Astronomer<br>- Michelin Star Chef & Unlimited Caviar<br>- Helicopter & Private Jet Transfers<br>- Zero-Gravity Simulation Flight</span>
-            </div>""", unsafe_allow_html=True)
+    col_space1, col_center, col_space2 = st.columns([1, 6, 1])
 
     with col_center:
         st.markdown(f"<div class='info-panel' style='padding:40px;'>", unsafe_allow_html=True)
@@ -686,7 +689,7 @@ elif menu_secimi in ["VIP REZERVASYON", "VIP BOOKING"]:
         agree = st.checkbox("VIP Gizlilik ve Uçuş Şartlarını Kabul Ediyorum." if lang == "TR" else "I agree to the VIP Confidentiality & Flight Terms.")
         
         # Fiyat Hesaplama
-        taban_fiyat = 35000 if "35" in deneyim_turu else 85000 if "85" in deneyim_turu else 150000
+        taban_fiyat = 55000 if "55" in deneyim_turu else 85000 if "85" in deneyim_turu else 150000
         ekstra_toplam = (12500 if ekstra1 else 0) + (8000 if ekstra2 else 0) + (15000 if ekstra3 else 0)
         toplam_fiyat = (taban_fiyat * kisi_sayisi) + ekstra_toplam
         
@@ -773,7 +776,7 @@ elif menu_secimi in ["VİZYON & SÜRDÜRÜLEBİLİRLİK", "VISION & SUSTAINABILI
                 st.snow()
 
 # ---------------------------------------------------------------------------------------
-# SAYFA 15: DESTEK & SSS (YENİ KURUMSAL SAYFA)
+# SAYFA 15: DESTEK & SSS 
 # ---------------------------------------------------------------------------------------
 elif menu_secimi in ["DESTEK & SSS", "SUPPORT & FAQ"]:
     st.markdown("<h2>{}</h2>".format("Destek Merkezi & İletişim" if lang == "TR" else "Support Center & Contact"), unsafe_allow_html=True)
@@ -804,15 +807,15 @@ elif menu_secimi in ["DESTEK & SSS", "SUPPORT & FAQ"]:
             """, unsafe_allow_html=True)
         with col2:
             st.markdown(f"<div class='info-panel' style='padding:30px;'>", unsafe_allow_html=True)
-            c_name = st.text_input("İsim / Name")
+            c_name = st.text_input("İsim / Name" if lang=="TR" else "Name")
             c_email = st.text_input("E-Mail")
-            c_msg = st.text_area("Mesajınız / Your Message", height=100)
-            if st.button("Gönder / Send", use_container_width=True):
+            c_msg = st.text_area("Mesajınız / Your Message" if lang=="TR" else "Your Message", height=100)
+            if st.button("Gönder / Send" if lang=="TR" else "Send", use_container_width=True):
                 st.toast("Mesajınız VIP masamıza iletildi." if lang == "TR" else "Your message has been sent to our VIP desk.", icon="✅")
             st.markdown("</div>", unsafe_allow_html=True)
 
 # ---------------------------------------------------------------------------------------
-# SAYFA 16: YASAL & ÇEREZLER (YENİ KURUMSAL SAYFA)
+# SAYFA 16: YASAL & ÇEREZLER 
 # ---------------------------------------------------------------------------------------
 elif menu_secimi in ["YASAL & ÇEREZLER", "LEGAL & COOKIES"]:
     st.markdown("<h2>{}</h2>".format("Kurumsal Politikalar" if lang == "TR" else "Corporate Policies"), unsafe_allow_html=True)
@@ -852,7 +855,7 @@ elif menu_secimi in ["YATIRIMCI PORTALI", "INVESTOR PORTAL"]:
     st.markdown("<p>{}</p>".format("Sadece yetkili yönetim kurulu üyeleri ve hissedarlar içindir." if lang == "TR" else "Strictly for authorized board members and shareholders only."), unsafe_allow_html=True)
     st.write("---")
     
-    if st.text_input("Yetkilendirme Şifresi / Authorization Key (stellaris2026):", type="password") == "stellaris2026": 
+    if st.text_input("Yetkilendirme Şifresi / Authorization Key (stellaris2026):" if lang=="TR" else "Authorization Key (stellaris2026):", type="password") == "stellaris2026": 
         st.success("Güvenli Bağlantı Kuruldu. / Secure Connection Established." if lang == "TR" else "Secure Connection Established.")
         
         c1, c2, c3 = st.columns(3)
