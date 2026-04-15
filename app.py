@@ -1,9 +1,10 @@
 """
 =========================================================================================
 STELLARIS INTERNATIONAL ASTRO-TOURISM HOLDING - VIP PORTAL
-Versiyon: 8.0.0 (Production-Ready Final Corporate Build)
+Versiyon: 9.0.0 (Exclusive 2-Location Master Build)
 Açıklama: Ultra Yüksek Net Değere Sahip Bireyler (UHNWI) için tasarlanmış, 
 optimize edilmiş video galerisi, rafine rezervasyon sistemi ve QA testli final sürüm.
+Sadece Atacama ve Tekapo lokasyonlarına odaklanılmıştır.
 =========================================================================================
 """
 
@@ -208,7 +209,7 @@ if menu_secimi in ["ANA SAYFA", "HOME"]:
     c1, c2, c3, c4 = st.columns(4)
     with c1: st.markdown(f"<div class='stat-box'><div class='stat-number'>500+</div><div class='stat-label'>{'Bulutsuz Gece' if lang=='TR' else 'Clear Nights'}</div></div>", unsafe_allow_html=True)
     with c2: st.markdown(f"<div class='stat-box'><div class='stat-number'>$120M</div><div class='stat-label'>{'Yatırım Hacmi' if lang=='TR' else 'Investment Volume'}</div></div>", unsafe_allow_html=True)
-    with c3: st.markdown(f"<div class='stat-box'><div class='stat-number'>3</div><div class='stat-label'>{'Özel Rezerv' if lang=='TR' else 'Exclusive Reserves'}</div></div>", unsafe_allow_html=True)
+    with c3: st.markdown(f"<div class='stat-box'><div class='stat-number'>2</div><div class='stat-label'>{'Özel Rezerv' if lang=='TR' else 'Exclusive Reserves'}</div></div>", unsafe_allow_html=True)
     with c4: st.markdown(f"<div class='stat-box'><div class='stat-number'>%100</div><div class='stat-label'>{'VIP Gizlilik' if lang=='TR' else 'VIP Privacy'}</div></div>", unsafe_allow_html=True)
     
     st.write("---")
@@ -217,7 +218,7 @@ if menu_secimi in ["ANA SAYFA", "HOME"]:
         st.markdown('<div class="hero-container"><img class="hero-image" src="https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=2000&auto=format&fit=crop"></div>', unsafe_allow_html=True)
 
 # ---------------------------------------------------------------------------------------
-# SAYFA 2: LOKASYONLARIMIZ
+# SAYFA 2: LOKASYONLARIMIZ (Sadece 2 Lokasyon)
 # ---------------------------------------------------------------------------------------
 elif menu_secimi in ["LOKASYONLARIMIZ", "OUR LOCATIONS"]:
     st.markdown("<h2>{}</h2>".format("Hedef Ülkeler ve Küresel Pazar" if lang == "TR" else "Target Locations & Global Market"), unsafe_allow_html=True)
@@ -236,16 +237,12 @@ elif menu_secimi in ["LOKASYONLARIMIZ", "OUR LOCATIONS"]:
             "title_tr": "Tekapo Gölü, Yeni Zelanda", "title_en": "Lake Tekapo, New Zealand",
             "desc_tr": "UNESCO tarafından 'Uluslararası Karanlık Gökyüzü Rezervi' ilan edilmiştir. Güney Haçı takımyıldızını ve Aurora Australis'i VIP olanaklarla deneyimleyin.",
             "desc_en": "Declared an 'International Dark Sky Reserve' by UNESCO. Experience the Southern Cross and Aurora Australis with VIP amenities."
-        },
-        {
-            "img": "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&q=80",
-            "title_tr": "NamibRand Doğa Koruma Alanı, Namibya", "title_en": "NamibRand Nature Reserve, Namibia",
-            "desc_tr": "Afrika'nın en prestijli Gold Tier karanlık gökyüzü parkı. Çöl kumulları üzerinde vahşi yaşam safarisi ve olağanüstü derin uzay gözlemini bir arada sunar.",
-            "desc_en": "Africa's most prestigious Gold Tier dark sky park. Offers a combination of wildlife safari over desert dunes and extraordinary deep space observation."
         }
     ]
 
-    cols = st.columns(3)
+    col_space1, col_chile, col_nz, col_space2 = st.columns([1, 4, 4, 1])
+    cols = [col_chile, col_nz]
+    
     for idx, loc in enumerate(locations):
         with cols[idx]:
             title = loc["title_tr"] if lang == "TR" else loc["title_en"]
@@ -295,7 +292,7 @@ elif menu_secimi in ["CANLI GÖZLEMEVİ", "LIVE OBSERVATORY"]:
         with col_controls:
             st.markdown(f"<div class='info-panel' style='padding:20px; height:100%;'>", unsafe_allow_html=True)
             zoom_level = st.slider("Zoom / Yakınlaştırma" if lang=="TR" else "Zoom Level", 1.0, 4.0, 1.0, 0.1)
-            filter_options = ["Görünür", "H-Alpha (Kızılötesi)", "O-III (Mavi-Yeşil)"] if lang == "TR" else ["Visible", "H-Alpha (Infrared)", "O-III (Blue-Green)"]
+            filter_options = ["Görünür (Visible)", "H-Alpha (Kızılötesi)", "O-III (Mavi-Yeşil)"] if lang == "TR" else ["Visible", "H-Alpha (Infrared)", "O-III (Blue-Green)"]
             filter_type = st.radio("Optik Filtre / Optical Filter" if lang=="TR" else "Optical Filter", filter_options)
             css_filter = "sepia(100%) hue-rotate(-50deg) saturate(300%)" if "H-Alpha" in filter_type else "sepia(100%) hue-rotate(130deg) saturate(200%)" if "O-III" in filter_type else "none"
             st.markdown("</div>", unsafe_allow_html=True)
@@ -330,17 +327,16 @@ elif menu_secimi in ["3D SİMÜLASYONLAR", "3D SIMULATIONS"]:
     with tab3: st.markdown(f"""<div style="{style_str}"><iframe src="https://eyes.nasa.gov/apps/asteroids/#/?embed=true" width="100%" height="700" frameborder="0" allowfullscreen="true"></iframe></div>""", unsafe_allow_html=True)
     with tab4: st.markdown(f"""<div style="{style_str}"><iframe src="https://eyes.nasa.gov/apps/exo/#/?embed=true" width="100%" height="700" frameborder="0" allowfullscreen="true"></iframe></div>""", unsafe_allow_html=True)
     with tab5:
-        loc_options = ["Atacama Çölü, Şili", "Tekapo Gölü, Yeni Zelanda", "NamibRand, Namibya"] if lang == "TR" else ["Atacama Desert, Chile", "Lake Tekapo, New Zealand", "NamibRand, Namibia"]
+        loc_options = ["Atacama Çölü, Şili", "Tekapo Gölü, Yeni Zelanda"] if lang == "TR" else ["Atacama Desert, Chile", "Lake Tekapo, New Zealand"]
         loc_choice = st.selectbox("Gözlem Noktası Seçimi / Select Observation Point:" if lang=="TR" else "Select Observation Point:", loc_options)
         if "Atacama" in loc_choice: lat, lon = -23.0, -67.7
-        elif "Tekapo" in loc_choice: lat, lon = -44.0, 170.4
-        else: lat, lon = -25.2, 15.9 
+        else: lat, lon = -44.0, 170.4
         
         sky_url = f"https://virtualsky.lco.global/embed/index.html?longitude={lon}&latitude={lat}&projection=stereo&constellations=true&constellationlabels=true&meteorshowers=true&showstarlabels=true&live=true&az=180&color=dark"
         st.markdown(f"""<div style="{style_str}"><iframe src="{sky_url}" width="100%" height="700" frameborder="0" allowfullscreen="true" scrolling="no"></iframe></div>""", unsafe_allow_html=True)
 
 # =======================================================================================
-# SAYFA 5: KARA DELİK FİZİK MOTORU 
+# SAYFA 5: KARA DELİK FİZİK MOTORU
 # =======================================================================================
 elif menu_secimi in ["KARA DELİK SİM.", "BLACK HOLE SIM."]:
     st.markdown("<h2>{}</h2>".format("Kütleçekim ve Kara Delik Simülatörü" if lang == "TR" else "Gravity & Black Hole Simulator"), unsafe_allow_html=True)
@@ -413,11 +409,10 @@ elif menu_secimi in ["KARA DELİK SİM.", "BLACK HOLE SIM."]:
         components.html(bh_html, height=720)
 
 # =======================================================================================
-# SAYFA 6: VİDEOLAR GALERİSİ (BÖLÜNMÜŞ VE ZENGİNLEŞTİRİLMİŞ)
+# SAYFA 6: VİDEOLAR GALERİSİ
 # =======================================================================================
 elif menu_secimi in ["VİDEOLAR GALERİSİ", "VIDEO GALLERY"]:
-    st.markdown("<h2>{}</h2>".format("Stellaris Uzay ve Bilim Sineması" if lang == "TR" else "Stellaris Space Cinema"), unsafe_allow_html=True)
-    st.write("---")
+    st.markdown("<h2>{}</h2>".format("Stellaris Uzay ve Bilim Sineması" if lang == "TR" else "Stellaris Space Cinema"), unsafe_allow_html=True); st.write("---")
     
     t_space, t_locations = st.tabs([
         "🚀 Uzay Görevleri / Space Missions" if lang == "TR" else "🚀 Space Missions", 
@@ -443,13 +438,11 @@ elif menu_secimi in ["VİDEOLAR GALERİSİ", "VIDEO GALLERY"]:
         with loc_col1:
             st.markdown(f"<h3>{'Atacama Çölü Gece Gökyüzü' if lang=='TR' else 'Atacama Desert Night Sky'}</h3>", unsafe_allow_html=True)
             st.video("https://www.youtube.com/watch?v=17jymDn0W6U")
-            st.markdown(f"<br><h3>{'Tekapo Gölü Aurora ve Yıldızlar' if lang=='TR' else 'Lake Tekapo Aurora & Stars'}</h3>", unsafe_allow_html=True)
-            st.video("https://www.youtube.com/watch?v=wX-y00b6e9Q")
-        with loc_col2:
-            st.markdown(f"<h3>{'Namibya Çölü Samanyolu' if lang=='TR' else 'Namibia Desert Milky Way'}</h3>", unsafe_allow_html=True)
-            st.video("https://www.youtube.com/watch?v=w30j5O08qD8")
             st.markdown(f"<br><h3>{'Astro-Turizm Vizyonumuz' if lang=='TR' else 'Our Astro-Tourism Vision'}</h3>", unsafe_allow_html=True)
             st.video("https://www.youtube.com/watch?v=4mR4VwM9d4o")
+        with loc_col2:
+            st.markdown(f"<h3>{'Tekapo Gölü Aurora ve Yıldızlar' if lang=='TR' else 'Lake Tekapo Aurora & Stars'}</h3>", unsafe_allow_html=True)
+            st.video("https://www.youtube.com/watch?v=wX-y00b6e9Q")
 
 # =======================================================================================
 # SAYFA 7: KOZMİK TAKVİM 
@@ -656,14 +649,12 @@ elif menu_secimi in ["VIP REZERVASYON", "VIP BOOKING"]:
     if lang == "TR":
         pkg_options = [
             "Tekapo Explorer (3 Gece, Villa & Özel Astronom) - $55,000",
-            "Atacama Stratosphere (5 Gece, Glass Dome & ALMA VIP) - $85,000",
-            "NamibRand Ultimate Expedition (7 Gece, Sıfır-G Uçuş & Safari) - $150,000"
+            "Atacama Stratosphere (5 Gece, Glass Dome & ALMA VIP) - $85,000"
         ]
     else:
         pkg_options = [
             "Tekapo Explorer (3 Nights, Villa & Private Astronomer) - $55,000",
-            "Atacama Stratosphere (5 Nights, Glass Dome & ALMA VIP) - $85,000",
-            "NamibRand Ultimate Expedition (7 Nights, Zero-G Flight & Safari) - $150,000"
+            "Atacama Stratosphere (5 Nights, Glass Dome & ALMA VIP) - $85,000"
         ]
     
     col_space1, col_center, col_space2 = st.columns([1, 6, 1])
@@ -689,7 +680,7 @@ elif menu_secimi in ["VIP REZERVASYON", "VIP BOOKING"]:
         agree = st.checkbox("VIP Gizlilik ve Uçuş Şartlarını Kabul Ediyorum." if lang == "TR" else "I agree to the VIP Confidentiality & Flight Terms.")
         
         # Fiyat Hesaplama
-        taban_fiyat = 55000 if "55" in deneyim_turu else 85000 if "85" in deneyim_turu else 150000
+        taban_fiyat = 55000 if "55" in deneyim_turu else 85000
         ekstra_toplam = (12500 if ekstra1 else 0) + (8000 if ekstra2 else 0) + (15000 if ekstra3 else 0)
         toplam_fiyat = (taban_fiyat * kisi_sayisi) + ekstra_toplam
         
@@ -782,7 +773,7 @@ elif menu_secimi in ["DESTEK & SSS", "SUPPORT & FAQ"]:
     st.markdown("<h2>{}</h2>".format("Destek Merkezi & İletişim" if lang == "TR" else "Support Center & Contact"), unsafe_allow_html=True)
     st.write("---")
     
-    t_faq, t_contact = st.tabs(["❓ S.S.S. / FAQ", "📩 İletişim / Contact"])
+    t_faq, t_contact = st.tabs(["❓ S.S.S. / FAQ", "📩 İletişim / Contact" if lang=="TR" else "📩 Contact"])
     
     with t_faq:
         st.markdown("<h3>{}</h3>".format("Sıkça Sorulan Sorular" if lang == "TR" else "Frequently Asked Questions"), unsafe_allow_html=True)
@@ -802,15 +793,15 @@ elif menu_secimi in ["DESTEK & SSS", "SUPPORT & FAQ"]:
                 <p style='text-align:left !important;'>
                 <b>Email:</b> vip@stellaris-holding.com<br>
                 <b>{'Telefon' if lang=='TR' else 'Phone'}:</b> +1 (800) 555-0199<br>
-                <b>Merkez / HQ:</b> Geneva, Switzerland</p>
+                <b>{'Merkez' if lang=='TR' else 'HQ'}:</b> Geneva, Switzerland</p>
             </div>
             """, unsafe_allow_html=True)
         with col2:
             st.markdown(f"<div class='info-panel' style='padding:30px;'>", unsafe_allow_html=True)
             c_name = st.text_input("İsim / Name" if lang=="TR" else "Name")
             c_email = st.text_input("E-Mail")
-            c_msg = st.text_area("Mesajınız / Your Message" if lang=="TR" else "Your Message", height=100)
-            if st.button("Gönder / Send" if lang=="TR" else "Send", use_container_width=True):
+            c_msg = st.text_area("Mesajınız" if lang=="TR" else "Your Message", height=100)
+            if st.button("Gönder" if lang=="TR" else "Send", use_container_width=True):
                 st.toast("Mesajınız VIP masamıza iletildi." if lang == "TR" else "Your message has been sent to our VIP desk.", icon="✅")
             st.markdown("</div>", unsafe_allow_html=True)
 
@@ -855,13 +846,13 @@ elif menu_secimi in ["YATIRIMCI PORTALI", "INVESTOR PORTAL"]:
     st.markdown("<p>{}</p>".format("Sadece yetkili yönetim kurulu üyeleri ve hissedarlar içindir." if lang == "TR" else "Strictly for authorized board members and shareholders only."), unsafe_allow_html=True)
     st.write("---")
     
-    if st.text_input("Yetkilendirme Şifresi / Authorization Key (stellaris2026):" if lang=="TR" else "Authorization Key (stellaris2026):", type="password") == "stellaris2026": 
-        st.success("Güvenli Bağlantı Kuruldu. / Secure Connection Established." if lang == "TR" else "Secure Connection Established.")
+    if st.text_input("Yetkilendirme Şifresi (stellaris2026):" if lang=="TR" else "Authorization Key (stellaris2026):", type="password") == "stellaris2026": 
+        st.success("Güvenli Bağlantı Kuruldu." if lang == "TR" else "Secure Connection Established.")
         
         c1, c2, c3 = st.columns(3)
         c1.metric("2025 YTD Gelir (USD)" if lang=="TR" else "2025 YTD Revenue", "$24.5M", "+18.2% YoY")
         c2.metric("EBITDA Marjı" if lang=="TR" else "EBITDA Margin", "%42.8", "+3.5%")
-        c3.metric("VIP Üye Sayısı (Kümülatif)" if lang=="TR" else "VIP Members (Cum.)", "1,240", "+120 Yeni/New")
+        c3.metric("VIP Üye Sayısı (Kümülatif)" if lang=="TR" else "VIP Members (Cum.)", "1,240", "+120 Yeni" if lang=="TR" else "+120 New")
         
         st.write("---")
         
@@ -870,10 +861,9 @@ elif menu_secimi in ["YATIRIMCI PORTALI", "INVESTOR PORTAL"]:
             st.markdown("<h3>{}</h3>".format("Bölgesel Büyüme Projeksiyonu (USD Bin)" if lang == "TR" else "Regional Growth Projection (USD Thousands)"), unsafe_allow_html=True)
             df_growth = pd.DataFrame({
                 "Şili (Atacama)" if lang=="TR" else "Chile (Atacama)": [1000, 2500, 4800, 7500, 12000], 
-                "Yeni Zelanda" if lang=="TR" else "New Zealand": [800, 1900, 3500, 6000, 9500],
-                "Namibya (Yeni)" if lang=="TR" else "Namibia (New)": [0, 0, 0, 2500, 7800]
+                "Yeni Zelanda" if lang=="TR" else "New Zealand": [800, 1900, 3500, 6000, 9500]
             }, index=["2022", "2023", "2024", "2025", "2026 (Tahmin/Est)"])
-            st.area_chart(df_growth, color=["#B8860B", "#C5A059", "#ffffff"])
+            st.area_chart(df_growth, color=["#B8860B", "#C5A059"])
             
         with col_c2:
             st.markdown("<h3>{}</h3>".format("Tesis Doluluk Oranları (%)" if lang == "TR" else "Facility Occupancy Rates (%)"), unsafe_allow_html=True)
@@ -884,8 +874,8 @@ elif menu_secimi in ["YATIRIMCI PORTALI", "INVESTOR PORTAL"]:
             st.line_chart(df_occ, color=["#FFD700", "#B8860B"])
             
         st.write("---")
-        note_tr = "Gelecek yıl Afrika kıtasında, Namibya Çölü (NamibRand) bölgesinde inşasına başlanacak 3. faz VIP rezervasyon ve konaklama alanı ile küresel astro-turizm pazar payımızın %65 oranında artması öngörülmektedir. Elon Musk ve SpaceX yöneticileriyle yapılan ön görüşmeler, gelecekteki Mars simülasyon eğitimlerinin doğrudan tesislerimizde yapılması üzerine yoğunlaşmıştır."
-        note_en = "With the 3rd phase VIP booking and accommodation area to be built in the Namib Desert (NamibRand) on the African continent next year, our global astro-tourism market share is projected to increase by 65%. Preliminary talks with Elon Musk and SpaceX executives have focused on conducting future Mars simulation trainings directly at our facilities."
+        note_tr = "Gelecek yıl Atacama ve Tekapo tesislerimizdeki kapasite artırımı ve planlanan yeni VIP kompleksleri ile küresel astro-turizm pazar payımızın %40 oranında artması öngörülmektedir. Elon Musk ve SpaceX yöneticileriyle yapılan ön görüşmeler, gelecekteki Mars simülasyon eğitimlerinin doğrudan tesislerimizde yapılması üzerine yoğunlaşmıştır."
+        note_en = "With the capacity expansion and planned new VIP complexes at our Atacama and Tekapo facilities next year, our global astro-tourism market share is projected to increase by 40%. Preliminary talks with Elon Musk and SpaceX executives have focused on conducting future Mars simulation trainings directly at our facilities."
         
         st.markdown(f"""
         <div class="info-panel" style='text-align:left !important; padding:30px;'>
