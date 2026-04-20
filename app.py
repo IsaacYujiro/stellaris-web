@@ -1,9 +1,9 @@
 """
 =========================================================================================
 STELLARIS INTERNATIONAL ASTRO-TOURISM HOLDING - VIP PORTAL
-Versiyon: 9.0.0 (Exclusive 2-Location Master Build)
+Versiyon: 9.5.0 (Mobile-Optimized Exclusive 2-Location Master Build)
 Açıklama: Ultra Yüksek Net Değere Sahip Bireyler (UHNWI) için tasarlanmış, 
-optimize edilmiş video galerisi, rafine rezervasyon sistemi ve QA testli final sürüm.
+optimize edilmiş, HQ Yeni Zelanda olan ve telefonlar için duyarlı (Responsive) final sürüm.
 Sadece Atacama ve Tekapo lokasyonlarına odaklanılmıştır.
 =========================================================================================
 """
@@ -18,7 +18,7 @@ import os
 import glob
 
 # =======================================================================================
-# 1. SİTE YAPILANDIRMASI VE ULTRA-LÜKS ANİMASYONLU CSS MİMARİSİ
+# 1. SİTE YAPILANDIRMASI VE MOBİL UYUMLU CSS MİMARİSİ
 # =======================================================================================
 st.set_page_config(page_title="Stellaris | Premium Astro-Tourism", page_icon="🌌", layout="wide", initial_sidebar_state="expanded")
 
@@ -57,64 +57,67 @@ st.markdown("""
     div[role="radiogroup"] label:hover p { color: #D4AF37 !important; text-shadow: 0px 0px 10px rgba(212, 175, 55, 0.5); background: rgba(184, 134, 11, 0.1); transform: translateX(8px);}
     div[role="radiogroup"] label[aria-checked="true"] p { color: #FFD700 !important; text-shadow: 0px 0px 15px rgba(255, 215, 0, 0.8); border-bottom: 2px solid #B8860B; background: rgba(184, 134, 11, 0.2); transform: scale(1.02);}
 
-    [data-baseweb="select"], input[type="text"], input[type="password"], textarea { background-color: rgba(3, 8, 20, 0.6) !important; border: 1px solid #B8860B !important; border-radius: 6px; backdrop-filter: blur(5px); color: #FFF !important;}
+    [data-baseweb="select"], input[type="text"], input[type="password"], textarea { background-color: rgba(3, 8, 20, 0.6) !important; border: 1px solid #B8860B !important; border-radius: 6px; backdrop-filter: blur(5px); color: #FFF !important; max-width: 100%;}
     [data-baseweb="select"] * { color: #C5A059 !important; font-family: 'Montserrat', sans-serif !important; }
     
-    div[data-testid="stMetricValue"] { color: #D4AF37 !important; font-family: 'Cinzel', serif !important; font-size: 2.8rem !important; text-shadow: 0px 0px 20px rgba(212, 175, 55, 0.6); transition: transform 0.4s ease; display: inline-block;}
+    div[data-testid="stMetricValue"] { color: #D4AF37 !important; font-family: 'Cinzel', serif !important; font-size: clamp(1.5rem, 4vw, 2.8rem) !important; text-shadow: 0px 0px 20px rgba(212, 175, 55, 0.6); transition: transform 0.4s ease; display: inline-block; word-break: break-word;}
     div[data-testid="stMetricValue"]:hover { transform: scale(1.1); color: #FFD700 !important; }
-    div[data-testid="stMetricLabel"] { color: #B8860B !important; font-family: 'Montserrat', sans-serif !important; font-size: 1.2rem !important; font-weight: 500; }
+    div[data-testid="stMetricLabel"] { color: #B8860B !important; font-family: 'Montserrat', sans-serif !important; font-size: clamp(0.9rem, 2vw, 1.2rem) !important; font-weight: 500; }
     
-    h1, h2, h3, h4, h5, h6 { font-family: 'Cinzel', serif; font-weight: 700; text-align: center !important; width: 100%; background: linear-gradient(45deg, #C5A059, #F3E5AB, #D4AF37, #B8860B); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shine 6s linear infinite; padding-bottom: 10px;}
+    h1, h2, h3, h4, h5, h6 { font-family: 'Cinzel', serif; font-weight: 700; text-align: center !important; width: 100%; background: linear-gradient(45deg, #C5A059, #F3E5AB, #D4AF37, #B8860B); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shine 6s linear infinite; padding-bottom: 10px; word-wrap: break-word;}
     @keyframes shine { to { background-position: 200% center; } }
     
-    .hero-title { font-size: 5.5rem; letter-spacing: 12px; margin-bottom: 10px; animation: pulseGlow 4s infinite alternate; }
+    .hero-title { font-size: clamp(3rem, 8vw, 5.5rem); letter-spacing: clamp(4px, 2vw, 12px); margin-bottom: 10px; animation: pulseGlow 4s infinite alternate; }
     @keyframes pulseGlow { from { text-shadow: 0 0 10px rgba(212,175,55,0.2); } to { text-shadow: 0 0 30px rgba(212,175,55,0.7); } }
 
-    p { text-align: center !important; margin: 0 auto 15px auto !important; max-width: 950px; line-height: 1.9; color: #a8b2d1 !important; font-weight: 300; font-size: 1.05rem;}
-    hr { border-top: 1px solid rgba(184, 134, 11, 0.3) !important; width: 70%; margin: 45px auto !important; }
+    p { text-align: center !important; margin: 0 auto 15px auto !important; max-width: 950px; line-height: 1.9; color: #a8b2d1 !important; font-weight: 300; font-size: clamp(0.9rem, 1.5vw, 1.05rem);}
+    hr { border-top: 1px solid rgba(184, 134, 11, 0.3) !important; width: 80%; margin: 30px auto !important; }
 
-    .block-container { animation: fadeSlideUp 1.2s cubic-bezier(0.165, 0.84, 0.44, 1); }
+    .block-container { animation: fadeSlideUp 1.2s cubic-bezier(0.165, 0.84, 0.44, 1); padding: 2rem 1rem !important; }
     @keyframes fadeSlideUp { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
 
-    .hero-image { width: 100%; max-width: 1400px; height: 60vh; object-fit: cover; border-radius: 12px; filter: brightness(65%); border: 1px solid rgba(184, 134, 11, 0.5); animation: slowZoom 40s infinite alternate cubic-bezier(0.455, 0.03, 0.515, 0.955); }
+    .hero-image { width: 100%; max-width: 1400px; height: clamp(30vh, 50vw, 60vh); object-fit: cover; border-radius: 12px; filter: brightness(65%); border: 1px solid rgba(184, 134, 11, 0.5); animation: slowZoom 40s infinite alternate cubic-bezier(0.455, 0.03, 0.515, 0.955); }
     @keyframes slowZoom { from { transform: scale(1); } to { transform: scale(1.1); } }
-    .hero-container { position: relative; text-align: center; margin-bottom: 50px; display: flex; justify-content: center; overflow: hidden; border-radius: 12px; box-shadow: 0 20px 50px rgba(0,0,0,0.8);}
+    .hero-container { position: relative; text-align: center; margin-bottom: 40px; display: flex; justify-content: center; overflow: hidden; border-radius: 12px; box-shadow: 0 20px 50px rgba(0,0,0,0.8);}
 
-    .service-card, .planet-card, .stat-box, .info-panel { background: rgba(5, 16, 36, 0.45) !important; backdrop-filter: blur(15px) !important; border-radius: 16px !important; border: 1px solid rgba(184, 134, 11, 0.3) !important; box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.6) !important; transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important; overflow: hidden; }
-    .service-card:hover, .planet-card:hover, .stat-box:hover, .info-panel:hover { transform: translateY(-8px) scale(1.02) !important; border-color: rgba(212, 175, 55, 0.9) !important; box-shadow: 0 20px 50px rgba(184, 134, 11, 0.25) !important; }
+    .service-card, .planet-card, .stat-box, .info-panel { background: rgba(5, 16, 36, 0.45) !important; backdrop-filter: blur(15px) !important; border-radius: 16px !important; border: 1px solid rgba(184, 134, 11, 0.3) !important; box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.6) !important; transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important; overflow: hidden; width: 100%; box-sizing: border-box;}
+    .service-card:hover, .planet-card:hover, .stat-box:hover, .info-panel:hover { transform: translateY(-5px) scale(1.01) !important; border-color: rgba(212, 175, 55, 0.9) !important; box-shadow: 0 20px 50px rgba(184, 134, 11, 0.25) !important; }
     
-    .stat-box { padding: 30px; text-align: center; margin-top: 20px; }
-    .stat-number { font-family: 'Cinzel', serif; font-size: 3rem; color: #D4AF37; font-weight: bold; margin-bottom: 10px; text-shadow: 0 0 15px rgba(212, 175, 55, 0.5);}
-    .stat-label { font-size: 1rem; text-transform: uppercase; color: #8892b0; letter-spacing: 2px; font-weight: 500;}
+    .stat-box { padding: clamp(15px, 3vw, 30px); text-align: center; margin-top: 20px; }
+    .stat-number { font-family: 'Cinzel', serif; font-size: clamp(2rem, 5vw, 3rem); color: #D4AF37; font-weight: bold; margin-bottom: 10px; text-shadow: 0 0 15px rgba(212, 175, 55, 0.5);}
+    .stat-label { font-size: clamp(0.8rem, 1.5vw, 1rem); text-transform: uppercase; color: #8892b0; letter-spacing: 2px; font-weight: 500;}
 
-    .service-img { width: 100%; height: 260px; object-fit: cover; border-bottom: 1px solid rgba(184, 134, 11, 0.3); transition: transform 0.7s ease; }
+    .service-img { width: 100%; height: clamp(200px, 30vw, 260px); object-fit: cover; border-bottom: 1px solid rgba(184, 134, 11, 0.3); transition: transform 0.7s ease; }
     .service-card:hover .service-img { transform: scale(1.08); }
-    .service-content { padding: 30px; }
-    .price-tag { font-family: 'Cinzel', serif; font-size: 3.5rem; color: #D4AF37; font-weight: 700; margin: 30px 0; text-align: center; text-shadow: 0px 0px 25px rgba(184, 134, 11, 0.5); }
+    .service-content { padding: clamp(15px, 3vw, 30px); }
+    .price-tag { font-family: 'Cinzel', serif; font-size: clamp(2.5rem, 6vw, 4rem) !important; color: #D4AF37; font-weight: 700; margin: 30px 0; text-align: center; text-shadow: 0px 0px 25px rgba(184, 134, 11, 0.5); word-wrap: break-word; }
     
-    .stButton { display: flex; justify-content: center; margin-top: 25px; }
-    div.stButton > button:first-child { background: linear-gradient(135deg, rgba(3,8,20,0.95) 0%, rgba(17,34,64,0.95) 100%) !important; color: #D4AF37 !important; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 1.2rem; padding: 18px 60px; border: 1px solid rgba(184, 134, 11, 0.6) !important; border-radius: 40px; transition: all 0.4s ease; letter-spacing: 3px; text-transform: uppercase; box-shadow: 0 5px 20px rgba(0,0,0,0.6);}
-    div.stButton > button:first-child:hover { background: linear-gradient(135deg, rgba(184, 134, 11, 0.25) 0%, rgba(212, 175, 55, 0.4) 100%) !important; color: #FFF !important; border-color: #D4AF37 !important; transform: translateY(-4px) scale(1.03); box-shadow: 0 0 25px rgba(212, 175, 55, 0.7) !important; }
+    .stButton { display: flex; justify-content: center; margin-top: 25px; width: 100%; }
+    div.stButton > button:first-child { background: linear-gradient(135deg, rgba(3,8,20,0.95) 0%, rgba(17,34,64,0.95) 100%) !important; color: #D4AF37 !important; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: clamp(0.9rem, 2vw, 1.2rem); padding: 15px 30px; border: 1px solid rgba(184, 134, 11, 0.6) !important; border-radius: 40px; transition: all 0.4s ease; letter-spacing: 2px; text-transform: uppercase; box-shadow: 0 5px 20px rgba(0,0,0,0.6); width: 100%; max-width: 400px;}
+    div.stButton > button:first-child:hover { background: linear-gradient(135deg, rgba(184, 134, 11, 0.25) 0%, rgba(212, 175, 55, 0.4) 100%) !important; color: #FFF !important; border-color: #D4AF37 !important; transform: translateY(-3px) scale(1.02); box-shadow: 0 0 25px rgba(212, 175, 55, 0.7) !important; }
 
-    [data-baseweb="tab-list"] { justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 25px;}
-    [data-baseweb="tab"] { background: rgba(5, 16, 36, 0.7) !important; color: #8892b0 !important; font-family: 'Cinzel', serif; font-size: 1rem; padding: 12px 25px; border-radius: 30px; border: 1px solid rgba(184,134,11,0.2) !important; transition: all 0.3s ease;}
-    [aria-selected="true"] { background: rgba(184, 134, 11, 0.2) !important; color: #FFD700 !important; border-color: #D4AF37 !important; box-shadow: 0 0 20px rgba(184,134,11,0.3); transform: scale(1.05); }
+    [data-baseweb="tab-list"] { justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 25px;}
+    [data-baseweb="tab"] { background: rgba(5, 16, 36, 0.7) !important; color: #8892b0 !important; font-family: 'Cinzel', serif; font-size: clamp(0.8rem, 1.5vw, 1rem); padding: 10px 15px; border-radius: 30px; border: 1px solid rgba(184,134,11,0.2) !important; transition: all 0.3s ease; flex-grow: 1; text-align: center;}
+    [aria-selected="true"] { background: rgba(184, 134, 11, 0.2) !important; color: #FFD700 !important; border-color: #D4AF37 !important; box-shadow: 0 0 20px rgba(184,134,11,0.3); transform: scale(1.02); }
     
     .stProgress > div > div > div > div { background: linear-gradient(90deg, #8B6508, #D4AF37, #F3E5AB) !important; }
     
-    .spinning-planet { width: 280px; height: 280px; border-radius: 50%; display: block; margin: 0 auto 25px auto; box-shadow: inset -30px -30px 50px rgba(0,0,0,0.95), 0 0 40px rgba(184, 134, 11, 0.4); animation: spin 45s linear infinite; object-fit: cover;}
+    .spinning-planet { width: clamp(150px, 40vw, 280px); height: clamp(150px, 40vw, 280px); border-radius: 50%; display: block; margin: 0 auto 25px auto; box-shadow: inset -20px -20px 40px rgba(0,0,0,0.95), 0 0 30px rgba(184, 134, 11, 0.4); animation: spin 45s linear infinite; object-fit: cover;}
     @keyframes spin { 100% { transform: rotate(360deg); } }
     @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
     
-    .mission-box { background: rgba(3, 8, 20, 0.75); border-left: 5px solid #D4AF37; padding: 35px; margin-bottom: 30px; border-radius: 0 12px 12px 0; text-align: left !important; box-shadow: 0 8px 20px rgba(0,0,0,0.5); transition: transform 0.3s ease;}
-    .mission-box:hover { transform: translateX(10px); }
-    .mission-box h3 { text-align: left !important; margin-bottom: 18px; color: #D4AF37; font-size: 1.8rem;}
-    .mission-box p { text-align: left !important; font-size: 1.1rem; color: #E0E0E0 !important; line-height: 1.9;}
+    .mission-box { background: rgba(3, 8, 20, 0.75); border-left: 5px solid #D4AF37; padding: clamp(15px, 3vw, 35px); margin-bottom: 30px; border-radius: 0 12px 12px 0; text-align: left !important; box-shadow: 0 8px 20px rgba(0,0,0,0.5); transition: transform 0.3s ease;}
+    .mission-box:hover { transform: translateX(5px); }
+    .mission-box h3 { text-align: left !important; margin-bottom: 15px; color: #D4AF37; font-size: clamp(1.3rem, 2.5vw, 1.8rem);}
+    .mission-box p { text-align: left !important; font-size: clamp(0.95rem, 1.5vw, 1.1rem); color: #E0E0E0 !important; line-height: 1.8;}
     
     th { background-color: rgba(184, 134, 11, 0.2) !important; color: #D4AF37 !important; font-family: 'Cinzel', serif; font-size: 1.1rem; }
     td { background-color: rgba(5, 16, 36, 0.4) !important; color: #E0E0E0 !important; border-bottom: 1px solid rgba(184, 134, 11, 0.2) !important;}
     
     .sidebar-footer { position: absolute; bottom: 10px; width: 100%; text-align: center; color: #8892b0; font-size: 0.75rem; font-family: 'Montserrat', sans-serif;}
+    
+    /* Responsive Video IFrames */
+    iframe { max-width: 100%; }
     </style>
     """, unsafe_allow_html=True)
 
@@ -161,19 +164,19 @@ st.sidebar.write("---")
 
 st.sidebar.markdown(f"<p style='color:#B8860B; font-size:0.85rem; font-weight:bold; margin-bottom:8px !important; letter-spacing:1px;'>{'Kozmik Ambiyans' if lang == 'TR' else 'Cosmic Ambient'}</p>", unsafe_allow_html=True)
 st.sidebar.markdown("""
-<audio controls autoplay loop style="width: 100%; height: 35px; outline: none; border-radius: 6px; opacity: 0.85; box-shadow: 0 2px 10px rgba(0,0,0,0.5);">
+<audio controls autoplay loop style="width: 100%; max-width: 100%; height: 35px; outline: none; border-radius: 6px; opacity: 0.85; box-shadow: 0 2px 10px rgba(0,0,0,0.5);">
     <source src="https://cdn.pixabay.com/audio/2022/11/22/audio_febc508520.mp3" type="audio/mpeg">
 </audio>
 """, unsafe_allow_html=True)
 
 st.sidebar.write("---")
 st.sidebar.info("Sistem: Çevrimiçi / Şifreli Bağlantı" if lang == "TR" else "System: Online / Secured")
-st.sidebar.markdown("<div class='sidebar-footer'>Stellaris Corp. © 2026 | v8.0.0</div>", unsafe_allow_html=True)
+st.sidebar.markdown("<div class='sidebar-footer'>Stellaris Corp. © 2026 | v9.5.0</div>", unsafe_allow_html=True)
 
-def auto_refresh_image(img_id, img_url, refresh_rate_ms, title, max_width="600px", filter_css="none"):
+def auto_refresh_image(img_id, img_url, refresh_rate_ms, title, max_width="100%", filter_css="none"):
     return f"""
-    <div style="border: 1px solid rgba(184, 134, 11, 0.3); border-radius: 12px; position: relative; overflow: hidden; text-align: center; background: rgba(5,16,36,0.5); backdrop-filter: blur(10px); padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-        <div style="position: absolute; top: 15px; left: 15px; background: rgba(0,0,0,0.8); padding: 6px 15px; color: #00e676; font-family: monospace; font-weight: bold; border: 1px solid rgba(0,230,118,0.5); z-index: 10; border-radius: 30px; font-size:12px; box-shadow: 0 0 12px rgba(0,230,118,0.3); letter-spacing:1px;">
+    <div style="border: 1px solid rgba(184, 134, 11, 0.3); border-radius: 12px; position: relative; overflow: hidden; text-align: center; background: rgba(5,16,36,0.5); backdrop-filter: blur(10px); padding: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); width: 100%; box-sizing: border-box;">
+        <div style="position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.8); padding: 4px 10px; color: #00e676; font-family: monospace; font-weight: bold; border: 1px solid rgba(0,230,118,0.5); z-index: 10; border-radius: 30px; font-size:clamp(8px, 2vw, 12px); box-shadow: 0 0 12px rgba(0,230,118,0.3); letter-spacing:1px;">
             <span style="animation: blink 1s infinite;">●</span> {title}
         </div>
         <img id="{img_id}" src="{img_url}" style="width: 100%; max-width: {max_width}; border-radius: 8px; filter: {filter_css}; transition: all 0.3s ease;">
@@ -194,18 +197,15 @@ def auto_refresh_image(img_id, img_url, refresh_rate_ms, title, max_width="600px
 # SAYFA 1: ANA SAYFA 
 # ---------------------------------------------------------------------------------------
 if menu_secimi in ["ANA SAYFA", "HOME"]:
-    col_logo, col_hero, col_empty = st.columns([1, 2, 1])
-    with col_hero:
-        if bulunan_logo: st.image(bulunan_logo, use_container_width=True)
-        else:
-            st.markdown("<h1 class='hero-title'>STELLARIS</h1>", unsafe_allow_html=True)
-            st.markdown(f"<p class='hero-subtitle' style='color:#D4AF37; letter-spacing:5px; font-weight:bold; font-size:1.1rem;'>{'ULUSLARARASI ASTRO-TURİZM HOLDİNGİ' if lang == 'TR' else 'INTERNATIONAL ASTRO-TOURISM HOLDING'}</p>", unsafe_allow_html=True)
+    st.markdown("<h1 class='hero-title'>STELLARIS</h1>", unsafe_allow_html=True)
+    st.markdown(f"<p class='hero-subtitle' style='color:#D4AF37; letter-spacing:clamp(2px, 1vw, 5px); font-weight:bold; font-size:clamp(0.8rem, 2vw, 1.1rem); margin-bottom: 20px;'>{'ULUSLARARASI ASTRO-TURİZM HOLDİNGİ' if lang == 'TR' else 'INTERNATIONAL ASTRO-TOURISM HOLDING'}</p>", unsafe_allow_html=True)
     st.write("---")
     
     st.markdown("<h2>{}</h2>".format("Sınırların Ötesinde Bir Lüks" if lang == "TR" else "Luxury Beyond Borders"), unsafe_allow_html=True)
     home_desc = "Stellaris, sıradan tatil anlayışını geride bırakıp gözlerini evrenin derinliklerine çeviren seçkin bireyler için tasarlanmıştır. Işık kirliliğinden %100 arındırılmış dünyanın en karanlık noktalarında, kişiye özel cam fanus (Glass Dome) konaklamaları, Michelin yıldızlı gastronomi deneyimi ve özel jet transferleri ile bilim ve ultra-lüksü kusursuz bir uyumla harmanlıyoruz." if lang == "TR" else "Stellaris is designed for distinguished individuals who leave ordinary holidays behind and turn their eyes to the depths of the universe. In the darkest points of the world, 100% free from light pollution, we blend science and ultra-luxury flawlessly with personalized Glass Dome accommodations, Michelin-starred gastronomy, and private jet transfers."
     st.markdown(f"<p>{home_desc}</p>", unsafe_allow_html=True)
     
+    # Responsive Stat Boxes
     c1, c2, c3, c4 = st.columns(4)
     with c1: st.markdown(f"<div class='stat-box'><div class='stat-number'>500+</div><div class='stat-label'>{'Bulutsuz Gece' if lang=='TR' else 'Clear Nights'}</div></div>", unsafe_allow_html=True)
     with c2: st.markdown(f"<div class='stat-box'><div class='stat-number'>$120M</div><div class='stat-label'>{'Yatırım Hacmi' if lang=='TR' else 'Investment Volume'}</div></div>", unsafe_allow_html=True)
@@ -213,9 +213,7 @@ if menu_secimi in ["ANA SAYFA", "HOME"]:
     with c4: st.markdown(f"<div class='stat-box'><div class='stat-number'>%100</div><div class='stat-label'>{'VIP Gizlilik' if lang=='TR' else 'VIP Privacy'}</div></div>", unsafe_allow_html=True)
     
     st.write("---")
-    col_space1, col_image, col_space2 = st.columns([1, 10, 1])
-    with col_image:
-        st.markdown('<div class="hero-container"><img class="hero-image" src="https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=2000&auto=format&fit=crop"></div>', unsafe_allow_html=True)
+    st.markdown('<div class="hero-container"><img class="hero-image" src="https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=2000&auto=format&fit=crop"></div>', unsafe_allow_html=True)
 
 # ---------------------------------------------------------------------------------------
 # SAYFA 2: LOKASYONLARIMIZ (Sadece 2 Lokasyon)
@@ -240,7 +238,7 @@ elif menu_secimi in ["LOKASYONLARIMIZ", "OUR LOCATIONS"]:
         }
     ]
 
-    col_space1, col_chile, col_nz, col_space2 = st.columns([1, 4, 4, 1])
+    col_chile, col_nz = st.columns(2)
     cols = [col_chile, col_nz]
     
     for idx, loc in enumerate(locations):
@@ -251,8 +249,8 @@ elif menu_secimi in ["LOKASYONLARIMIZ", "OUR LOCATIONS"]:
             <div class="service-card">
                 <img class="service-img" src="{loc['img']}">
                 <div class="service-content">
-                    <h3 class="service-title" style="font-size:1.4rem;">{title}</h3>
-                    <p class="service-desc" style="font-size:0.95rem;">{desc}</p>
+                    <h3 class="service-title" style="font-size: clamp(1.2rem, 2vw, 1.4rem);">{title}</h3>
+                    <p class="service-desc" style="font-size: clamp(0.85rem, 1.5vw, 0.95rem);">{desc}</p>
                 </div>
             </div>
             """, unsafe_allow_html=True)
@@ -270,19 +268,19 @@ elif menu_secimi in ["CANLI GÖZLEMEVİ", "LIVE OBSERVATORY"]:
     
     with tab1: 
         st.markdown(f"<p style='color:#D4AF37;'><b>{'GOES-16 Uydusu (Kuzey ve Güney Amerika)' if lang=='TR' else 'GOES-16 Satellite (Americas)'}</b></p>", unsafe_allow_html=True)
-        components.html(auto_refresh_image("goes16_img", "https://cdn.star.nesdis.noaa.gov/GOES16/ABI/FD/GEOCOLOR/latest.jpg", 60000, "LIVE: GOES-16", "600px"), height=650)
+        components.html(auto_refresh_image("goes16_img", "https://cdn.star.nesdis.noaa.gov/GOES16/ABI/FD/GEOCOLOR/latest.jpg", 60000, "LIVE: GOES-16", "100%"), height=650)
     with tab2: 
         st.markdown(f"<p style='color:#D4AF37;'><b>{'Himawari-9 Uydusu (Asya ve Pasifik)' if lang=='TR' else 'Himawari-9 Satellite (Asia & Pacific)'}</b></p>", unsafe_allow_html=True)
-        components.html(auto_refresh_image("himawari_img", "https://cdn.star.nesdis.noaa.gov/AHI/FD/GEOCOLOR/latest.jpg", 60000, "LIVE: HIMAWARI-9", "600px"), height=650)
+        components.html(auto_refresh_image("himawari_img", "https://cdn.star.nesdis.noaa.gov/AHI/FD/GEOCOLOR/latest.jpg", 60000, "LIVE: HIMAWARI-9", "100%"), height=650)
     with tab3: 
         st.markdown(f"<p style='color:#D4AF37;'><b>{'Solar Dynamics Observatory - 304 Ångström (Güneş Plazması)' if lang=='TR' else 'SDO - 304 Ångström (Solar Plasma)'}</b></p>", unsafe_allow_html=True)
-        components.html(auto_refresh_image("sdo304_img", "https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_0304.jpg", 60000, "LIVE: SDO 304", "600px"), height=650)
+        components.html(auto_refresh_image("sdo304_img", "https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_0304.jpg", 60000, "LIVE: SDO 304", "100%"), height=650)
     with tab4: 
         st.markdown(f"<p style='color:#D4AF37;'><b>{'Solar Dynamics Observatory - 171 Ångström (Manyetik Döngüler)' if lang=='TR' else 'SDO - 171 Ångström (Magnetic Loops)'}</b></p>", unsafe_allow_html=True)
-        components.html(auto_refresh_image("sdo171_img", "https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_0171.jpg", 60000, "LIVE: SDO 171", "600px"), height=650)
+        components.html(auto_refresh_image("sdo171_img", "https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_0171.jpg", 60000, "LIVE: SDO 171", "100%"), height=650)
     with tab5: 
         st.markdown(f"<p style='color:#D4AF37;'><b>{'SOHO LASCO C3 (Güneş Fırtınası Radarı)' if lang=='TR' else 'SOHO LASCO C3 (Coronagraph)'}</b></p>", unsafe_allow_html=True)
-        components.html(auto_refresh_image("sohoc3_img", "https://soho.nascom.nasa.gov/data/realtime/c3/1024/latest.jpg", 60000, "LIVE: SOHO C3", "600px"), height=650)
+        components.html(auto_refresh_image("sohoc3_img", "https://soho.nascom.nasa.gov/data/realtime/c3/1024/latest.jpg", 60000, "LIVE: SOHO C3", "100%"), height=650)
     with tab6: 
         st.markdown(f"<p style='color:#D4AF37;'><b>{'Uluslararası Uzay İstasyonu (ISS) Canlı Takip' if lang=='TR' else 'International Space Station (ISS) Live Tracker'}</b></p>", unsafe_allow_html=True)
         st.markdown("""<div style="border: 1px solid rgba(184,134,11,0.3); border-radius: 12px; overflow: hidden; height: 550px; background: rgba(5,16,36,0.5);"><iframe src="https://isstracker.spaceflight.esa.int/" width="100%" height="100%" frameborder="0" style="pointer-events: none;"></iframe></div>""", unsafe_allow_html=True)
@@ -292,17 +290,17 @@ elif menu_secimi in ["CANLI GÖZLEMEVİ", "LIVE OBSERVATORY"]:
         with col_controls:
             st.markdown(f"<div class='info-panel' style='padding:20px; height:100%;'>", unsafe_allow_html=True)
             zoom_level = st.slider("Zoom / Yakınlaştırma" if lang=="TR" else "Zoom Level", 1.0, 4.0, 1.0, 0.1)
-            filter_options = ["Görünür (Visible)", "H-Alpha (Kızılötesi)", "O-III (Mavi-Yeşil)"] if lang == "TR" else ["Visible", "H-Alpha (Infrared)", "O-III (Blue-Green)"]
+            filter_options = ["Görünür", "H-Alpha (Kızılötesi)", "O-III (Mavi-Yeşil)"] if lang == "TR" else ["Visible", "H-Alpha (Infrared)", "O-III (Blue-Green)"]
             filter_type = st.radio("Optik Filtre / Optical Filter" if lang=="TR" else "Optical Filter", filter_options)
             css_filter = "sepia(100%) hue-rotate(-50deg) saturate(300%)" if "H-Alpha" in filter_type else "sepia(100%) hue-rotate(130deg) saturate(200%)" if "O-III" in filter_type else "none"
             st.markdown("</div>", unsafe_allow_html=True)
         with col_view:
             st.markdown(f"""
             <div style="width: 100%; height: 500px; border: 1px solid rgba(184, 134, 11, 0.5); border-radius: 12px; overflow: hidden; background: #000; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-                <div style="position: absolute; top: 20px; left: 20px; color: #ff3333; font-family: monospace; font-weight: bold; z-index: 10; font-size:14px; background:rgba(0,0,0,0.6); padding:5px 10px; border-radius:4px; border:1px solid #ff3333;">
+                <div style="position: absolute; top: 20px; left: 20px; color: #ff3333; font-family: monospace; font-weight: bold; z-index: 10; font-size:clamp(10px, 2vw, 14px); background:rgba(0,0,0,0.6); padding:5px 10px; border-radius:4px; border:1px solid #ff3333;">
                     <span style="animation: blink 1s infinite;">●</span> SENSOR ACTIVE
                 </div>
-                <div style="position: absolute; bottom: 20px; right: 20px; color: #D4AF37; font-family: monospace; z-index: 10; font-size:12px; background:rgba(0,0,0,0.6); padding:5px 10px; border-radius:4px;">
+                <div style="position: absolute; bottom: 20px; right: 20px; color: #D4AF37; font-family: monospace; z-index: 10; font-size:clamp(8px, 1.5vw, 12px); background:rgba(0,0,0,0.6); padding:5px 10px; border-radius:4px;">
                     RA: 05h 35m 17s | DEC: -05° 23′ 28″
                 </div>
                 <img src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?q=80&w=1600" style="width: 100%; height: 100%; object-fit: cover; transform: scale({zoom_level}); filter: {css_filter}; transition: all 0.5s ease;">
@@ -336,7 +334,7 @@ elif menu_secimi in ["3D SİMÜLASYONLAR", "3D SIMULATIONS"]:
         st.markdown(f"""<div style="{style_str}"><iframe src="{sky_url}" width="100%" height="700" frameborder="0" allowfullscreen="true" scrolling="no"></iframe></div>""", unsafe_allow_html=True)
 
 # =======================================================================================
-# SAYFA 5: KARA DELİK FİZİK MOTORU
+# SAYFA 5: KARA DELİK FİZİK MOTORU 
 # =======================================================================================
 elif menu_secimi in ["KARA DELİK SİM.", "BLACK HOLE SIM."]:
     st.markdown("<h2>{}</h2>".format("Kütleçekim ve Kara Delik Simülatörü" if lang == "TR" else "Gravity & Black Hole Simulator"), unsafe_allow_html=True)
@@ -354,19 +352,33 @@ elif menu_secimi in ["KARA DELİK SİM.", "BLACK HOLE SIM."]:
         
     with col2:
         bh_html = f"""
-        <div style="border: 1px solid rgba(184,134,11,0.3); border-radius: 12px; overflow: hidden; background: rgba(5,16,36,0.6); backdrop-filter: blur(10px); padding: 30px; box-shadow: 0 10px 40px rgba(0,0,0,0.5);">
-            <div style="color: #D4AF37; font-family: 'Cinzel', serif; font-size:1.5rem; margin-bottom: 20px; text-align: center; letter-spacing: 2px;">STELLARIS GRAVITY ENGINE</div>
+        <div style="border: 1px solid rgba(184,134,11,0.3); border-radius: 12px; overflow: hidden; background: rgba(5,16,36,0.6); backdrop-filter: blur(10px); padding: 30px; box-shadow: 0 10px 40px rgba(0,0,0,0.5); width: 100%;">
+            <div style="color: #D4AF37; font-family: 'Cinzel', serif; font-size:clamp(1.2rem, 3vw, 1.5rem); margin-bottom: 20px; text-align: center; letter-spacing: 2px;">STELLARIS GRAVITY ENGINE</div>
             <div style="display: flex; justify-content: center; gap: 40px; margin-bottom: 30px; flex-wrap: wrap;">
-                <label style="color: #E0E0E0; font-family: 'Montserrat', sans-serif; font-weight:bold;">{"Tekillik Kütlesi" if lang=="TR" else "Singularity Mass"}: <br><input type="range" id="massSlider" min="50" max="350" value="180" style="accent-color: #B8860B; width:200px; margin-top:10px;"></label>
-                <label style="color: #E0E0E0; font-family: 'Montserrat', sans-serif; font-weight:bold;">{"Disk Hızı" if lang=="TR" else "Disk Velocity"}: <br><input type="range" id="speedSlider" min="1" max="15" value="6" style="accent-color: #B8860B; width:200px; margin-top:10px;"></label>
+                <label style="color: #E0E0E0; font-family: 'Montserrat', sans-serif; font-weight:bold;">{"Tekillik Kütlesi" if lang=="TR" else "Singularity Mass"}: <br><input type="range" id="massSlider" min="50" max="350" value="180" style="accent-color: #B8860B; width:100%; max-width:200px; margin-top:10px;"></label>
+                <label style="color: #E0E0E0; font-family: 'Montserrat', sans-serif; font-weight:bold;">{"Disk Hızı" if lang=="TR" else "Disk Velocity"}: <br><input type="range" id="speedSlider" min="1" max="15" value="6" style="accent-color: #B8860B; width:100%; max-width:200px; margin-top:10px;"></label>
             </div>
-            <div style="max-width:100%; overflow-x:auto; text-align:center;">
-                <canvas id="bhCanvas" width="800" height="450" style="background: radial-gradient(circle at center, #0a1930 0%, #000 100%); border-radius: 8px; border: 1px solid rgba(184,134,11,0.2); box-shadow: 0 0 30px rgba(0,0,0,0.8) inset;"></canvas>
+            <div style="width:100%; overflow-x:auto; text-align:center;">
+                <canvas id="bhCanvas" width="800" height="450" style="max-width: 100%; height: auto; background: radial-gradient(circle at center, #0a1930 0%, #000 100%); border-radius: 8px; border: 1px solid rgba(184,134,11,0.2); box-shadow: 0 0 30px rgba(0,0,0,0.8) inset;"></canvas>
             </div>
         </div>
         <script>
             const canvas = document.getElementById('bhCanvas'); const ctx = canvas.getContext('2d');
             const massSlider = document.getElementById('massSlider'); const speedSlider = document.getElementById('speedSlider');
+            
+            function resizeCanvas() {{
+                const container = canvas.parentElement;
+                if (container.clientWidth < 800) {{
+                    canvas.style.width = container.clientWidth + 'px';
+                    canvas.style.height = (container.clientWidth * 9 / 16) + 'px';
+                }} else {{
+                    canvas.style.width = '800px';
+                    canvas.style.height = '450px';
+                }}
+            }}
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+
             let particles = [];
             for(let i=0; i<450; i++) {{ 
                 particles.push({{
@@ -485,9 +497,9 @@ elif menu_secimi in ["KOZMİK TAKVİM", "COSMIC CALENDAR"]:
             st.toast("VIP Temsilcilerimiz Sizinle İletişime Geçecektir." if lang=="TR" else "Our VIP Reps Will Contact You.", icon="🎫")
         st.markdown("</div>", unsafe_allow_html=True)
 
-# =======================================================================================
+# ---------------------------------------------------------------------------------------
 # SAYFA 8: UZAY HAVADURUMU 
-# =======================================================================================
+# ---------------------------------------------------------------------------------------
 elif menu_secimi in ["UZAY HAVADURUMU", "SPACE WEATHER"]:
     st.markdown("<h2>{}</h2>".format("Jeomanyetik Fırtına & Uzay Hava Durumu" if lang == "TR" else "Geomagnetic Storm & Space Weather"), unsafe_allow_html=True)
     warn_text = "Jeomanyetik fırtınalar (Kp Index) muazzam kutup ışıkları yaratsa da, hassas astrofotografi sensörleri için parazit oluşturabilir. Profesyonel çekimlerinizi bu endekse göre planlayın." if lang == "TR" else "While geomagnetic storms create magnificent auroras, they can cause noise for sensitive astrophotography sensors. Plan your professional shoots according to this index."
@@ -514,9 +526,9 @@ elif menu_secimi in ["UZAY HAVADURUMU", "SPACE WEATHER"]:
         df_wind = pd.DataFrame({"Hız / Speed" if lang=="TR" else "Speed (km/s)": [350, 420, 540, 490, 400]}, index=days)
         st.line_chart(df_wind, color="#B8860B")
 
-# =======================================================================================
+# ---------------------------------------------------------------------------------------
 # SAYFA 9: IŞIK KİRLİLİĞİ 
-# =======================================================================================
+# ---------------------------------------------------------------------------------------
 elif menu_secimi in ["IŞIK KİRLİLİĞİ", "LIGHT POLLUTION"]:
     st.markdown("<h2>{}</h2>".format("Bortle Scale: Işık Kirliliği Simülatörü" if lang == "TR" else "Light Pollution Simulator"), unsafe_allow_html=True)
     st.markdown("<p>{}</p>".format("Işık kirliliğinin derin uzay gözlemine olan yıkıcı etkisini kaydırıcı (slider) ile test edin." if lang == "TR" else "Test the devastating effect of light pollution on deep space observation using the slider."), unsafe_allow_html=True)
@@ -543,9 +555,9 @@ elif menu_secimi in ["IŞIK KİRLİLİĞİ", "LIGHT POLLUTION"]:
         </div>
         """, unsafe_allow_html=True)
 
-# =======================================================================================
+# ---------------------------------------------------------------------------------------
 # SAYFA 10: EKİPMAN KATALOĞU 
-# =======================================================================================
+# ---------------------------------------------------------------------------------------
 elif menu_secimi in ["EKİPMAN KATALOĞU", "EQUIPMENT CATALOG", "EKİPMANLAR", "EQUIPMENT"]:
     st.markdown("<h2>{}</h2>".format("VIP Gözlem Envanteri" if lang == "TR" else "VIP Observation Inventory"), unsafe_allow_html=True)
     desc_text = "Tesislerimizde misafirlerimizin kullanımına sunulan askeri sınıf ve profesyonel araştırma düzeyindeki optik, takip ve görüntüleme ekipmanlarının teknik özellikleridir." if lang == "TR" else "Technical specifications of the military-grade and professional research-level optical, tracking, and imaging equipment available to our guests at our facilities."
@@ -612,7 +624,7 @@ elif menu_secimi in ["EKİPMAN KATALOĞU", "EQUIPMENT CATALOG", "EKİPMANLAR", "
             <p style="text-align:left !important; color:#E0E0E0; line-height:2;">
             <b style="color:#B8860B;">{type_str}:</b> Robotic Equatorial Mount<br>
             <b style="color:#B8860B;">{"Taşıma Kapasitesi" if lang=="TR" else "Payload"}:</b> 109 kg (240 lbs)<br>
-            <b style="color:#B8860B;">{use_str}:</b> {"Devasa teleskop dizilerini titreşimsiz ve Dünya&#39;nın dönüş hızıyla milimetrik düzeyde senkronize hareket ettiren endüstriyel taşıyıcı ayak." if lang=='TR' else "An industrial mount that moves massive telescope arrays smoothly and in millimeter synchronization with the Earth&#39;s rotation."}</p>
+            <b style="color:#B8860B;">{use_str}:</b> {"Devasa teleskop dizilerini titreşimsiz ve Dünya'nın dönüş hızıyla milimetrik düzeyde senkronize hareket ettiren endüstriyel taşıyıcı ayak." if lang=='TR' else "An industrial mount that moves massive telescope arrays smoothly and in millimeter synchronization with the Earth's rotation."}</p>
         </div>
         <div class="service-card" style="padding:30px; text-align:left; height:auto;">
             <h3 style="color:#D4AF37; margin-bottom:15px; text-align:left !important; border-bottom: 1px solid rgba(184,134,11,0.3); padding-bottom:10px;">🏢 Baader Planetarium 3.5m Dome</h3>
@@ -631,8 +643,8 @@ elif menu_secimi in ["ASTRO-FOTOĞRAF", "ASTRO-PHOTO"]:
     col_ctrl, col_view = st.columns([1, 2])
     with col_ctrl: 
         st.markdown(f"<div class='info-panel' style='padding:20px; height:100%;'>", unsafe_allow_html=True)
-        iso_val = st.slider("ISO Değeri / ISO Value", 100, 6400, 800, step=100)
-        exp_val = st.slider("Pozlama Süresi / Exposure (s)", 1, 30, 10, step=1)
+        iso_val = st.slider("ISO Değeri / ISO Value" if lang=="TR" else "ISO Value", 100, 6400, 800, step=100)
+        exp_val = st.slider("Pozlama Süresi / Exposure (s)" if lang=="TR" else "Exposure Time (s)", 1, 30, 10, step=1)
         st.markdown("</div>", unsafe_allow_html=True)
     with col_view: 
         brightness = 0.15 + (exp_val / 30.0) * 0.6 + (iso_val / 6400.0) * 0.5
@@ -684,7 +696,7 @@ elif menu_secimi in ["VIP REZERVASYON", "VIP BOOKING"]:
         ekstra_toplam = (12500 if ekstra1 else 0) + (8000 if ekstra2 else 0) + (15000 if ekstra3 else 0)
         toplam_fiyat = (taban_fiyat * kisi_sayisi) + ekstra_toplam
         
-        st.markdown(f"<div class='price-tag' style='font-size:4rem;'>${(toplam_fiyat):,} <span style='font-size: 1.2rem; color: #C5A059;'>USD Toplam / Total</span></div>", unsafe_allow_html=True)
+        st.markdown(f"<div class='price-tag' style='font-size:4rem;'>${(toplam_fiyat):,} <span style='font-size: 1.2rem; color: #C5A059;'>USD {'Toplam / Total' if lang=='TR' else 'Total'}</span></div>", unsafe_allow_html=True)
         
         if st.button("Ödeme ve Uçuş Ekranına Geç / Proceed to Payment & Flight" if lang == "TR" else "Proceed to Payment", use_container_width=True): 
             if agree:
@@ -793,7 +805,7 @@ elif menu_secimi in ["DESTEK & SSS", "SUPPORT & FAQ"]:
                 <p style='text-align:left !important;'>
                 <b>Email:</b> vip@stellaris-holding.com<br>
                 <b>{'Telefon' if lang=='TR' else 'Phone'}:</b> +1 (800) 555-0199<br>
-                <b>{'Merkez' if lang=='TR' else 'HQ'}:</b> Geneva, Switzerland</p>
+                <b>{'Merkez' if lang=='TR' else 'HQ'}:</b> Wellington, New Zealand</p>
             </div>
             """, unsafe_allow_html=True)
         with col2:
